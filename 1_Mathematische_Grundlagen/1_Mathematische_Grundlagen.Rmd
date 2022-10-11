@@ -1,0 +1,70 @@
+---
+fontsize: 8pt
+bibliography: ../Referenzen.bib
+citation_package: natbib
+output:
+  beamer_presentation:
+    keep_tex: true
+    includes:
+      in_header: ../Header.tex
+---
+
+
+```{r, include = F}
+source("../R_common.R")
+abb_dir = file.path(dirname(getwd()), "Abbildungen")
+```
+
+#  {.plain}
+\center
+```{r, echo = FALSE, out.width = "20%"}
+knitr::include_graphics(file.path(abb_dir,"otto.png"))
+```
+
+\vspace{2mm}
+
+\huge
+
+Tutorium - Wahrscheinlichketstheorie und Frequentistische Inferenz
+\vspace{6mm}
+
+\Large
+BSc Psychologie WiSe 2022/23
+
+\vspace{12mm}
+\normalsize
+Belinda Fleischmann
+
+\vspace{3mm}
+\scriptsize
+Inhalte basieren auf [Einführung in Mathematik und Informatik](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Lehre/Wintersemester+2022/Grundlagen+der+Mathematik+und+Informatik.html) von [Dirk Ostwald](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Team/Dirk+Ostwald.html), lizenziert unter [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de)
+
+
+# Formalia {.t}
+\vspace{1mm}
+\textcolor{darkblue}{Modul B1 Deskriptive Statistik | Wahrscheinlichkeitstheorie und Frequentistische Inferenz}
+
+\small
+\center
+\footnotesize
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{lll}
+Datum        & Einheit                       & Thema					                         \\\hline
+14.10.2021   & Einführung                    & (1) Einführung 				                     \\
+21.10.2021   & Wahrscheinlichkeitstheorie    & (2) Wahrscheinlichkeitsräume 	                 \\
+28.10.2021   & Wahrscheinlichkeitstheorie    & (3) Zufallsvariablen                              \\
+04.11.2021   & Wahrscheinlichkeitstheorie    & (4) Zufallsvektoren                               \\
+11.11.2021   & Wahrscheinlichkeitstheorie    & (5) Erwartungswert und Kovarianz                  \\
+18.11.2021   & Wahrscheinlichkeitstheorie    & (6) Ungleichungen und Grenzwerte                  \\
+25.11.2021   & Wahrscheinlichkeitstheorie    & (7) Normalverteilungstransformationen             \\
+02.12.2021   & Frequentistische Inferenz     & (8) Statistische Modelle, Statistiken, Schätzer   \\
+09.12.2021   & Frequentistische Inferenz     & (9) Schätzereigenschaften                         \\
+16.12.2021   & Frequentistische Inferenz     & (10) Konfidenzintervalle                          \\
+             & \textcolor{gray}{Weihnachtspause}                                                 \\
+06.01.2022   & Frequentistische Inferenz     & (11) Hypothesentests                              \\
+13.01.2022   & Frequentistische Inferenz     & (12) T-Tests                                      \\
+20.01.2022   & Frequentistische Inferenz     & (13) Einfaktorielle Varianzanalyse                \\
+27.01.2022   & Frequentistische Inferenz     & (14) Zweifaktorielle Varianzanalyse               \\\hline
+Feb 2022     & Klausurtermin                 &                                                   \\
+Jul 2022     & Klausurwiederholungstermin    &
+\end{tabular}
