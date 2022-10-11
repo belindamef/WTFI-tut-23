@@ -1,0 +1,164 @@
+---
+fontsize: 8pt
+bibliography: ../Referenzen.bib
+citation_package: natbib
+output:
+  beamer_presentation:
+    keep_tex: true
+    includes:
+      in_header: ../Header.tex
+---
+
+
+```{r, include = F}
+source("../R_common.R")
+abb_dir = file.path(dirname(getwd()), "Abbildungen")
+```
+
+#  {.plain}
+\center
+```{r, echo = FALSE, out.width = "20%"}
+knitr::include_graphics(file.path(abb_dir,"otto.png"))
+```
+
+\vspace{2mm}
+
+\huge
+Grundlagen der Mathematik und Informatik
+\vspace{6mm}
+
+\Large
+Aufbaukurs: Fit für Psychologie WiSe 2022/23
+
+\vspace{12mm}
+\normalsize
+Belinda Fleischmann
+
+\vspace{3mm}
+\scriptsize
+Inhalte basieren auf [Einführung in Mathematik und Informatik](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Lehre/Wintersemester+2022/Grundlagen+der+Mathematik+und+Informatik.html) von [Dirk Ostwald](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Team/Dirk+Ostwald.html), lizenziert unter [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de)
+
+
+#  {.plain}
+
+\vfill
+\center
+\huge
+\textcolor{black}{(0) Einführung}
+\vfill
+
+
+
+# Fit für Psychologie - Motivation
+\setstretch{1.7}
+
+Elementares Basiswissen für die datenanalytischen Module des BSc Psychologie
+
+\small
+* Modul A2 Forschungsmethoden
+* Modul B1 Deskriptive Statistik
+* Modul B2 Inferenzstatistik
+* Modul C1 Einführung in empirisch-wissenschaftliches Arbeiten
+
+
+\normalsize
+Elementares Basiswissen für die datenanalytischen Module des MSc Psychologie
+
+\small
+* Modul A1 Multivariate Verfahren
+* Modul A3 Computergestützte Datenanalyse
+
+
+
+# Lehrstuhl für Methodenlehre I
+\setstretch{1.7}
+
+[\textcolor{blue}{Webseite des Lehrstuhls (Lehre, Forschung, Team)}](https://www.ipsy.ovgu.de/methodenlehre_I-path-980,1404.html)
+
+\vspace{3mm}
+
+```{r, echo = FALSE, out.width = "70%"}
+knitr::include_graphics(file.path(abb_dir,"Lehrstuhlseite.png"))
+```
+
+
+
+
+# Inhalte
+\setstretch{2}
+\large
+\vfill
+
+(1) Mengen
+
+(2) Summen, Produkte, Potenzen
+
+\textcolor{gray}{(3) Folgen, Reihen, Grenzwerte}
+
+(4) Funktionen
+
+(5) Differentialrechnung
+
+(6) Integralrechnung
+
+(7) Grundbegriffe der Informatik
+\vfill
+
+
+# Fit für Psychologie - Zeitplan
+
+\vspace{12mm}
+
+\small
+
+| Tag           | Uhrzeit           | Inhalt                           |
+| ------------- |------------------ | -----                            |
+| Dienstag      | 11:15-12:45       | (0) Einführung, (1) Mengen       |
+|               | ---               |   *Pause*                        |
+|               | 13:45-16:00       | (2) Summen, Produkte und Potenzen|
+|               |                   |                                  |
+| Mittwoch      | 09:00-12:00       | (4) Funktionen                   |
+|               | ---               |   *Pause*                        |
+|               | 13:00-15:00       | (5) Differentialrechnung      |
+|               |                   |                                  |
+| Donnerstag    | 09:00-12:00       | (6) Integralrechnung             |
+|               | ---               |   *Pause*                        |
+|               | 13:00-15:00       | (7) Grundbegriffe der Informatik |
+|               |                   |                                  |
+| Freitag       | 09:00-12:00       | Selbstkontrollfragen             |
+
+
+
+# Kursmaterialien und Skripte
+
+[\textcolor{blue}{Webseite des Kurses (Folien, Videos)}](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Lehre/Wintersemester+2023/Wahrscheinlichkeitstheorie+und+Frequentistische+Inferenz.html)
+
+\vspace{5mm}
+
+```{r, echo = FALSE, out.width = "75%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_0_kursseite.png"))
+```
+
+
+
+
+# Kursmaterialien und Skripte
+
+[\textcolor{blue}{git-repository des Kurses (Folien, RMarkdown Codes)}](https://github.com/belindamef/WTFI-tut-23)
+
+\vspace{5mm}
+
+```{r, echo = FALSE, out.width = "75%"}
+knitr::include_graphics(file.path(abb_dir, "glmi_0_git_repo.png"))
+```
+
+
+
+
+
+#  {.plain}
+\vfill
+\center
+\huge
+Q & A
+\vfill
