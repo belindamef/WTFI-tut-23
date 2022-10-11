@@ -123,8 +123,8 @@ knitr::include_graphics(file.path(abb_dir,"Lehrstuhlseite.png"))
 \renewcommand{\arraystretch}{1.1}
 \begin{tabular}{llll}
 \textbf{Mittwochs}    & \textbf{Tutorium}                                      & Donnerstags & Vorlesung					                              \\\hline
-12.10.22   & (0) Einführung                                 & 13.10.22   & (1) Einführung 				                          \\
-19.10.22   & (1) Mathematische Grundlagen                   & 20.10.22   & (2) Wahrscheinlichkeitsräume 	                  \\
+12.10.22   & (1) Einführung                                 & 13.10.22   & (1) Einführung 				                          \\
+19.10.22   & (0) Mathematische Grundlagen                   & 20.10.22   & (2) Wahrscheinlichkeitsräume 	                  \\
 26.10.22   & (2) Wahrscheinlichkeitsräume                   & 27.10.22   & (3) Zufallsvariablen                             \\
 02.11.22   & (3) Zufallsvariablen                           & 03.11.22   & (4) Zufallsvektoren                              \\
 09.11.22   & (4) Zufallsvektoren                            & 10.11.22   & (5) Erwartungswert und Kovarianz                 \\
