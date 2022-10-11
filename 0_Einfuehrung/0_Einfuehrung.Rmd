@@ -24,11 +24,14 @@ knitr::include_graphics(file.path(abb_dir,"otto.png"))
 \vspace{2mm}
 
 \huge
-Grundlagen der Mathematik und Informatik
-\vspace{6mm}
+Tutorium 
 
 \Large
-Aufbaukurs: Fit für Psychologie WiSe 2022/23
+Wahrscheinlichketstheorie und Frequentistische Inferenz
+\vspace{4mm}
+
+\normalsize
+BSc Psychologie WiSe 2022/23
 
 \vspace{12mm}
 \normalsize
@@ -36,120 +39,146 @@ Belinda Fleischmann
 
 \vspace{3mm}
 \scriptsize
-Inhalte basieren auf [Einführung in Mathematik und Informatik](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Lehre/Wintersemester+2022/Grundlagen+der+Mathematik+und+Informatik.html) von [Dirk Ostwald](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Team/Dirk+Ostwald.html), lizenziert unter [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de)
+Inhalte basieren auf Kursmaterialien für [WTFI](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Lehre/Wintersemester+2023/Wahrscheinlichkeitstheorie+und+Frequentistische+Inferenz.html) von [Dirk Ostwald](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Team/Dirk+Ostwald.html), lizenziert unter [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de)
+
+
+
+
+# {.plain} 
+\huge
+\center
+\vfill
+Herzlich willkommen!
+\vfill
+
 
 
 #  {.plain}
-
 \vfill
 \center
 \huge
-\textcolor{black}{(0) Einführung}
+\text{(0) Einführung}
 \vfill
 
 
 
-# Fit für Psychologie - Motivation
-\setstretch{1.7}
-
-Elementares Basiswissen für die datenanalytischen Module des BSc Psychologie
-
-\small
-* Modul A2 Forschungsmethoden
-* Modul B1 Deskriptive Statistik
-* Modul B2 Inferenzstatistik
-* Modul C1 Einführung in empirisch-wissenschaftliches Arbeiten
-
-
-\normalsize
-Elementares Basiswissen für die datenanalytischen Module des MSc Psychologie
-
-\small
-* Modul A1 Multivariate Verfahren
-* Modul A3 Computergestützte Datenanalyse
-
-
-
-# Lehrstuhl für Methodenlehre I
-\setstretch{1.7}
-
-[\textcolor{blue}{Webseite des Lehrstuhls (Lehre, Forschung, Team)}](https://www.ipsy.ovgu.de/methodenlehre_I-path-980,1404.html)
-
+#
+[\textcolor{darkblue}{Homepage}](https://www.ipsy.ovgu.de/methodenlehre_I-path-980,1404.html)
 \vspace{3mm}
-
-```{r, echo = FALSE, out.width = "70%"}
+```{r, echo = FALSE, out.width = "75%"}
 knitr::include_graphics(file.path(abb_dir,"Lehrstuhlseite.png"))
 ```
 
 
 
 
-# Inhalte
+
+# Ziel der Veranstaltung
+\setstretch{1}
+\color{darkblue} Tutorium zu Wahrscheinlichkeitstheorie und Frequentistische Inferenz (Modul B1)
+
+\color{black}
 \setstretch{2}
-\large
-\vfill
 
-(1) Mengen
+* Wiederholung der Lehrinhalte der Vorlesung (Donnerstags bei Prof. Ostwald)
+* Besprechung der Selbstkontrollfragen
+* Besprechung offener Fragen
+* Heute: Einfürhung + Wiederholung mathematischer Grundlagen
 
-(2) Summen, Produkte, Potenzen
-
-\textcolor{gray}{(3) Folgen, Reihen, Grenzwerte}
-
-(4) Funktionen
-
-(5) Differentialrechnung
-
-(6) Integralrechnung
-
-(7) Grundbegriffe der Informatik
 \vfill
 
 
-# Fit für Psychologie - Zeitplan
 
-\vspace{12mm}
 
-\small
+# Formalia 
+\setstretch{1}
+\color{darkblue} Tutorium zu Wahrscheinlichkeitstheorie und Frequentistische Inferenz 
+(Modul B1)
 
-| Tag           | Uhrzeit           | Inhalt                           |
-| ------------- |------------------ | -----                            |
-| Dienstag      | 11:15-12:45       | (0) Einführung, (1) Mengen       |
-|               | ---               |   *Pause*                        |
-|               | 13:45-16:00       | (2) Summen, Produkte und Potenzen|
-|               |                   |                                  |
-| Mittwoch      | 09:00-12:00       | (4) Funktionen                   |
-|               | ---               |   *Pause*                        |
-|               | 13:00-15:00       | (5) Differentialrechnung      |
-|               |                   |                                  |
-| Donnerstag    | 09:00-12:00       | (6) Integralrechnung             |
-|               | ---               |   *Pause*                        |
-|               | 13:00-15:00       | (7) Grundbegriffe der Informatik |
-|               |                   |                                  |
-| Freitag       | 09:00-12:00       | Selbstkontrollfragen             |
+\color{black}
+\setstretch{2}
+
+* \justifying Mittwochs 11-13 Uhr in Raum G02-111
+* Kursmaterialien (Folien, Videos, RMarkdown Code) auf der [\textcolor{darkblue}{Kurswebseite}](https://bit.ly/3yT42Sj)
+* Code auf [\textcolor{darkblue}{Github}](https://github.com/belindamef/WTFI-tut-23)
+* Ankündigungen über die [\textcolor{darkblue}{Moodleseite}](https://elearning.ovgu.de/course/view.php?id=13781)
+* Empfohlene Lektüre ist [\textcolor{darkblue}{PDWP}](https://wasd.urz.uni-magdeburg.de/dostwald/)
+* [\textcolor{darkblue}{Link zu vorheriger Iteration des Kurses}](https://bit.ly/3qJKlan)
+* [\textcolor{darkblue}{Link zum Kurs Mathematische Grundlagen}](https://bit.ly/3SNh3nR) 
+* Q&A im [\textcolor{darkblue}{Mattermost-Channel "B1 - WTFI - Tutorium"}](https://mm.cs.ovgu.de/bsc-psy-2022/channels/b1---wtfi)
+  * Einmalige Registrierung zum Team "bsc-psy-2022" über [\textcolor{darkblue}{diesen Link}](https://mm.cs.ovgu.de/signup_user_complete/?id=6zhrsn3oab8pdynz16gmqpm9ka) 
 
 
 
-# Kursmaterialien und Skripte
 
-[\textcolor{blue}{Webseite des Kurses (Folien, Videos)}](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Lehre/Wintersemester+2023/Wahrscheinlichkeitstheorie+und+Frequentistische+Inferenz.html)
+
+
+# Formalia
+\vspace{1mm}
+\textcolor{darkblue}{Tutorium zu Wahrscheinlichkeitstheorie und Frequentistische Inferenz }
+
+\footnotesize
+\center
+\footnotesize
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{llll}
+\textbf{Mittwochs}    & \textbf{Tutorium}                                      & Donnerstags & Vorlesung					                              \\\hline
+12.10.22   & (0) Einführung                                 & 13.10.22   & (1) Einführung 				                          \\
+19.10.22   & (1) Mathematische Grundlagen                   & 20.10.22   & (2) Wahrscheinlichkeitsräume 	                  \\
+26.10.22   & (2) Wahrscheinlichkeitsräume                   & 27.10.22   & (3) Zufallsvariablen                             \\
+02.11.22   & (3) Zufallsvariablen                           & 03.11.22   & (4) Zufallsvektoren                              \\
+09.11.22   & (4) Zufallsvektoren                            & 10.11.22   & (5) Erwartungswert und Kovarianz                 \\
+16.11.22   & (5) Erwartungswert und Kovarianz               & 17.11.22   & (6) Ungleichungen und Grenzwerte                 \\
+23.11.22   & (6) Ungleichungen und Grenzwerte               & 24.11.22   & (7) Normalverteilungstransformationen            \\
+30.11.22   & (7) Normalverteilungstransform.                & 01.12.22   & (8) Statistische Modelle, Statistiken, Schätzer  \\
+07.12.22   & (8) Stat. Mod., Statistiken, Schätzer          & 08.12.22   & (9) Schätzereigenschaften                        \\
+14.12.22   &  (9) Schätzereigenschaften                     & 15.12.22   & (10) Konfidenzintervalle                         \\
+21.12.22   & (10) Konfidenzintervalle                       & 22.12.22   & \textcolor{gray}{Weihnachtspause}                \\
+           & \textcolor{gray}{Weihnachtspause}                                                                              \\
+04.01.22   & \textcolor{orange}{Ersatztermin im Januar (?)} & 05.01.23   & (11) Hypothesentests                             \\
+11.01.22   & (11) Hypothesentests                           & 12.01.23   & (12) T-Tests                                     \\
+18.01.22   & (12) T-Tests                                   & 19.01.23   & (13) Einfaktorielle Varianzanalyse               \\
+25.01.22   & (13) Einfaktorielle Varianzanalyse             & 26.01.23   & (14) Zweifaktorielle Varianzanalyse              \\
+\textcolor{orange}{27.01.23}                                & (14) Zweifaktorielle Varianzanalyse                           \\\hline
+Feb 23     & Klausurtermin                                                                                                  \\
+\end{tabular}
+
+
+# Formalia
+
+[\textcolor{darkblue}{Webseite des Kurses (Folien, Videos)}](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Lehre/Wintersemester+2023/Wahrscheinlichkeitstheorie+und+Frequentistische+Inferenz.html)
 
 \vspace{5mm}
 
-```{r, echo = FALSE, out.width = "75%"}
+```{r, echo = FALSE, out.width = "85%"}
 knitr::include_graphics(file.path(abb_dir, "wtfi_0_kursseite.png"))
 ```
 
 
 
 
-# Kursmaterialien und Skripte
+# Formalia
 
-[\textcolor{blue}{git-repository des Kurses (Folien, RMarkdown Codes)}](https://github.com/belindamef/WTFI-tut-23)
+[\textcolor{darkblue}{Git-repository des Kurses (Folien, RMarkdown Codes)}](https://github.com/belindamef/WTFI-tut-23)
 
 \vspace{5mm}
 
-```{r, echo = FALSE, out.width = "75%"}
-knitr::include_graphics(file.path(abb_dir, "glmi_0_git_repo.png"))
+```{r, echo = FALSE, out.width = "80%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_0_git_repo.png"))
+```
+
+
+
+
+
+# Formalia
+
+[\textcolor{darkblue}{Mattermost-Team "BSc-Psy-2022"}](https://mm.cs.ovgu.de/signup_user_complete/?id=6zhrsn3oab8pdynz16gmqpm9ka)
+
+\vspace{5mm}
+
+```{r, echo = FALSE, out.width = "90%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_0_mattermost.png"))
 ```
 
 
@@ -162,3 +191,19 @@ knitr::include_graphics(file.path(abb_dir, "glmi_0_git_repo.png"))
 \huge
 Q & A
 \vfill
+
+
+
+
+
+
+# Motivation
+
+```{r, echo = FALSE, out.width = "45%"}
+knitr::include_graphics(file.path(abb_dir, "mot_2.jpg"))
+knitr::include_graphics(file.path(abb_dir, "mot_1.jpg"))
+```
+
+
+
+
