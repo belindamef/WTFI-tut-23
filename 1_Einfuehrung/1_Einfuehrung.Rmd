@@ -83,7 +83,7 @@ knitr::include_graphics(file.path(abb_dir,"Lehrstuhlseite.png"))
 * Wiederholung der Lehrinhalte der Vorlesung (Donnerstags bei Prof. Ostwald)
 * Besprechung der Selbstkontrollfragen
 * Besprechung offener Fragen
-* Heute: Einfürhung + Wiederholung mathematischer Grundlagen
+* Heute: Einführung + Wiederholung mathematischer Grundlagen 
 
 \vfill
 
