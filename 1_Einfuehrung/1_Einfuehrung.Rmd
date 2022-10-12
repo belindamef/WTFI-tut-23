@@ -135,10 +135,10 @@ knitr::include_graphics(file.path(abb_dir,"Lehrstuhlseite.png"))
 14.12.22   &  (9) Schätzereigenschaften                     & 15.12.22   & (10) Konfidenzintervalle                         \\
 21.12.22   & (10) Konfidenzintervalle                       & 22.12.22   & \textcolor{gray}{Weihnachtspause}                \\
            & \textcolor{gray}{Weihnachtspause}                                                                              \\
-04.01.22   & \textcolor{orange}{Ersatztermin im Januar (?)} & 05.01.23   & (11) Hypothesentests                             \\
-11.01.22   & (11) Hypothesentests                           & 12.01.23   & (12) T-Tests                                     \\
-18.01.22   & (12) T-Tests                                   & 19.01.23   & (13) Einfaktorielle Varianzanalyse               \\
-25.01.22   & (13) Einfaktorielle Varianzanalyse             & 26.01.23   & (14) Zweifaktorielle Varianzanalyse              \\
+04.01.23   & \textcolor{orange}{Ersatztermin im Januar (?)} & 05.01.23   & (11) Hypothesentests                             \\
+11.01.23   & (11) Hypothesentests                           & 12.01.23   & (12) T-Tests                                     \\
+18.01.23   & (12) T-Tests                                   & 19.01.23   & (13) Einfaktorielle Varianzanalyse               \\
+25.01.23   & (13) Einfaktorielle Varianzanalyse             & 26.01.23   & (14) Zweifaktorielle Varianzanalyse              \\
 \textcolor{orange}{27.01.23}                                & (14) Zweifaktorielle Varianzanalyse                           \\\hline
 Feb 23     & Klausurtermin                                                                                                  \\
 \end{tabular}
