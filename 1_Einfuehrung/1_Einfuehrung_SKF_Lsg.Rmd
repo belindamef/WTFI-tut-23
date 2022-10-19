@@ -1,0 +1,127 @@
+---
+fontsize: 8pt
+bibliography: ../Referenzen.bib
+citation_package: natbib
+output:
+  beamer_presentation:
+    keep_tex: true
+    includes:
+      in_header: ../Header.tex
+classoption: t  
+---
+
+
+```{r, include = F}
+source("../R_common.R")
+abb_dir = file.path(dirname(getwd()), "Abbildungen")
+```
+
+#  {.plain}
+\center
+```{r, echo = FALSE, out.width = "20%"}
+knitr::include_graphics(file.path(abb_dir,"otto.png"))
+```
+
+\vspace{2mm}
+
+\huge
+Tutorium 
+
+\Large
+Wahrscheinlichketstheorie und Frequentistische Inferenz
+\vspace{4mm}
+
+\normalsize
+BSc Psychologie WiSe 2022/23
+
+\vspace{12mm}
+\normalsize
+Belinda Fleischmann
+
+\vspace{3mm}
+\scriptsize
+Inhalte basieren auf Kursmaterialien für [WTFI](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Lehre/Wintersemester+2023/Wahrscheinlichkeitstheorie+und+Frequentistische+Inferenz.html) von [Dirk Ostwald](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Team/Dirk+Ostwald.html), lizenziert unter [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de)
+
+
+
+#  {.plain}
+\vfill
+\center
+\huge
+\text{(1) Einführung}
+\vfill
+
+
+
+# Selbstkontrollfragen
+\setstretch{3}
+1. Nennen Sie die drei Hauptkomponenten der Datenwissenschaft.
+2. Nennen Sie drei Grundannahmen der Wahrscheinlichkeitstheorie.
+3. Nennen Sie drei Grundannahmen der Frequentistischen Inferenz.
+4. Nennen Sie drei Grundannahmen der Bayesianischen Inferenz.
+
+
+
+
+# \textcolor{darkblue}{SKF 1}. *Datenwissenschaft*
+
+\large
+\color{darkblue} 1. Nennen Sie die drei Hauptkomponenten der Datenwissenschaft.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+* Disziplinspezifisches Fachwissen
+* Mathematik & Statistik
+* Informatik & Programmierung
+
+
+
+# \textcolor{darkblue}{SKF 2}. *Wahrscheinlichkeitstheorie* 
+
+\large
+\color{darkblue} 2. Nennen Sie drei Grundannahmen der Wahrscheinlichkeitstheorie.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+* Zufallsprozesse können mathematisch modelliert werden.
+* Mathematik kann zur Vorhersage zufälliger Ereignisse genutzt werden.
+* Die Wahrscheinlichkeitstheorie ist mengentheoretisch begründet.
+
+
+
+# \textcolor{darkblue}{SKF 3}. *Frequentistische Inferenz* 
+
+\large
+\color{darkblue} 3. Nennen Sie drei Grundannahmen der Frequentistischen Inferenz.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+* \justifying Wahrscheinlichkeiten spiegeln die relative Frequenz des Auftretens eines zufälligen Ereignisses und beschreiben objektive Eigenschaften der realen Welt.
+* Die Parameter probabilistischer Modelle sind feste, unbekannte Konstanten, die als wahre, aber unbekannte, Parameterwerte bezeichnet werden. Über Parameterwerte und Modelle werden keine probabilistischen Aussagen getroffen.
+* Statistische Methoden werden so gestaltet, dass sie gute langfristige relative Frequenzeigenschaften besitzen und werden typischerweise anhand ihrer Stichprobenverteilungen bewertet
+
+
+
+# \textcolor{darkblue}{SKF 3}. *Bayesianische Inferenz* 
+
+\large
+\color{darkblue} 4. Nennen Sie drei Grundannahmen der Bayesianischen Inferenz.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+
+* \justifying Wahrscheinlichkeiten werden als Grade der Sicherheit, nicht als langfristige relative Häufigkeiten interpretiert. Aussagen der Form “Die Wahrscheinlichkeit, dass das Wintersemester 2022/23 vollständig in Präsenzlehre stattfindet, ist 0.9.” haben eine Bedeutung.
+* Die Parameter probabilistischer Modelle sind feste, unbekannte Konstanten, die als wahre, aber unbekannte, Parameterwerte bezeichnet werden. Über Parameterwerte und Modelle werden probabilistische Aussagen getroffen, die unseren Grad an Sicherheit hinsichtlich ihrer quantitativen Ausprägung und Validität widerspiegeln.
+* Probabilistische Aussagen über Parameter werden mithilfe von Wahrscheinlichkeitsverteilungen getroffen, auf deren Grundlage optimale Entscheidungen im Sinne von Kosten-Nutzenfunktionen getroffen werden können.
+
+
+
+
