@@ -1,0 +1,580 @@
+---
+fontsize: 8pt
+bibliography: ../Referenzen.bib
+citation_package: natbib
+output:
+  beamer_presentation:
+    keep_tex: true
+    includes:
+      in_header: ../Header.tex
+classoption: t  
+---
+
+
+```{r, include = F}
+source("../R_common.R")
+abb_dir = file.path(dirname(getwd()), "Abbildungen")
+```
+
+#  {.plain}
+\center
+```{r, echo = FALSE, out.width = "20%"}
+knitr::include_graphics(file.path(abb_dir,"otto.png"))
+```
+
+\vspace{2mm}
+
+\huge
+Tutorium 
+
+\Large
+Wahrscheinlichketstheorie und Frequentistische Inferenz
+\vspace{4mm}
+
+\normalsize
+BSc Psychologie WiSe 2022/23
+
+\vspace{12mm}
+\normalsize
+Belinda Fleischmann
+
+\vspace{3mm}
+\scriptsize
+Inhalte basieren auf Kursmaterialien für [WTFI](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Lehre/Wintersemester+2023/Wahrscheinlichkeitstheorie+und+Frequentistische+Inferenz.html) von [Dirk Ostwald](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Team/Dirk+Ostwald.html), lizenziert unter [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de)
+
+
+
+#  {.plain}
+\vfill
+\center
+\huge
+\text{(2) Wahrscheinlichkeitsräume}
+\vfill
+
+
+
+# Selbstkontrollfragen
+\setstretch{1.2}
+\footnotesize
+\begin{enumerate}
+\itemsep0mm
+\item Erläutern Sie Sinn und Zweck der Wahrscheinlichkeitstheorie.
+\item Erläutern Sie den Begriff des Zufallsvorgangs.
+\item Definieren Sie den Begriff der $\sigma$-Algebra.
+\item Definieren Sie den Begriff des Wahrscheinlichkeitsmaßes.
+\item Definieren Sie den Begriff des Wahrscheinlichkeitsraums.
+\item Erläutern Sie den Begriff der Ergebnismenge $\Omega$.
+\item Erläutern Sie den Begriff eines Ereignisses $A \in \mathcal{A}$.
+\item Erläutern Sie den Begriff des Ereignissystems $\mathcal{A}$.
+\item Erläutern Sie den Begriff des Wahrscheinlichkeitsmaßes $\mathbb{P}$.
+\item Erläutern Sie die stillschweigende Mechanik des Wahrscheinlichkeitsraummodells.
+\item Welche $\sigma$-Algebra wählt man sinnvoller Weise für ein Wahrscheinlichkeitsraum mit endlicher Ergebnismenge?
+\item Definieren Sie den Begriff der Wahrscheinlichkeitsfunktion.
+\item Warum ist der Begriff der Wahrscheinlichkeitsfunktion bei der Modellierung
+eines Zufallsvorgans durch einen  Wahrscheinlichkeitsraums mit endlicher Ergebnismenge hilfreich?
+\item Erläutern Sie die Modellierung des Werfens eines Würfels mithilfe eines Wahrscheinlichkeitsraums.
+\item Erläutern Sie die Modellierung des gleichzeitigen Werfens eines roten und eines blauen Würfels mithilfe eines Wahrscheinlichkeitsraums.
+\item Erläutern Sie die Modellierung des Werfens einer Münze mithilfe eines Wahrscheinlichkeitsraums.
+\item Erläutern Sie die Modellierung des gleichzeitigen Werfens zweier Münzen mithilfe eines Wahrscheinlichkeitsraums.
+\end{enumerate}
+
+
+
+
+# \textcolor{darkblue}{SKF 1}. *Wahrscheinlichkeitstheorie.*
+
+\large
+\color{darkblue} 1. Erläutern Sie Sinn und Zweck der Wahrscheinlichkeitstheorie.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+In der Datenwissenschaft nutzen wir die Wahrscheinlichkeitstheorie dafür, die mit der Modellierung und Vorhersage der "Realität" verbundenen Unsicherheit zu modellieren und zu quantifizieren.
+
+Anders ausgedrückt, verwenden wir wahrscheinlichkeitstheoretische Modelle, um bestimmte Eigenschaften und Zufallsvorgänge der Realität zu repräsentieren (i.e. modellieren).
+
+
+
+# \textcolor{darkblue}{SKF 2}. *Zufallsvorgang*
+
+\large
+\color{darkblue} 2. Erläutern Sie den Begriff des Zufallsvorgangs.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Zufallsvorgänge sind Phänomene, die von Menschen nicht mit absoluter Sicherheit vorhergesagt werden können.  
+
+
+
+# \textcolor{darkcyan}{Wahrscheinlichkeitstheorie - Schaubild}
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_2_wahrscheinlichkeitstheorie_modell.pdf"))
+```
+
+
+
+# \textcolor{darkblue}{SKF 3}. *$\sigma$-Algebra*
+
+\large
+\color{darkblue} 3. Definieren Sie den Begriff der $\sigma$-Algebra.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\small
+\begin{definition}[$\sigma$-Algebra]
+\justifying
+$\Omega$ sei eine Menge und $\mathcal{A}$ sei eine Menge von Teilmengen von $\Omega$.
+$\mathcal{A}$ heißt \textit{$\sigma$-Algebra auf $\Omega$}, wenn
+\begin{itemize}
+\begin{small}
+\item $\Omega \in \mathcal{A}$ ist,
+\item $\mathcal{A}$ abgeschlossen unter der Bildung von Komplementärmengen ist, 
+    also wenn für alle $A\in \mathcal{A}$ gilt, dass auch $A^c := \Omega \setminus A \in \mathcal{A}$ ist, 
+\item $\mathcal{A}$ abgeschlossen unter der abzählbaren Vereinigung von Ereignissen ist, also wenn aus  
+    $A_1,A_2,... \in \mathcal{A}$ folgt, dass auch $\cup_{i=1}^\infty A_i \in \mathcal{A}$ ist.  
+\end{small}
+\end{itemize}
+\end{definition}
+
+\color{darkcyan}
+
+Anmerkungen:
+
+* \justifying \color{darkcyan} Eine andere *Menge von Teilmengen* einer Menge, die wir kennen, ist die Potenzmenge.
+* Zur Wdhl.: Die Potenzmenge $\mathcal{P}(M)$ ist definiert als die Menge *aller* Teilmengen der Menge $M$.
+* Für die Spezifikation eines Wahrscheinlichkeitsmodells kann im Falle eines endlichen $\Omega$ als $\sigma$-Algebra die Potenzmenge von $\Omega$ gewählt werden. 
+
+
+
+# \color{darkcyan} Wdhl.: Übunsbeispiel Potenzmenge
+\small
+
+\color{darkblue}
+Geben Sie jeweils die Potenzmenge $\mathcal{P}$ an.
+
+\begin{enumerate}
+\color{darkblue}
+\item $M := \{1,2,3\}$ \\
+\textcolor{black}{$\mathcal{P}(M) = \{\emptyset, \{1\},\{2\},\{3\},\{1,2\},\{1,3\},\{2,3\},\{1,2,3\} \}$}
+
+\item $N := \{5,6\}$ \\
+\textcolor{black}{$\mathcal{P}(N) = \{\emptyset, \{5\},\{6\},\{5,6\} \}$}
+
+\end{enumerate}
+
+
+
+# \textcolor{darkblue}{SKF 4}. *Wahrscheinlichkeitsmaß*
+
+\large
+\color{darkblue} 4. Definieren Sie den Begriff des Wahrscheinlichkeitsmaßes.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Es seien $\Omega$ eine beliebige nichtleere Menge von \textit{Ergebnissen} $\omega$ (\textit{Ergebnismenge}) und $\mathcal{A}$ eine \textit{$\sigma$-Algebra auf $\Omega$}  (\textit{Ereignissystem}).
+
+Dann heißt eine Abbildung der Form $\mathbb{P}:\mathcal{A} \to [0,1]$ mit den Eigenschaften 
+\begin{itemize}
+\begin{footnotesize}
+\item[o] \textit{Nicht-Negativität} $\mathbb{P}(A) \ge 0$ für alle $A \in \mathcal{A}$,
+\item[o] \textit{Normiertheit} $\mathbb{P}(\Omega) = 1$ und
+\item[o] \textit{ $\sigma$-Additivität} $\mathbb{P}(\cup_{i=1}^\infty A_i) = \sum\limits_{i=1}^\infty \mathbb{P}(A_i)$
+          für paarweise disjunkte $A_i \in \mathcal{A}$
+\end{footnotesize}
+\end{itemize}
+ein \textit{Wahrscheinlichkeitsmaß}.
+
+
+
+# \textcolor{darkblue}{SKF 5}. *Wahrscheinlichkeitsraum*
+
+\large
+\color{darkblue} 5. Definieren Sie den Begriff des Wahrscheinlichkeitsraums.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Wahrscheinlichkeitsraum]
+\justifying
+Ein \textit{Wahrscheinlichkeitsraum} ist ein Triple $(\Omega, \mathcal{A}, \mathbb{P})$, wobei
+\begin{itemize}
+\item $\Omega$ eine beliebige nichtleere Menge von \textit{Ergebnissen} $\omega$ ist und \textit{Ergebnismenge} heißt,
+\item $\mathcal{A}$ eine \textit{$\sigma$-Algebra auf $\Omega$} ist und \textit{Ereignissystem} heißt,
+\item $\mathbb{P}$ eine Abbildung der Form $\mathbb{P}:\mathcal{A} \to [0,1]$ mit den Eigenschaften 
+\begin{itemize}
+\begin{footnotesize}
+\item[o] \textit{Nicht-Negativität} $\mathbb{P}(A) \ge 0$ für alle $A \in \mathcal{A}$,
+\item[o] \textit{Normiertheit} $\mathbb{P}(\Omega) = 1$ und
+\item[o] \textit{ $\sigma$-Additivität} $\mathbb{P}(\cup_{i=1}^\infty A_i) = \sum\limits_{i=1}^\infty \mathbb{P}(A_i)$
+          für paarweise disjunkte $A_i \in \mathcal{A}$
+\end{footnotesize}
+\end{itemize}
+ist und \textit{Wahrscheinlichkeitsmaß} heißt. 
+\end{itemize}
+Das Tuple $(\Omega, \mathcal{A})$ aus Ergebnismenge und Ereignissystem wird 
+als \textit{Messraum} bezeichnet.
+\end{definition}
+
+
+
+# \textcolor{darkblue}{SKF 6}. *Ergebnismenge $\Omega$*
+
+\large
+\color{darkblue} 6. Erläutern Sie den Begriff der Ergebnismenge $\Omega$.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{itemize}
+\justifying
+\item Die Ergebnismenge $\Omega$ ist die Menge aller möglichen Eregebnisse eines Zufallsvogangs. 
+\item Wenn wir endliche Wahrscheinlichkeitsräume mit $\vert\Omega\vert < \infty$ betrachen, haben wir nur endlich viele ("diskrete") Elemente.
+\end{itemize}
+
+
+
+# \textcolor{darkblue}{SKF 7}. *Ein Ergebnis $A \in \mathcal{A}$*
+
+\large
+\color{darkblue} 7. Erläutern Sie den Begriff eines Ereignisses $A \in \mathcal{A}$.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+\justify
+
+* *Ereignisse* stellt man sich am besten als Zusammenfassung (ein oder) mehrerer Ergebnisse vor.
+* Auch einzelne Ergebnisse $\omega \in \Omega$ sind mögliche Ereignisse.
+* Betrachtet man $\omega \in \Omega$ als Ereignis, so nennt man es *Elementarereignis* und schreibt $\{\omega\}$.
+
+
+
+
+# \textcolor{darkblue}{SKF 8}. *Ein Ereignissystems $\mathcal{A}$*
+
+\large
+\color{darkblue} 8. Erläutern Sie den Begriff des Ereignissystems $\mathcal{A}$.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{itemize}
+\justifying
+\itemsep1mm
+\item Sinn des Ereignissystems ist es, alle Ereignisse, die sich basierend auf einer 
+gegebenen Ergebnismenge bei Auswahl eines $\omega \in \Omega$ ergeben können, 
+mathematisch zu repräsentieren.
+\item Das Ereignissystem $\mathcal{A}$ ist die vollständige Menge aller möglichen Ereignisse bei gegebenem $\Omega$.
+\item Für endliches $\Omega$ und für $\Omega := \mathbb{R}$ sind passende Ereignissysteme schon lange bekannt.
+\center
+\begin{tabular}{rl}
+$\Omega$ ist endlich        & $\Rightarrow$ Man wählt für $\mathcal{A}$ die Potenzmenge von $\Omega$ \\
+$\Omega$ ist $\mathbb{R}$   & $\Rightarrow$ Man wählt für $\mathcal{A}$ die \textit{Borelsche $\sigma$-Algebra $\mathcal{B}(\mathbb{R})$} \\
+$\Omega$ ist $\mathbb{R}^n$ & $\Rightarrow$ Man wählt für $\mathcal{A}$ die \textit{Borelsche $\sigma$-Algebra $\mathcal{B}(\mathbb{R}^n)$}
+\end{tabular}
+\end{itemize}
+
+
+
+# \textcolor{darkblue}{SKF 9}. *Wahrscheinlichkeitsmaß $\mathbb{P}$*
+
+\large
+\color{darkblue} 9. Erläutern Sie den Begriff des Wahrscheinlichkeitsmaßes $\mathbb{P}$.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+\setstretch{1.5}
+
+\begin{itemize}
+\justifying
+\item Während $(\Omega,\mathcal{A})$ die \textit{strukturelle Basis} eines Wahrscheinlichkeitsraummodells ist, repräsentiert $\mathbb{P}$  die probabilistischen Charakteristika eines Wahrscheinlichkeitsraummodells.
+\item $\mathbb{P}$ entspricht der \textit{funktionellen Basis} eines Wahrscheinlichkeitsraummmodells.
+\item Es gilt $\mathbb{P}: \mathcal{A} \to [0,1]$
+\begin{itemize}
+\footnotesize
+\item $\mathbb{P}$ ordnet also (nur) allen Mengen des Ereignissystems Wahrscheinlichkeiten zu.
+\item Mit $\{\omega\} \in \mathcal{A}\, \forall\, \omega \in \Omega$ ordnet $\mathbb{P}$ auch den Elementareignissen Wahrscheinlichkeiten zu.
+\begin{itemize}
+\tiny
+\color{darkcyan}
+\item $\{\omega\} \in \mathcal{A}\, \forall\, \omega \in \Omega$ wird gelesen als "Die Menge bestehend aus einem $\omega$ ist ein Element des Ereignissystems $\mathcal{A}$ für alle $\omega$, die ein Element der Ergebnismenge $\Omega$ sind") 
+\item Mit anderen Worten, $\mathbb{P}$ ordnet allen Ereignissen Wahrscheinlichkeiten zu. Da auch jedes 'Einzelergebnis' ein Ereignis ist, nämlich ein Elementarereignis, ordnet $\mathbb{P}$ intuitiv ausgedrückt auch jedem $\omega$ eine Wahrscheinlichkeit zu.
+\end{itemize}
+\end{itemize}
+\footnotesize
+\item Wahrscheinlichkeiten sind Zahlen in $[0,1]$, nicht Prozente (20\%) oder Verhältnisse (50:50).
+\item $\mathbb{P}(\Omega) = 1$ entspricht der Tatsache, dass in jedem Durchgang sicher $\omega \in \Omega$ gilt.
+\item In jedem Durchgang eines Zufallsvorgangs tritt also zumindest ein Elementarereignis ein.
+\end{itemize}
+
+
+# \textcolor{darkblue}{SKF 10}. *die Mechanik des Wahrscheinlichkeitsraummodells*
+
+\large
+\color{darkblue} 10. Erläutern Sie die stillschweigende Mechanik des Wahrscheinlichkeitsraummodells.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{itemize}
+\justifying
+\item Wir stellen uns sequentielle \textit{Durchgänge} eines \textit{Zufallsvorgangs} vor. 
+\item In jedem Durchgang wird genau ein $\omega$ aus $\Omega$ mit Wahrscheinlichkeit $\mathbb{P}(\{\omega\})$ \textit{realisiert}.
+\item $\mathbb{P}(\{\omega\})$ bestimmt, mit welcher Wahrscheinlichkeit $\omega$ in einem Durchgang aus $\Omega$ realisiert wird.
+\end{itemize}
+
+
+
+# \textcolor{darkblue}{SKF 11}. *$\sigma$-Algebra bei endlichem $\Omega$*
+
+\large
+\color{darkblue} 11. Welche $\sigma$-Algebra wählt man sinnvoller Weise für ein Wahrscheinlichkeitsraum mit endlicher Ergebnismenge?
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Die Potenzmenge von $\Omega$, $\mathbb{P}(\Omega)$
+
+
+
+# \textcolor{darkblue}{SKF 12}. *Wahrscheinlichkeitsfunktion*
+
+\large
+\color{darkblue} 12. Definieren Sie den Begriff der Wahrscheinlichkeitsfunktion.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Wahrscheinlichkeitsfunktion]
+\justifying
+$\Omega$ sei eine endliche Menge. Dann heißt eine Funktion $\pi:\Omega \to [0,1]$
+\textit{Wahrscheinlichkeitsfunktion}, wenn gilt, dass
+\begin{equation}
+\sum_{\omega \in \Omega} \pi(\omega) = 1.
+\end{equation}
+Sei weiterhin $\mathbb{P}$ ein Wahrscheinlichkeitsmaß. Dann heißt die durch
+\begin{equation}
+\pi : \Omega \to [0,1], \omega \mapsto \pi(\omega) := \mathbb{P}(\{\omega\})
+\end{equation}
+definierte Funktion \textit{Wahrscheinlichkeitsfunktion} von $\mathbb{P}$ auf $\Omega$.
+\end{definition}
+
+
+
+# \textcolor{darkblue}{SKF 13}. *Wahrscheinlichkeitsfunktion*
+
+\large
+\color{darkblue} 13. Warum ist der Begriff der Wahrscheinlichkeitsfunktion bei der Modellierung eines Zufallsvorgangs durch einen Wahrscheinlichkeitsraum mit endlicher Ergebnismenge hilfreich?
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+* Wahrscheinlichkeitsfunktionen erlauben im Falle endlicher Ergebnismengen $\Omega$ das
+Festlegen von Wahrscheinlichkeitsmaßen $\mathbb{P}$ durch die Definition der Wahrscheinlichkeiten der Elementarereignisse ($\pi(\omega)$).
+* Somit können alle Ereignisse aus den Wahrscheinlichkeiten der Elementarereignisse $\pi(\omega)$ berechnet werden.
+
+\begin{theorem}[Definition eines W-Maßes durch eine W-Funktion]
+\justifying
+$(\Omega, \mathcal{A}, \mathbb{P})$ sei ein Wahrscheinlichkeitsraum mit endlicher
+Ergebnismenge und $\pi: \Omega \to [0,1]$ sei eine Wahrscheinlichkeitsfunktion.
+Dann existiert ein Wahrscheinlichkeitsmaß $\mathbb{P}$ auf $\Omega$ mit
+$\pi$ als Wahrscheinlichkeitsfunktion von $\mathbb{P}$. Dieses Wahrscheinlichkeitsmaß
+ist definiert als
+\begin{equation}
+\mathbb{P} : \mathcal{A} \to [0,1], A \mapsto \mathbb{P}(A) = \sum_{\omega \in A} \pi(\omega).
+\end{equation}
+\end{theorem}
+
+\color{darkcyan}
+\tiny 
+Anmerkung:
+\vspace{-2mm}
+
+* \color{darkcyan} Gemäß der Definition eines Wahrscheinlichketsraums ist das Wahrscheinlichkeitsmaß gegeben als die Abbildung $\mathbb{P}: \mathcal{A} \to [0,1]$
+* Ohne Wahrscheinlichkeitsfunktion gestaltet es sich schwierig, die Wahrscheinlichkeiten verschiedener Ereignisse $A \in \mathcal{A}$ zu bestimmen. Was ist z.B. die Wahrscheinlichkeit dafür, eine gerade Augenzahl ($A = \{2,4,6\}$) zu würfeln? 
+* Wir nehmen intuitiv die Summe der Wahrscheinlichkeiten der Elementarereignisse $\pi(\omega)$, nämlich $\frac{1}{6} + \frac{1}{6} + \frac{1}{6} = \frac{1}{2}$. 
+
+
+
+# \textcolor{darkblue}{SKF 14}. *Beispiel: Würfelwurf*
+
+\large
+\color{darkblue} 14. Erläutern Sie die Modellierung des Werfens eines Würfels mithilfe eines Wahrscheinlichkeitsraums.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+\justify 
+
+Definition des Messraums $(\Omega, \mathcal{A})$ (strukturelle Basis):
+
+(1) Eine sinnvolle Definition der Ergebnismenge ist $\Omega := \{1,2,3,4,5,6\}$.
+(2) Da es sich um eine *endliche* Ergebnismenge handelt, wählen wir als $\sigma$-Algebra $\mathcal{A}$ die Potenzmenge $\mathcal{P}(\Omega)$. $\mathcal{A}$ enthält dann automatisch alle möglichen Ereignisse. 
+    * \footnotesize Die Kardinalität von $\mathcal{A} := \mathcal{P}(\Omega)$ ist $|\mathcal{P}(\Omega)| = 2^{|\Omega|} = 2^6 = 64$. Mit anderen Worten, es gibt 64 mögliche Ereignisse.
+    * Jedes Ereignis ist eine (unechte) Teilmenge der Ergebnismenge. Formal: $A \subseteq \Omega \; \forall A \in \mathcal{A}$.
+
+Definition des Wahrscheinlichkeitsmaßes $\mathbb{P}$ (funktionelle Basis):
+
+(3) Das Wahrscheinlichkeitsmaß $\mathbb{P}$ kann durch Festlegung von $\mathbb{P}(\{\omega\})$ für alle  $\omega \in \Omega$ festgelegt werden. 
+    * \footnotesize  Für das Modell eines unverfälschten Würfels würde man folgendes wählen:
+\begin{align*}
+\mathbb{P}(\{\omega\}) := \frac{1}{|\Omega|} := 1/6 \mbox{ für alle } \omega \in \Omega
+\end{align*}
+\item z.B. ist die Wahrscheinlichkeit für das Ereignis 'Es fällt eine gerade Augenzahl' mit der $\sigma$-Additivät von $\mathbb{P}$ wie folgt
+\begin{align*}
+\mathbb{P}(\{2,4,6\})
+= \mathbb{P}(\{2\} \cup \{4\} \cup \{6\} )
+= \mathbb{P}(\{2\}) + \mathbb{P}(\{4\}) + \mathbb{P}(\{6\})
+= \frac{1}{6} + \frac{1}{6} +  \frac{1}{6}
+= \frac{3}{6}.
+\end{align*}
+
+
+
+# \textcolor{darkblue}{SKF 15}. *Beispiel: Würfelwurf*
+
+\large
+\color{darkblue} 15. Erläutern Sie die Modellierung des gleichzeitigen Werfens eines roten und eines blauen Würfels mithilfe eines Wahrscheinlichkeitsraums.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Definition des Messraums $(\Omega, \mathcal{A})$ (strukturelle Basis):
+
+(1) Eine sinnvolle Definition der Ergebnismenge ist  $\Omega := \{(r,b)| r \in \{1,2,3,4,5,6\}, b \in \{1,2,3,4,5,6\}\}$ mit Kardinalität $|\Omega| = 36$, wobei $r$ die Augenzahl des blauen Würfels und $b$ die Augenzahl des roten Würfels repräsentieren soll.
+(2) Da es sich um eine *endliche* Ergebnismenge handelt, wählen wir als $\sigma$-Algebra $\mathcal{A}$ die Potenzmenge $\mathcal{P}(\Omega)$. $\mathcal{A}$ enthält dann automatisch alle möglichen Ereignisse. 
+    * \footnotesize Die Anzahl der in diesem Modell möglichen Ereignisse (die Kardinalität von $\mathcal{A}$) ergibt sich zu $|\mathcal{A}| = 2^{|\Omega|} = 2^{36} = 68.719.476.736$
+    * Jedes Ereignis ist eine (unechte) Teilmenge der Ergebnismenge. Formal: $A \subseteq \Omega \; \forall A \in \mathcal{A}$.
+    
+Definition des Wahrscheinlichkeitsmaßes $\mathbb{P}$ (funktionelle Basis):
+
+(3) Ein Wahrscheinlichkeitsmaß $\mathbb{P}$ kann durch Definition von
+$\mathbb{P}(\{\omega\})$ für alle  $\omega \in \Omega$ festgelegt werden. 
+    * \footnotesize Für das Modell zweier unverfälschter Würfel würde man folgendes wählen
+\begin{align*}
+\mathbb{P}(\{\omega\}) := \frac{1}{|\Omega|} = \frac{1}{36} \mbox{ für alle } \omega \in \Omega
+\end{align*}
+
+
+# \textcolor{darkblue}{SKF 15}. *Beispiel: Würfelwurf*
+
+\large
+\color{darkblue} (fortgesetzt)
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+  * z.B. ergibt sich die Wahrscheinlichkeit für das Ereignis 'Die Summe der gefallenen Zahlen ist Vier' mit der $\sigma$-Additivät von $\mathbb{P}$ zu  
+  
+\begin{align*}
+\begin{split}
+\mathbb{P}\left(\{(1,3),(3,1),(2,2)\}\right)
+& = \mathbb{P}\left(\{(1,3)\}\cup \{(3,1)\} \cup \{(2,2)\}\right) \\
+& = \mathbb{P}\left(\{(1,3)\}\right)
+  + \mathbb{P}\left(\{(3,1)\}\right)
+  + \mathbb{P}\left(\{(2,2)\}\right) \\
+& = 1/36 + 1/36 + 1/36                  \\
+& = 1/12.
+\end{split}
+\end{align*}
+
+
+
+
+# \textcolor{darkblue}{SKF 16}. *Beispiel: Münzwurf*
+
+\large
+\color{darkblue} 16. Erläutern Sie die Modellierung des Werfens einer Münze mithilfe eines Wahrscheinlichkeitsraums.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Definition des Messraums $(\Omega, \mathcal{A})$ (strukturelle Basis):
+
+(1) Eine sinnvolle Definition der Ergebnismenge ist $\Omega := \{H,T\}$, wobei $H$ "Heads" und $T$ "Tails" repräsentiert. Es wäre auch jede andere binäre Definition von $\Omega$ möglich.
+(2) Da es sich um eine *endliche* Ergebnismenge handelt, wählen wir als $\sigma$-Algebra $\mathcal{A}$ die Potenzmenge $\mathcal{P}(\Omega)$. $\mathcal{A}$ enthält dann automatisch alle möglichen Ereignisse. 
+    * \footnotesize Die Kardinalität von $\mathcal{A} := \mathcal{P}(\Omega)$ ist $|\mathcal{P}(\Omega)| = 2^{|\Omega|} = 2^2 = 4$. Mit anderen Worten, es gibt 4 mögliche Ereignisse.
+    * Jedes Ereignis ist eine (unechte) Teilmenge der Ergebnismenge. Formal: $A \subseteq \Omega \; \forall A \in \mathcal{A}$.
+
+
+
+# \textcolor{darkblue}{SKF 16}. *Beispiel: Münzwurf*
+
+\large
+\color{darkblue} (fortgesetzt)
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+
+Definition des Wahrscheinlichkeitsmaßes $\mathbb{P}$ (funktionelle Basis):
+
+(3) Das Wahrscheinlichkeitsmaß $\mathbb{P}$ kann durch Festlegung von $\mathbb{P}(\{\omega\})$ für alle  $\omega \in \Omega$ festgelegt werden. 
+    * \footnotesize \justifying Die Normiertheit von $\mathbb{P}(\Omega)$ bedingt hier insbesondere, dass
+\begin{align*}
+\mathbb{P}(\Omega) = 1
+\Leftrightarrow
+\mathbb{P}(\{H\}) + \mathbb{P}(\{T\})  = 1
+\Leftrightarrow
+\mathbb{P}(\{T\}) = 1 - \mathbb{P}(\{H\}).
+\end{align*}
+\begin{align*}
+\mathbb{P}(\{\omega\}) := \frac{1}{|\Omega|} := 1/6 \mbox{ für alle } \omega \in \Omega
+\end{align*}
+    * Bei Festlegung der Wahrscheinlichkeit des Elementarereignisses $\{H\}$ wird also
+die Wahrscheinlichkeit des Elementarereignis $\{T\}$ sofort mit festgelegt
+(andersherum natürlich ebenso). Für das Modell einer fairen Münze würde man
+$\mathbb{P}(\{H\}) = \mathbb{P}(\{T\}) = 1/2$ wählen. Die Wahrscheinlichkeiten
+aller möglichen Ereignisse ist in diesem Fall
+\begin{align*}
+\mathbb{P}(\emptyset) = 0,
+\mathbb{P}(\{H\}) = 1/2,
+\mathbb{P}(\{T\}) = 1/2 \mbox{ und }
+\mathbb{P}(\{H,T\}) = 1.
+\end{align*}
+
+
+
+# \textcolor{darkblue}{SKF 17}. *Beispiel: Münzwurf*
+
+\large
+\color{darkblue} 17. Erläutern Sie die Modellierung des gleichzeitigen Werfens zweier Münzen mithilfe eines Wahrscheinlichkeitsraums.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Definition des Messraums $(\Omega, \mathcal{A})$ (strukturelle Basis):
+
+(1) Eine sinnvolle Definition der Ergebnismenge ist $\Omega := \{HH,HT,TH,TT\}$, wobei $H$ "Heads" und $T$ "Tails" repräsentieren.
+(2) Da es sich um eine *endliche* Ergebnismenge handelt, wählen wir als $\sigma$-Algebra $\mathcal{A}$ die Potenzmenge $\mathcal{P}(\Omega)$. $\mathcal{A}$ enthält dann automatisch alle möglichen Ereignisse. 
+    * \footnotesize Die Kardinalität von $\mathcal{A} := \mathcal{P}(\Omega)$ ist $|\mathcal{P}(\Omega)| = 2^{|\Omega|} = 2^4 = 16$. Mit anderen Worten, es gibt 16 mögliche Ereignisse.
+    * Jedes Ereignis ist eine (unechte) Teilmenge der Ergebnismenge. Formal: $A \subseteq \Omega \; \forall A \in \mathcal{A}$.
+
+Definition des Wahrscheinlichkeitsmaßes $\mathbb{P}$ (funktionelle Basis):
+
+(3) Das Wahrscheinlichkeitsmaß $\mathbb{P}$ kann durch Festlegung von $\mathbb{P}(\{\omega\})$ für alle  $\omega \in \Omega$ festgelegt werden. 
+    * \footnotesize  Für
+das Modell zweier fairer Münzen könnte man folgendes wählen
+\begin{align*}
+\mathbb{P}(\{HH\}) = \mathbb{P}(\{HT\}) = \mathbb{P}(\{TH\})= \mathbb{P}(\{TT\}) = \frac{1}{4}
+\end{align*}
