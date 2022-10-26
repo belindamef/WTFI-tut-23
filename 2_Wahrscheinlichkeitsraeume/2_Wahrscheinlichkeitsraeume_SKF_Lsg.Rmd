@@ -242,7 +242,7 @@ als \textit{Messraum} bezeichnet.
 
 
 
-# \textcolor{darkblue}{SKF 7}. *Ein Ergebnis $A \in \mathcal{A}$*
+# \textcolor{darkblue}{SKF 7}. *Ein Ereignis $A \in \mathcal{A}$*
 
 \large
 \color{darkblue} 7. Erläutern Sie den Begriff eines Ereignisses $A \in \mathcal{A}$.
