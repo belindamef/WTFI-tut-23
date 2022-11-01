@@ -1,0 +1,451 @@
+---
+fontsize: 8pt
+bibliography: ../Referenzen.bib
+citation_package: natbib
+output:
+  beamer_presentation:
+    keep_tex: true
+    includes:
+      in_header: ../Header.tex
+classoption: t  
+---
+
+
+```{r, include = F}
+source("../R_common.R")
+abb_dir = file.path(dirname(getwd()), "Abbildungen")
+```
+
+#  {.plain}
+\center
+```{r, echo = FALSE, out.width = "20%"}
+knitr::include_graphics(file.path(abb_dir,"otto.png"))
+```
+
+\vspace{2mm}
+
+\huge
+Tutorium 
+
+\Large
+Wahrscheinlichketstheorie und Frequentistische Inferenz
+\vspace{4mm}
+
+\normalsize
+BSc Psychologie WiSe 2022/23
+
+\vspace{12mm}
+\normalsize
+Belinda Fleischmann
+
+\vspace{3mm}
+\scriptsize
+Inhalte basieren auf Kursmaterialien für [WTFI](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Lehre/Wintersemester+2023/Wahrscheinlichkeitstheorie+und+Frequentistische+Inferenz.html) von [Dirk Ostwald](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Team/Dirk+Ostwald.html), lizenziert unter [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de)
+
+
+
+#  {.plain}
+\vfill
+\center
+\huge
+\text{(3) Elementare Wahrscheinlichkeiten}
+\vfill
+
+
+
+# Selbstkontrollfragen
+\setstretch{1.3}
+\footnotesize
+\begin{enumerate}
+\item Erläutern Sie die Frequentistische Interpretation der Wahrscheinlichkeit eines Ereignisses.
+\item Erläutern Sie die Bayesianische Interpretation der Wahrscheinlichkeit eines Ereignisses.
+\item Geben Sie die Definition der gemeinsamen Wahrscheinlichkeit zweier Ereignisse wieder.
+\item Erläutern Sie die intuitive Bedeutung der gemeinsamen Wahrscheinlichkeit zweier Ereignisse.
+\item Geben Sie das Theorem zu weiteren Eigenschaften von Wahrscheinlichkeiten wieder.
+\item Geben Sie die Definition der Unabhängigkeit zweier Ereignisse wieder.
+\item Geben Sie die Definition der bedingten Wahrscheinlichkeit eines Ereignisses und der bedingten Wahrscheinlichkeit wieder.
+\item Geben Sie das Theorem zur bedingten Wahrscheinlichkeit unter Unabhängigkeit wieder.
+\item Erläutern Sie den Begriff der stochastischen Unabhängigkeit vor dem Hintergrund des Theorems zur bedingten Wahrscheinlichkeit unter Unabhängigkeit.
+\item Geben Sie das Theorem zu gemeinsamen und bedingten Wahrscheinlichkeiten wieder.
+\item Geben Sie das Gesetz von der totalen Wahrscheinlichkeit wieder.
+\item Geben Sie das Theorem von Bayes wieder.
+\item Erläutern Sie das Theorem von Bayes im Rahmen der Bayesianischen Inferenz.
+\item Beweisen Sie das Theorem von Bayes.
+\end{enumerate}
+
+
+# \textcolor{darkcyan}{Wahrscheinlichkeitstheorie - Wiederholung}
+```{r, echo = FALSE, out.width = "90%"}
+knitr::include_graphics(file.path(abb_dir,"wtfi_3_wahrscheinlichkeitstheorie_modell.pdf"))
+```
+
+
+
+# \textcolor{darkcyan}{Wahrscheinlichkeitstheorie - Wiederholung}
+\footnotesize
+\begin{definition}[Wahrscheinlichkeitsraum]
+\justifying
+Ein \textit{Wahrscheinlichkeitsraum} ist ein Triple $(\Omega, \mathcal{A}, \mathbb{P})$, wobei
+\begin{itemize}
+\item $\Omega$ eine beliebige nichtleere Menge von \textit{Ergebnissen} $\omega$ ist und \textit{Ergebnismenge} heißt,
+\item $\mathcal{A}$ eine \textit{$\sigma$-Algebra auf $\Omega$} ist und \textit{Ereignissystem} heißt,
+\item $\mathbb{P}$ eine Abbildung der Form $\mathbb{P}:\mathcal{A} \to [0,1]$ mit den Eigenschaften 
+\begin{itemize}
+\begin{footnotesize}
+\item[o] \textit{Nicht-Negativität} $\mathbb{P}(A) \ge 0$ für alle $A \in \mathcal{A}$,
+\item[o] \textit{Normiertheit} $\mathbb{P}(\Omega) = 1$ und
+\item[o] \textit{ $\sigma$-Additivität} $\mathbb{P}(\cup_{i=1}^\infty A_i) = \sum\limits_{i=1}^\infty \mathbb{P}(A_i)$
+          für paarweise disjunkte $A_i \in \mathcal{A}$
+\end{footnotesize}
+\end{itemize}
+ist und \textit{Wahrscheinlichkeitsmaß} heißt. 
+\end{itemize}
+Das Tuple $(\Omega, \mathcal{A})$ aus Ergebnismenge und Ereignissystem wird 
+als \textit{Messraum} bezeichnet.
+\end{definition}
+
+
+# \textcolor{darkcyan}{Verknüpfungen von Mengen - Wiederholung}
+\footnotesize
+\begin{definition}[Mengenoperationen]
+\setstretch{1}
+$M$ und $N$ seien zwei Mengen.
+\justifying
+\begin{itemize}
+\item Die \textit{Vereinigung von $M$ und $N$} ist definiert als die Menge
+\begin{equation}
+M \cup N := \{x | x \in M \mbox{ oder } x \in N\},
+\end{equation}
+wobei \textit{oder} im inklusiven Sinne als \textit{und/oder} zu verstehen ist.
+\item Der \textit{Durchschnitt von $M$ und $N$} ist definiert als die Menge
+\begin{equation}
+M \cap N := \{x | x \in M \mbox{ und } x \in N\}.
+\end{equation}
+\item Die \textit{Differenz von $M$ und $N$} ist definiert als die Menge
+\begin{equation}
+M\setminus N := \{x | x \in M \mbox{ und } x \notin N\}.
+\end{equation}
+\item Die \textit{symmetrische Differenz von $M$ und $N$} ist definiert als die Menge
+\begin{equation}
+M \Delta N := \{x|x \in M \mbox{ oder } x \in N, \mbox{ aber } x \notin M \cap N\},
+\end{equation}
+wobei \textit{oder} hier also im exklusiven Sinne zu verstehen ist.
+\end{itemize}
+\end{definition}
+
+\small
+Definition (Komplementärmenge)
+
+\footnotesize
+Es sei $A$ eine Teilmenge von $U$. Dann heißt die Menge 
+\begin{align*}
+A^c := U\setminus A =  \{x \in U | x \notin A\}
+\end{align*}
+*Komplementärmenge* von $A$.
+
+
+
+# \textcolor{darkblue}{SKF 1}. *Frequentistische Interpretation*
+
+\large
+\color{darkblue} 1. Erläutern Sie die Frequentistische Interpretation der Wahrscheinlichkeit eines Ereignisses.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+* Nach der **Frequentistischen Interpretation** ist $\mathbb{P}(A)$ die idealisierte relative Häufigkeit, mit der das Ereignis $A$ unter den gleichen äußeren Bedingungen einzutreten pflegt. 
+* Zum Beispiel ist die frequentistische Interpretation von
+$\mathbb{P}(\{6\})$ im Modell des Werfens eines Würfels "Wenn man einen Würfel unendlich oft werfen würde und die relative Häufigkeit des Elementareignisses $\{6\}$ bestimmen würde, dann wäre diese relative Häufigkeit gleich $\mathbb{P}(\{6\})$."
+
+
+
+# \textcolor{darkblue}{SKF 2}. *Bayesianische Interpretation*
+
+\large
+\color{darkblue} 2. Erläutern Sie die Bayesianische Interpretation der Wahrscheinlichkeit eines Ereignisses.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+* Nach der **Bayesianischen Interpretation** ist $\mathbb{P}(A)$ der Grad der Sicherheit, den eine Beobachter:in aufgrund ihrer subjektiven Einschätzung der Lage dem Eintreten des Ereignisses $A$ zumisst. 
+* Zum Beispiel ist die Bayesianische Interpretation von $\mathbb{P}(\{6\})$ im Modell des Werfen eines Würfels "Basierend auf meinen Erfahrungen mit dem Werfen eines Würfels bin ich mir zu $\mathbb{P}(\{6\})\cdot 100$ Prozent sicher, dass der Würfel beim nächsten Wurf eine 6 zeigt."
+
+
+
+# \textcolor{darkblue}{SKF 3}. *Gemeinsame Wahrscheinlichkeit*
+
+\large
+\color{darkblue} 3. Geben Sie die Definition der gemeinsamen Wahrscheinlichkeit zweier Ereignisse wieder.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Gemeinsame Wahrscheinlichkeit]
+\justifying
+$(\Omega, \mathcal{A}, \mathbb{P})$ sei ein Wahrscheinlichkeitsraum und es seien
+$A,B \in \mathcal{A}$. Dann heißt
+\begin{equation}
+\mathbb{P}(A \cap B)
+\end{equation}
+die \textit{gemeinsame Wahrscheinlichkeit von $A$ und $B$}.
+\end{definition}
+
+\color{darkcyan}
+\small
+Visualisierung einer Schnittmenge 
+\vspace{-4mm}
+
+```{r, echo = FALSE, fig.align='left', out.width = "120%"}
+knitr::include_graphics(file.path(abb_dir,"wtfi_3_skf_3.pdf"))
+```
+
+\vfill
+
+
+
+# \textcolor{darkblue}{SKF 4}. *Intuition gemeinsame Wahrscheinlichkeit*
+
+\large
+\color{darkblue} 4. Erläutern Sie die intuitive Bedeutung der gemeinsamen Wahrscheinlichkeit zweier Ereignisse.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+* Intuitiv entspricht $\mathbb{P}(A \cap B)$ der Wahrscheinlichkeit, dass $A$ und $B$ gleichzeitig (*gemeinsam*) eintreten.
+* In der  Mechanik des W-Raummodells ist $\mathbb{P}(A \cap B)$ die Wahrscheinlichkeit, dass in einem Durchgang des Zufallsvorgang ein $\omega$ mit sowohl $\omega \in A$ als auch $\omega \in B$ realisiert wird.
+
+
+
+# \textcolor{darkblue}{SKF 5}. *Weitere Eigenschaften von Wahrscheinlichkeiten*
+
+\large
+\color{darkblue} 5. Geben Sie das Theorem zu weiteren Eigenschaften von Wahrscheinlichkeiten wieder.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{theorem}[Weitere Eigenschaften von Wahrscheinlichkeiten]
+\normalfont
+\justifying
+\setstretch{1}
+$(\Omega, \mathcal{A}, \mathbb{P})$ sei ein Wahrscheinlichkeitsraum und es seien
+$A,B \in \mathcal{A}$ Ereignisse. Dann gelten
+\begin{enumerate}
+\itemsep2mm
+\item $\mathbb{P}(A^c) = 1 - \mathbb{P}(A)$.
+\item $A \subset B \Rightarrow \mathbb{P}(A) \le \mathbb{P}(B)$.
+\item $\mathbb{P}(A \cap B^c) = \mathbb{P}(A) - \mathbb{P}(A \cap B)$
+\item $\mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \cap B)$.
+\item $A \cap B = \emptyset \Rightarrow \mathbb{P}(A \cup B) = \mathbb{P}(A) + \mathbb{P}(B)$.
+\end{enumerate}
+\end{theorem}
+
+```{r, echo = FALSE, out.width = "90%"}
+knitr::include_graphics(file.path(abb_dir,"wtfi_3_skf_5.pdf"))
+```
+
+
+
+# \textcolor{darkblue}{SKF 6}. *Unabhängigkeit zweier Ereignisse*
+
+\large
+\color{darkblue} 6. Geben Sie die Definition der Unabhängigkeit zweier Ereignisse wieder.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Unabhängige Ereignisse]
+\justifying
+Zwei Ereignisse $A \in \mathcal{A}$ and $B \in \mathcal{A}$ heißen
+\textit{(stochastisch) unabhängig}, wenn
+\begin{equation}
+\mathbb{P}(A \cap B) = \mathbb{P}(A)\mathbb{P}(B).
+\end{equation}
+Eine Menge von Ereignissen $\{A_i|i \in I\}\subset \mathcal{A}$ mit beliebiger
+Indexmenge $I$ heißt (stochastisch) unabhängig, wenn für jede endliche Untermenge
+$J \subseteq I$ gilt, dass
+\begin{equation}
+\mathbb{P}\left(\cap_{j \in J} A_j \right) = \prod_{j \in J}\mathbb{P}(A_j).
+\end{equation}
+\end{definition}
+
+
+
+
+# \textcolor{darkblue}{SKF 7}. *Bedingte Wahrscheinlichkeiten*
+
+\large
+\color{darkblue} 7. Geben Sie die Definition der bedingten Wahrscheinlichkeit eines Ereignisses und der bedingten Wahrscheinlichkeit wieder. 
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Bedingte Wahrscheinlichkeit]
+\justifying
+$(\Omega,\mathcal{A}, \mathbb{P})$ sei ein Wahrscheinlichkeitsraum und $A, B\in \mathcal{A}$
+seien Ereignisse mit $\mathbb{P}(B) > 0$. Die \textit{bedingte Wahrscheinlichkeit des Ereignisses
+$A$ gegeben das Ereignis $B$} ist definiert als
+\begin{equation}
+\mathbb{P}(A|B) := \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}.
+\end{equation}
+Weiterhin heißt das für ein festes $B \in \mathcal{A}$ mit $\mathbb{P}(B) > 0$ 
+definierte Wahrscheinlichkeitsmaß
+\begin{equation}
+\mathbb{P}(\,\,|B) : \mathcal{A} \to [0,1],
+A \mapsto \mathbb{P}(A|B) := \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}
+\end{equation}
+die \textit{bedingte Wahrscheinlichkeit gegeben Ereignis $B$}.
+\end{definition}
+
+
+
+
+# \textcolor{darkblue}{SKF 8}. *Bedingte Wahrscheinlichkeit unter Unabhängigkeit*
+
+\large
+\color{darkblue} 8. Geben Sie das Theorem zur bedingten Wahrscheinlichkeit unter Unabhängigkeit wieder.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{theorem}[Bedingte Wahrscheinlichkeit unter Unabhängigkeit]
+\normalfont
+\justifying
+$(\Omega,\mathcal{A}, \mathbb{P})$ sei ein Wahrscheinlichkeitsraum und 
+$A,B\in \mathcal{A}$ seien unabhängige Ereignisse mit $\mathbb{P}(B) > 0$. 
+Dann gilt
+\begin{equation}
+\mathbb{P}(A|B)
+= \frac{\mathbb{P}(A \cap B)}{\mathbb{P}(B)}
+= \frac{\mathbb{P}(A)\mathbb{P}(B)}{\mathbb{P}(B)}
+= \mathbb{P}(A).
+\end{equation}
+\end{theorem}
+
+
+
+# \textcolor{darkblue}{SKF 9}. *Stochastische Unabhängigkeit*
+
+\large
+\color{darkblue} 9. Erläutern Sie den Begriff der stochastischen Unabhängigkeit vor dem Hintergrund des Theorems zur bedingten Wahrscheinlichkeit unter Unabhängigkeit.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+\justify
+
+* Die stochastische Unabhängigkeit zweier Ereignisse bedeutet, dass das Wissen um das Eintreten eines der beiden Ereignisse die Wahrscheinlichkeit für das Eintreten des anderen Ereignisses nicht ändert.
+* So ist beispielsweise bei Unabhängigkeit der Ereignisse $A$ und $B$ die bedingte Wahrscheinlichkeit $\mathbb{P}(A|B)$ gleich der Wahrscheinlichkeit $\mathbb{P}(A)$, weil bei Unabhängigkeit gilt, dass $\mathbb{P}(A\cap B) = \mathbb{P}(A)\mathbb{P}(B)$ (vgl. erste Gleichung) und $\mathbb{P}(B)$, das im Zähler und Nenner des Terms steht rausgekürzt werden kann (vgl. 2. Gleichung).
+
+
+
+# \textcolor{darkblue}{SKF 10}. *Gemeinsame und bedingte Wahrscheinlichkeiten*
+
+\large
+\color{darkblue} 10. Geben Sie das Theorem zu gemeinsamen und bedingten Wahrscheinlichkeiten wieder.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{theorem}[Gemeinsame und bedingte Wahrscheinlichkeiten]
+\normalfont
+Es seien $(\Omega,\mathcal{A}, \mathbb{P})$ ein W-Raum und $A,B\in \mathcal{A}$
+mit $\mathbb{P}(\cdot|B) \ge 0$. Dann gilt
+\begin{equation}
+\mathbb{P}(A \cap B)
+= \mathbb{P}(A|B)\mathbb{P}(B)
+= \mathbb{P}(B|A)\mathbb{P}(A).
+\end{equation}
+\end{theorem}
+
+
+
+# \textcolor{darkblue}{SKF 11}. *Gesetz der totalen Wahrscheinlichkeit*
+
+\large
+\color{darkblue} 11. Geben Sie das Gesetz von der totalen Wahrscheinlichkeit wieder.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{theorem}[Gesetz der totalen Wahrscheinlichkeit]
+\normalfont
+\justifying
+$(\Omega,\mathcal{A},\mathbb{P})$ sei ein Wahrscheinlichkeitsraum und $A_1, ...,A_k$
+sei eine Partition von $\Omega$. Dann gilt 
+für jedes $B \in \mathcal{A}$, dass
+\begin{equation}
+\mathbb{P}(B) = \sum_{i=1}^k \mathbb{P}(B|A_i)\mathbb{P}(A_i).
+\end{equation}
+\end{theorem}
+
+
+
+# \textcolor{darkblue}{SKF 12}. *Theorem von Bayes*
+
+\large
+\color{darkblue} 12. Geben Sie das Theorem von Bayes wieder.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{theorem}[Theorem von Bayes]
+\normalfont
+\justifying
+$(\Omega,\mathcal{A},\mathbb{P})$ sei ein Wahrscheinlichkeitsraum und $A_1, ...,A_k$ 
+sei eine Partition von $\Omega$ mit $\mathbb{P}(A_i) > 0$ für alle $i = 1,...,k$.
+Wenn $\mathbb{P}(B) > 0$ gilt, dann gilt für jedes $i = 1,...,k$, dass
+\begin{equation}
+\mathbb{P}(A_i|B)
+= \frac{\mathbb{P}(B|A_i)\mathbb{P}(A_i)}{\sum_{i=1}^k \mathbb{P}(B|A_i)\mathbb{P}(A_i)}.
+\end{equation}
+\end{theorem}
+
+
+
+# \textcolor{darkblue}{SKF 13}. *Theorem von Bayes*
+
+\large
+\color{darkblue} 13. Erläutern Sie das Theorem von Bayes im Rahmen der Bayesianischen Inferenz.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+* Im Rahmen der \textbf{Bayesianischen Inferenz} ist das Theorem von Bayes zentral; 
+* hier wird $\mathbb{P}(A_i)$ oft \textit{Prior Wahrscheinlichkeit}  und $\mathbb{P}(A_i|B)$ oft \textit{Posterior Wahrscheinlichkeit des Ereignisses $A_i$} genannt. 
+* Wie oben erläutert entspricht $\mathbb{P}(A_i|B)$ dann der aktualisierten Wahrscheinlichkeit von $A_i$, wenn man um das Eintreten von $B$ weiß.
+
+
+
+# \textcolor{darkblue}{SKF 14}. *Theorem von Bayes*
+
+\large
+\color{darkblue} 14. Beweisen Sie das Theorem von Bayes.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Mit der Definition der bedingten Wahrscheinlichkeit und dem Gesetz der totalen 
+Wahrscheinlichkeit gilt
+\begin{align*}
+\mathbb{P}(A_i|B)
+= \frac{\mathbb{P}(A_i \cap B)}{\mathbb{P}(B)}
+= \frac{\mathbb{P}(B|A_i)\mathbb{P}(A_i)}{\mathbb{P}(B)}
+= \frac{\mathbb{P}(B|A_i)\mathbb{P}(A_i)}{\sum_{i=1}^k \mathbb{P}(B|A_i)\mathbb{P}(A_i)}.
+\end{align*}
+$\hfill \Box$
+
+
