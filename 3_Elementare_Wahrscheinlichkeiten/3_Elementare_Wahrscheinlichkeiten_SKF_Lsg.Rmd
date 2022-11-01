@@ -46,7 +46,6 @@ Inhalte basieren auf Kursmaterialien für [WTFI](https://www.ipsy.ovgu.de/Instit
 
 #  {.plain}
 \vfill
-\center
 \huge
 \text{(3) Elementare Wahrscheinlichkeiten}
 \vfill
