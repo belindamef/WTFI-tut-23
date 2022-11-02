@@ -46,9 +46,9 @@ Inhalte basieren auf Kursmaterialien für [WTFI](https://www.ipsy.ovgu.de/Instit
 
 #  {.plain}
 \vfill
+\center
 \huge
 \text{(3) Elementare Wahrscheinlichkeiten}
-\vfill
 
 
 
@@ -192,17 +192,6 @@ $A,B \in \mathcal{A}$. Dann heißt
 die \textit{gemeinsame Wahrscheinlichkeit von $A$ und $B$}.
 \end{definition}
 
-\color{darkcyan}
-\small
-Visualisierung einer Schnittmenge 
-\vspace{-4mm}
-
-```{r, echo = FALSE, fig.align='left', out.width = "120%"}
-knitr::include_graphics(file.path(abb_dir,"wtfi_3_skf_3.pdf"))
-```
-
-\vfill
-
 
 
 # \textcolor{darkblue}{SKF 4}. *Intuition gemeinsame Wahrscheinlichkeit*
@@ -216,6 +205,19 @@ knitr::include_graphics(file.path(abb_dir,"wtfi_3_skf_3.pdf"))
 
 * Intuitiv entspricht $\mathbb{P}(A \cap B)$ der Wahrscheinlichkeit, dass $A$ und $B$ gleichzeitig (*gemeinsam*) eintreten.
 * In der  Mechanik des W-Raummodells ist $\mathbb{P}(A \cap B)$ die Wahrscheinlichkeit, dass in einem Durchgang des Zufallsvorgang ein $\omega$ mit sowohl $\omega \in A$ als auch $\omega \in B$ realisiert wird.
+
+\vfill
+
+\color{darkcyan}
+\small
+Visualisierung einer Schnittmenge 
+\vspace{-4mm}
+
+```{r, echo = FALSE, fig.align='left', out.width = "120%"}
+knitr::include_graphics(file.path(abb_dir,"wtfi_3_skf_3.pdf"))
+```
+
+\vfill
 
 
 
@@ -342,7 +344,7 @@ Dann gilt
 \justify
 
 * Die stochastische Unabhängigkeit zweier Ereignisse bedeutet, dass das Wissen um das Eintreten eines der beiden Ereignisse die Wahrscheinlichkeit für das Eintreten des anderen Ereignisses nicht ändert.
-* So ist beispielsweise bei Unabhängigkeit der Ereignisse $A$ und $B$ die bedingte Wahrscheinlichkeit $\mathbb{P}(A|B)$ gleich der Wahrscheinlichkeit $\mathbb{P}(A)$, weil bei Unabhängigkeit gilt, dass $\mathbb{P}(A\cap B) = \mathbb{P}(A)\mathbb{P}(B)$ (vgl. erste Gleichung) und $\mathbb{P}(B)$, das im Zähler und Nenner des Terms steht rausgekürzt werden kann (vgl. 2. Gleichung).
+* So ist beispielsweise bei Unabhängigkeit der Ereignisse $A$ und $B$ die bedingte Wahrscheinlichkeit $\mathbb{P}(A|B)$ gleich der Wahrscheinlichkeit $\mathbb{P}(A)$, weil bei Unabhängigkeit gilt, dass $\mathbb{P}(A\cap B) = \mathbb{P}(A)\mathbb{P}(B)$ (vgl. erste Gleichung) und $\mathbb{P}(B)$, das im Zähler und Nenner des Terms steht rausgekürzt werden kann (vgl. zweite Gleichung).
 
 
 
