@@ -346,7 +346,7 @@ $\Omega$ ist $\mathbb{R}^n$ & $\Rightarrow$ Man wählt für $\mathcal{A}$ die \t
 \color{black}
 \footnotesize
 
-Die Potenzmenge von $\Omega$, $\mathbb{P}(\Omega)$
+Die Potenzmenge von $\Omega$, $P(\Omega)$
 
 
 
@@ -538,7 +538,7 @@ Definition des Wahrscheinlichkeitsmaßes $\mathbb{P}$ (funktionelle Basis):
 \mathbb{P}(\{T\}) = 1 - \mathbb{P}(\{H\}).
 \end{align*}
 \begin{align*}
-\mathbb{P}(\{\omega\}) := \frac{1}{|\Omega|} := 1/6 \mbox{ für alle } \omega \in \Omega
+\mathbb{P}(\{\omega\}) := \frac{1}{|\Omega|} := 1/2 \mbox{ für alle } \omega \in \Omega
 \end{align*}
     * Bei Festlegung der Wahrscheinlichkeit des Elementarereignisses $\{H\}$ wird also
 die Wahrscheinlichkeit des Elementarereignis $\{T\}$ sofort mit festgelegt
