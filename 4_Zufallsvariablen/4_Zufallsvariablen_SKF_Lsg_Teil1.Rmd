@@ -144,7 +144,7 @@ Die Augenzahl-Summenbildung wird dann sinnvoller Weise durch die Zufallsvariable
 \end{align*}
 beschrieben, wobei $\mathcal{X} := \{2,3,...,12\}$.
 
-Die Wahrscheinlichkeit, dass die ZV den Wert 2 annimmnt, also $\mathbb{P}_{\xi}(\xi = 2)$ im Wahrscheinlichkeitsraums ($\mathcal{X},\mathcal{S},\mathbb{P}_{\xi}$) wäre dann gleich der Wahrscheinlichkeit $\mathbb{P}(\{\xi = 2\})$ im  Wahrscheinlichkeitsraums $(\Omega, \mathcal{A}, \mathbb{P})$, also der Wahrscheinlichkeit des Urbilds von $x$, nämlich $\mathbb{P}(\xi^{-1}(\{2\}))$. Formal
+Die Wahrscheinlichkeit, dass die ZV den Wert 2 annimmnt, also $\mathbb{P}_{\xi}(\xi = 2)$ im Wahrscheinlichkeitsraum ($\mathcal{X},\mathcal{S},\mathbb{P}_{\xi}$) wäre dann gleich der Wahrscheinlichkeit $\mathbb{P}(\{\xi = 2\})$ im  Wahrscheinlichkeitsraum $(\Omega, \mathcal{A}, \mathbb{P})$, also der Wahrscheinlichkeit des Urbilds von $x$, nämlich $\mathbb{P}(\xi^{-1}(\{2\}))$. Formal
 \begin{align*}
 \mathbb{P}_{\xi}(\xi = 2) = \mathbb{P}(\{\xi = 2\}) = \mathbb{P}(\xi^{-1}(\{ 2 \})) = \mathbb{P}(\{(1,1)\}) = \frac{1}{36}
 \end{align*}
