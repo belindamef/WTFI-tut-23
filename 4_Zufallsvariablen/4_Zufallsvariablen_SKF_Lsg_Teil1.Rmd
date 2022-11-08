@@ -1,0 +1,210 @@
+---
+fontsize: 8pt
+bibliography: ../Referenzen.bib
+citation_package: natbib
+output:
+  beamer_presentation:
+    keep_tex: true
+    includes:
+      in_header: ../Header.tex
+classoption: t  
+---
+
+
+```{r, include = F}
+source("../R_common.R")
+abb_dir = file.path(dirname(getwd()), "Abbildungen")
+```
+
+#  {.plain}
+\center
+```{r, echo = FALSE, out.width = "20%"}
+knitr::include_graphics(file.path(abb_dir,"otto.png"))
+```
+
+\vspace{2mm}
+
+\huge
+Tutorium 
+
+\Large
+Wahrscheinlichketstheorie und Frequentistische Inferenz
+\vspace{4mm}
+
+\normalsize
+BSc Psychologie WiSe 2022/23
+
+\vspace{12mm}
+\normalsize
+Belinda Fleischmann
+
+\vspace{3mm}
+\scriptsize
+Inhalte basieren auf Kursmaterialien für [WTFI](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Lehre/Wintersemester+2023/Wahrscheinlichkeitstheorie+und+Frequentistische+Inferenz.html) von [Dirk Ostwald](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Team/Dirk+Ostwald.html), lizenziert unter [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de)
+
+
+
+#  {.plain}
+\vfill
+\center
+\huge
+\text{(4) Zufallsvariablen}
+
+
+
+# Selbstkontrollfragen
+\small
+\setstretch{1.7}
+\begin{enumerate}
+\item Definieren Sie den Begriff der Zufallsvariable.
+\item Erläutern Sie die Gleichung $\mathbb{P}_\xi(\xi = x) = \mathbb{P}(\{\xi = x\})$.
+\item Erläutern Sie die Bedeutung von $\mathbb{P}(\xi = x)$.
+\item Definieren Sie den Begriff der Wahrscheinlichkeitsmassefunktion.
+\item Definieren Sie die Begriffe der Wahrscheinlichkeitsdichtefunktion.
+\item Definieren Sie den Begriff der kumulativen Verteilungsfunktion.
+\item Schreiben sie die Intervallwahrscheinlichkeit einer Zufallsvariable mithilfer ihrer KVF. 
+\item Definieren Sie die WDF und KVF einer normalverteilten Zufallsvariable.
+\item Schreiben Sie den Wert $P(x)$ der KVF einer Zufallsvariable mithilfe ihrer WDF.
+\item Schreiben Sie den Wert $p(x)$ der WDF einer Zufallsvariable mithilfe ihrer KVF.
+\item Definieren Sie den Begriff der inversen Verteilungsfunktion.
+\end{enumerate}
+
+
+
+# \textcolor{darkblue}{SKF 1}. *Zufallsvariable*
+
+\large
+\color{darkblue} 1. Definieren Sie den Begriff der Zufallsvariable.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Zufallsvariable]
+\justifying
+Es sei $(\Omega, \mathcal{A}, \mathbb{P})$ ein Wahrscheinlichkeitsraum und
+$(\mathcal{X},\mathcal{S})$ ein \textit{Messraum}. Dann ist eine \textit{Zufallsvariable (ZV)}
+definiert als eine Abbildung $\xi:\Omega \to \mathcal{X}$ mit der \textit{Messbarkeitseigenschaft}
+\begin{equation}
+\{\omega \in \Omega|\xi(\omega) \in S \} \in \mathcal{A} \mbox{ für alle } S \in \mathcal{S}.
+\end{equation}
+\end{definition}
+
+
+
+# \textcolor{darkblue}{SKF 2}. *Notation für Zufallsvariablen*
+
+\large
+\color{darkblue} 2. Erläutern Sie die Gleichung $\mathbb{P}_\xi(\xi = x) = \mathbb{P}(\{\xi = x\})$.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+\setstretch{1.5}
+
+\begin{itemize}
+\item $\mathbb{P}_\xi(\xi = x)$ ist die Wahrscheinlichkeit (genauer gesagt das Wahrscheinlichkeitsmaß des Wahrscheinlichkeitsraums ($\mathcal{X},\mathcal{S},\mathbb{P}_{\xi}$)) dafür, dass die Zufallsvariable $\xi$ den Wert $x$ annimmt. 
+\item Diese Wahrscheinlichkeit entspricht der Wahrscheinlichkeit $\mathbb{P}(\{\xi = x\})$ (genauer gesagt dem Wahrscheinlichktsmaß des Wahrscheinlichkeitsraums $(\Omega, \mathcal{A}, \mathbb{P})$). 
+\item Dabei ist $\mathbb{P}(\{\xi = x\})$ die Wahrscheinlichkeit für die Menge $\{\xi  =  x\}$, welche definiert ist als 
+\begin{align*}
+\{\xi  =  x\} := \{\omega \in \Omega|\xi(\omega)  =  x\}, \text{ wobei } x \in  \mathcal{X}.
+\end{align*}
+Das ist die Menge \textit{der} $\omega$'s, die von $\xi$ auf $x$ abgebildet werden, also das Urbild von $x$. 
+\end{itemize}
+
+
+
+# \textcolor{darkblue}{SKF 2}. *Notation für Zufallsvariablen*
+
+\large
+\color{darkblue} 2. Erläutern Sie die Gleichung $\mathbb{P}_\xi(\xi = x) = \mathbb{P}(\{\xi = x\})$.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+\setstretch{1.2}
+
+\color{darkcyan}
+
+\small
+*Beispiel*
+
+\footnotesize
+Für das Werfen zweier Würfel ist ein sinnvolles Wahrscheinlichkeitsraum-Modell
+\begin{itemize}
+\color{darkcyan}
+\item $\Omega := \{(r,b)| r  \in \mathbb{N}_6, b \in \mathbb{N}_6\}$
+\item $\mathcal{A} := \mathcal{P}(\Omega)$.
+\item $\mathbb{P} : \mathcal{A} \to [0,1]$ mit $\mathbb{P}(\{(r,b)\}) = 1/36$ für alle $(r,b) \in \Omega$.
+\end{itemize}
+
+Die Augenzahl-Summenbildung wird dann sinnvoller Weise durch die Zufallsvariable
+\begin{align*}
+\xi : \Omega \to \mathcal{X}, (r,b) \mapsto \xi((r,b)) := r + b.
+\end{align*}
+beschrieben, wobei $\mathcal{X} := \{2,3,...,12\}$.
+
+Die Wahrscheinlichkeit, dass die ZV den Wert 2 annimmnt, also $\mathbb{P}_{\xi}(\xi = 2)$ im Wahrscheinlichkeitsraums ($\mathcal{X},\mathcal{S},\mathbb{P}_{\xi}$) wäre dann gleich der Wahrscheinlichkeit $\mathbb{P}(\{\xi = 2\})$ im  Wahrscheinlichkeitsraums $(\Omega, \mathcal{A}, \mathbb{P})$, also der Wahrscheinlichkeit des Urbilds von $x$, nämlich $\mathbb{P}(\xi^{-1}(\{2\}))$. Formal
+\begin{align*}
+\mathbb{P}_{\xi}(\xi = 2) = \mathbb{P}(\{\xi = 2\}) = \mathbb{P}(\xi^{-1}(\{ 2 \})) = \mathbb{P}(\{(1,1)\}) = \frac{1}{36}
+\end{align*}
+
+
+
+# \textcolor{darkcyan}{Veranschaulichung}
+
+\vfill 
+\center 
+
+```{r, echo = FALSE}
+knitr::include_graphics(file.path(abb_dir, "wtfi_4_zufallsvariable.pdf"))
+```
+
+
+
+# \textcolor{darkblue}{SKF 3}. *Notation für Zufallsvariablen*
+
+\large
+\color{darkblue} 3. Erläutern Sie die Bedeutung von $\mathbb{P}(\xi = x)$.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Bei der Notation der Verteilung von Zufallsvariablen wird of auf das ZV Subskript verzichtet.  $\mathbb{P}(\xi = x)$ steht dann für $\mathbb{P}_{\xi}(\xi = x)$, was die Wahrscheinlichkeit dafür, dass die ZV $\xi$ den Wert $x$ annimmt repräsentiert. 
+
+\color{darkcyan}
+
+Weitere Beispiele sind
+\begin{align*}
+\begin{split}
+\mathbb{P}\left(\xi\in S\right) = \mathbb{P}_\xi\left(\xi \in S\right), S \subset \mathcal{X} ,	\\
+\mathbb{P}\left(\xi\le x\right) = \mathbb{P}_\xi\left(\xi \le S\right), x \in \mathcal{X}.  		\\
+\end{split}
+\end{align*}
+
+
+
+# \textcolor{darkblue}{SKF 4}. *Wahrscheinlichkeitsmassefunktion.*
+
+\large
+\color{darkblue} 4. Definieren Sie den Begriff der Wahrscheinlichkeitsmassefunktion.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Diskrete ZV, Wahrscheinlichkeitsmassefunktion]
+\justifying
+Eine Zufallsvariable $\xi$ heißt \textit{diskret}, wenn ihr Ergebnisraum $\mathcal{X}$
+endlich oder abzählbar ist und eine Funktion der Form
+\begin{equation}
+p: \mathcal{X} \to \mathbb{R}_{\ge 0}, x \mapsto p(x)
+\end{equation}
+existiert, für die gilt
+\begin{itemize}
+\item[(1)] $\sum_{x \in \mathcal{X}} p(x) = 1$ und
+\item[(2)] $\mathbb{P}_\xi(\xi = x) = p(x)$ für alle $x \in \mathcal{X}$.
+\end{itemize}
+Eine entsprechende Funktion $p$ heißt \textit{Wahrscheinlichkeitsmassefunktion (WMF)} von $\xi$.
+\end{definition}
