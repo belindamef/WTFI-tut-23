@@ -61,7 +61,7 @@ Inhalte basieren auf Kursmaterialien für [WTFI](https://www.ipsy.ovgu.de/Instit
 \color{black}
 \footnotesize
 
-Ja, die Komplementärmenge einer unendlichen Menge kann unendlich sein, muss aber nicht. Es kommt ganz darauf an, wie genau $A$ definiert ist. 
+Ja, die Komplementärmenge einer unendlichen Menge kann unendlich sein, muss aber nicht. Es kommt ganz darauf an, wie $A$ genau definiert ist. 
 
 **Beispiel 1)**
 
@@ -128,7 +128,7 @@ knitr::include_graphics(file.path(abb_dir,"wtfi_3_venn_diagramme.pdf"))
 $A \cap (B \cap A^c) = \emptyset$.  
 \textcolor{darkcyan}{$A \cap (B \cap A^c) = \emptyset$ sagt uns, dass $A$ und $(B \cap A^c)$ disjunkt sind.}
 * Die Wahrscheinlichkeit für $B$ ist dann die Wahrscheinlichkeit der Vereinigung $A \cup (B \cap A^c)$. 
-* Mit der \textit{ $\sigma$-Additivität} $\mathbb{P}(\cup_{i=1}^\infty A_i) = \sum\limits_{i=1}^\infty \mathbb{P}(A_i)$ für paarweise disjunkte $A_i \in \mathcal{A}$ folgt dann  
+* Mit der \textit{$\sigma$-Additivität} $\mathbb{P}(\cup_{i=1}^\infty A_i) = \sum\limits_{i=1}^\infty \mathbb{P}(A_i)$ für paarweise disjunkte $A_i \in \mathcal{A}$ folgt dann  
 $\mathbb{P}(B) = \mathbb{P}(A) + \mathbb{P}(B \cap A^c)$
 * Mit $\mathbb{P}(B \cap A^c) \ge 0$ folgt dann $\mathbb{P}(A) \le \mathbb{P}(B)$.
 
