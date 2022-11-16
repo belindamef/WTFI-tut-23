@@ -171,7 +171,7 @@ knitr::include_graphics(file.path(abb_dir, "wtfi_4_zufallsvariable.pdf"))
 \color{black}
 \footnotesize
 
-Bei der Notation der Verteilung von Zufallsvariablen wird of auf das ZV Subskript verzichtet.  $\mathbb{P}(\xi = x)$ steht dann für $\mathbb{P}_{\xi}(\xi = x)$, was die Wahrscheinlichkeit dafür, dass die ZV $\xi$ den Wert $x$ annimmt repräsentiert. 
+Bei der Notation der Verteilung von Zufallsvariablen wird oft auf das ZV Subskript verzichtet.  $\mathbb{P}(\xi = x)$ steht dann für $\mathbb{P}_{\xi}(\xi = x)$, was die Wahrscheinlichkeit dafür, dass die ZV $\xi$ den Wert $x$ annimmt, repräsentiert. 
 
 \color{darkcyan}
 
@@ -288,7 +288,7 @@ U(x;|\mathcal{X}|) := \frac{1}{|\mathcal{X}|}.
 
 \normalsize
 \color{darkcyan}
-Die ZV $\xi : \Omega \to \mathcal{X}$ beschreibe die Augenzahl eines Würfels, wobei $\mathcal{X} := \{1,2,3,4,5,6\}$
+Bsp.: Die ZV $\xi : \Omega \to \mathcal{X}$ beschreibe die Augenzahl eines Würfelwurfs mit einem Würfel, wobei $\mathcal{X} := \{1,2,3,4,5,6\}$
 \vspace{1cm}
 
 ```{r, eval = F, echo = F}
@@ -344,7 +344,7 @@ dev.copy2pdf(                                                                   
 ```
 
 \vspace{-8mm}
-```{r, echo = FALSE, out.width = "85%"}
+```{r, echo = FALSE, out.width = "80%"}
 knitr::include_graphics(file.path(abb_dir, "wtfi_4_gleichverteilung_wmf_skf.pdf"))
 ```
 
@@ -409,9 +409,11 @@ Eine normalverteilte Zufallsvariable mit $\mu = 0$ und $\sigma^2 = 1$ heißt
 \textit{standardnormalverteilte Zufallsvariable} und wird oft als \textit{$Z$-Zufallsvariable} bezeichnet.
 \end{definition}
 
+\color{darkcyan}
 Bemerkungen
 \begin{itemize}
 \justifying
+\color{darkcyan}
 \item Der Parameter $\mu$ entspricht dem Wert höchster Wahrscheinlichkeitsdichte.
 \item Der Parameter $\sigma^2$ spezifiziert die Breite der WDF.
 \end{itemize}
@@ -576,7 +578,7 @@ Bemerkungen
 \item Für $q \in ]0,1[$ ist also $P^{-1}(q)$ der Wert $x$ von $\xi$, so dass $\mathbb{P}(\xi \le x) = q$ gilt.  \\
 \textcolor{darkcyan}{In unserem Beispiel oben gibt uns $P^{-1}(0.3)$ den Wert $x$, den eine ZV $\xi$ annehmen könnte, so dass gilt, dass die Wahrscheinlichkeit dafür, dass $\xi$ kleiner oder gleich diesem Wert ist, bei $0.3$ liegt}
 \item Wenn $Z \sim N(0,1)$ mit KVF $\Phi$ ist, dann gilt zum Beispiel $\Phi^{-1}(0.975) = 1.960$. \\
-\textcolor{darkcyan}{Beantwortet die Frage "Für welchen Wert x ist die Wahrscheinlichkeit dafür, dass die ZV kleiner oder gleich diesem Wert annimmt, 0.975?}
+\textcolor{darkcyan}{Beantwortet die Frage "Für welchen Wert x ist die Wahrscheinlichkeit dafür, dass die ZV kleiner oder gleich diesen Wert annimmt, 0.975?}
 \end{itemize}
 
 
