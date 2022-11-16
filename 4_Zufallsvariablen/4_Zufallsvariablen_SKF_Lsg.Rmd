@@ -452,7 +452,7 @@ P : \mathbb{R} \to [0,1], x \mapsto P(x) := \mathbb{P}(\xi \le x).
 # \textcolor{darkcyan}{Kumulativen Verteilungsfunktion - Beispiele}
 
 \small
-Binomal-Zufallsvariablen
+Binomial-Zufallsvariablen
 
 ```{r, echo = FALSE, out.width = "80%"}
 knitr::include_graphics(file.path(abb_dir, "wtfi_4_binomialverteilung_kvf.pdf"))
