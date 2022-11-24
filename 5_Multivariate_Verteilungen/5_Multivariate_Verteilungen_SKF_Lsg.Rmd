@@ -251,7 +251,7 @@ $\xi:\Omega \to \mathcal{X}$ sei ein Zufallsvektor, $\mathbb{P}_\xi$ sei die
 Verteilung von $\xi$, $\mathcal{X}_i \subset \mathcal{X}$ sei der Ergebnisraum der 
 $i$ten Komponente $\xi_i$ von $\xi$, und $\mathcal{S}_i$ sei eine 
 $\sigma$-Algebra auf $\xi_i$. Dann heißt die durch
-\begin{equation}
+\begin{equation}\label{eq:univ_marg_verteilung}
 \mathbb{P}_{\xi_i} : \mathcal{S}_i \to [0,1],
 S \mapsto  \mathbb{P}_\xi\left(\mathcal{X}_1
                      \times
@@ -267,6 +267,13 @@ S \mapsto  \mathbb{P}_\xi\left(\mathcal{X}_1
 definierte Verteilung die \textit{$i$te univariate Marginalverteilung von $\xi$}.
 \end{definition}
 
+\color{darkcyan}
+
+Anmerkungen:
+
+* \color{darkcyan} $\mathcal{X}_1 \times \cdots \times \mathcal{X}_{i-1} \times S \times \mathcal{X}_{i+1} \times \cdots \times \mathcal{X}_n$ ist das kartesischer Produkt aus der Menge $S$ und der Ergebnisräume $\mathcal{X}_j \subset \mathcal{X}, j\neq i$, also die Ergebnisräume, die *nicht* der Ergebnisraum  $i$ten Komponente sind.
+* Das Ergebnis des kartesischen Produkts $\mathcal{X}_1 \times \cdots \times \mathcal{X}_{i-1} \times S \times \mathcal{X}_{i+1} \times \cdots \times \mathcal{X}_n$ ist wiederum eine Menge.
+
 
 
 # \color{darkcyan}{Beispiel}
@@ -274,7 +281,7 @@ Beispiel (Marginale Wahrscheinlichkeitsmassefunktionen)
 
 \vspace{2mm}
 
-\small
+\footnotesize
 \justifying
 
 Wir betrachten erneut den zweidimensionalen Zufallsvektor $\xi:= (\xi_1,\xi_2)$ der 
@@ -300,7 +307,19 @@ $p_{\xi_2}(x_2)$	&   $0.2$	 	&   $0.3$ 		&   $0.3$ 		&   $0.2$       & 					\\\h
 \end{table}
 \vspace{2mm}
 
-Man beachte, dass $\sum_{x_1 = 1}^3 p_{\xi_1}(x_1) = 1$ und $\sum_{x_2 = 1}^3 p_{\xi_2}(x_2) = 1$ gilt.
+Man beachte, dass $\sum_{x_1 = 1}^3 p_{\xi_1}(x_1) = 1$ und $\sum_{x_2 = 1}^4 p_{\xi_2}(x_2) = 1$ gilt.
+
+Die univariate Marginalverteilungen sind gemäß (\ref{eq:univ_marg_verteilung}) für $\xi_1$ durch $\mathbb{P}_\xi\left(\mathcal{X}_2 \times S \right)$ und für $\xi_2$ durch $\mathbb{P}_\xi\left(\mathcal{X}_1 \times S \right)$.
+
+\setstretch{1.1}
+\tiny 
+\color{darkcyan}
+Wir betrachten zum Bespeil die univariate Marginalverteilung von $\xi_2$:
+
+* \color{darkcyan} Das kartesische Produkt aus $\mathcal{X}_1$ und $S$ ergibt eine Menge. So ergibt $\mathcal{X}_1 \times S$ die Menge $\{(1,S), (2,S), (3,S)\}$, für $S \in \mathcal{S}_2$.
+* $S \in \mathcal{S}_2$ sagt uns, dass die Menge $S$ ein Element der Menge von Teilmengen $\mathcal{S}_2$ ist. Dabei ist $\mathcal{S}_2$ eine $\sigma$-Algebra auf $\mathcal{X}_2 = \{1,2,3,4\}$. 
+* In der Tabelle oben betrachten wir für die Wahrscheinlichkeitsverteilung von $\xi_2$ die Wahrscheinlichkeiten für die Fälle, dass $S=\{1\}$ (erste Spalte), $S=\{2\}$ (zweite Spalte), $S=\{3\}$ (dritte Spalte) oder $S=\{4\}$ (vierte Spalte). 
+* z.B. ist die Wahrscheinlichkeit dafür, dass die zweite Komponente den Wert $1$ annimment gegeben durch $p_{\xi_2}(1)$ und das entspricht der W'verteilung $\mathbb{P}_\xi\left(\mathcal{X}_1 \times S \right)$ für $S=\{1\}$, also $\mathbb{P}_{\xi}(\{(1,1), (2,1), (3,1)\})$.
 
 
 
