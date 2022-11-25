@@ -1,0 +1,719 @@
+---
+fontsize: 8pt
+bibliography: ../Referenzen.bib
+citation_package: natbib
+output:
+  beamer_presentation:
+    keep_tex: true
+    includes:
+      in_header: ../Header.tex
+classoption: t  
+---
+
+
+```{r, include = F}
+source("../R_common.R")
+abb_dir = file.path(dirname(getwd()), "Abbildungen")
+```
+
+#  {.plain}
+\center
+```{r, echo = FALSE, out.width = "20%"}
+knitr::include_graphics(file.path(abb_dir,"otto.png"))
+```
+
+\vspace{2mm}
+
+\huge
+Tutorium 
+
+\Large
+Wahrscheinlichketstheorie und Frequentistische Inferenz
+\vspace{4mm}
+
+\normalsize
+BSc Psychologie WiSe 2022/23
+
+\vspace{12mm}
+\normalsize
+Belinda Fleischmann
+
+\vspace{3mm}
+\scriptsize
+Inhalte basieren auf Kursmaterialien für [WTFI](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Lehre/Wintersemester+2023/Wahrscheinlichkeitstheorie+und+Frequentistische+Inferenz.html) von [Dirk Ostwald](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Team/Dirk+Ostwald.html), lizenziert unter [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de)
+
+
+
+#  {.plain}
+\vfill
+\center
+\huge
+\text{(6) Erwartungswert und Kovarianz}
+
+
+# Selbstkontrollfragen
+\footnotesize
+\setstretch{1.6}
+\begin{enumerate}
+\item Definieren und interpretieren Sie den Erwartungswert einer Zufallsvariable.
+\item Berechnen Sie den Erwartungswert einer Bernoulli Zufallsvariable.
+\item Nennen Sie drei Eigenschaften des Erwartungswerts.
+\item Definieren und interpretieren Sie die Varianz einer Zufallsvariable.
+\item Berechnen Sie die Varianz einer Bernoulli Zufallsvariable.
+\item Drücken Sie $\mathbb{E}(\xi^2)$ mithilfe der Varianz und des Erwartungswerts von $\xi$ aus.
+\item Was ist $\mathbb{V}(a\xi)$ für konstantes $a \in \mathbb{R}$?
+\item Definieren Sie die Kovarianz und Korrelation zweier Zufallsvariablen $\xi$ und $\ups$.
+\item Geben Sie das Theorem zur Varianz von Linearkombinationen von Zufallsvariablen bei Unabhängigkeit wieder.
+\item Definieren Sie den Begriff der Stichprobe.
+\item Definieren Sie den Begriff des Stichprobenmittels.
+\item Definieren Sie Stichprobenvarianz und Stichprobenstandardabweichung.
+\end{enumerate}
+
+# Selbstkontrollfragen
+\footnotesize
+\begin{enumerate}
+\setstretch{1.6}
+\justifying
+\setcounter{enumi}{12}
+\item Erläutern Sie die Unterschiede zwischen dem Erwartungswertparameter, dem Erwartungswert und dem Stichprobenmittel von normalverteilten Zufallsvariablen.
+\item Definieren Sie die Kovarianz und die Korrelation zweier Zufallsvariablen.
+\item Schreiben Sie die Kovarianz zweier Zufallsvariablen mithilfe von Erwartungswerten.
+\item Geben Sie das Theorem zur Korrelation und Unabhängigkeit zweier Zufallsvariablen wieder.
+\item Was ist die Varianz der Summe zweier Zufallsvariablen bei Unabhängigkeit?
+\item Was ist die Varianz der Summe zweier Zufallsvariablen im Allgemeinen?
+\item Definieren Sie das Stichprobenmittel für eine Stichprobe zweidimensionaler Zufallsvektoren.
+\item Definieren Sie die Stichprobenkovarianz einer Stichproben von zweidimensionaler Zufallsvektoren.
+\item Wann ergeben sich für die Stichprobenkovarienz hohe positive oder hohe negative Werte?
+\item Wann ergeben sich für die Stichprobenkovarianzwerte nahe Null?
+\item Definieren Sie den Stichprobenkorrelationskoeffizienten.
+\end{enumerate}
+
+
+
+# \textcolor{darkcyan}{Wdhl.: Modell und Realität}
+```{r, echo = FALSE, out.width = "95%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_5_wahrscheinlichkeitstheorie_modell.pdf"))
+```
+
+
+
+# \textcolor{darkcyan}{Wdhl.: Modell und Realität} 
+\vspace{4mm}
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_6_wahrscheinlichkeitstheorie_modell_beispiel.pdf"))
+```
+
+
+
+# \textcolor{darkblue}{SKF 1}. *Erwartungswert *
+
+\large
+\color{darkblue} 1. Definieren und interpretieren Sie den Erwartungswert einer Zufallsvariable.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Erwartungswert]
+\justifying
+$(\Omega, \mathcal{A},\mathbb{P})$ sei ein Wahrscheinlichkeitsraum und $\xi$
+sei eine  Zufallsvariable. Dann ist der \textit{Erwartungswert von $\xi$} definiert als
+\begin{itemize}
+\item 
+$\mathbb{E}(\xi)
+:=
+\sum_{x \in \mathcal{X}} x\,p_\xi(x)$,
+wenn $\xi : \Omega \to \mathcal{X}$ diskret mit WMF $p_\xi$ und Ergebnisraum $\mathcal{X}$ ist,
+\item
+$\mathbb{E}(\xi)
+:=
+\intinf x \,p_\xi(x)\,dx$,
+wenn $\xi : \Omega \to \mathbb{R}$ kontinuierlich mit WDF $p_\xi$ ist.
+\end{itemize}
+Der Erwartungswert einer Zufallsvariable heißt \textit{existent}, wenn er endlich ist.
+\end{definition}
+
+Bemerkungen
+
+* Der Erwartungswert ist eine skalare Zusammenfassung einer Verteilung.
+* Intuitiv ist $\mathbb{E}(\xi) \approx \frac{1}{n}\sum_{i=1}^n \xi_i$ für eine große Zahl $n$ von Kopien $\xi_i$ von $\xi$.
+* Für manche Verteilungen, wie etwa bei einer Normalverteilung $N(\mu,\sigma^2)$ mit Erwartungswert\textit{parameter} $\mu$ und Varianz\textit{parameter} $\sigma^2$, entspricht der Erwartungswert $\mathbb{E}(\xi)$ dem Erwartungswert\textit{parameter} $\mu$, wie die Beweise im VL-Skript zeigen. $\mathbb{E}(\xi)$ und $\mu$ sind aber nicht das gleiche!
+* \textcolor{darkcyan}{Intuitiv kann der Erwartungswert als der Mittelwert von sehr vielen Realisierungen einer ZV verstanden werden. Anders ausgedrückt, bei einer großen Zahl an Realisierungen nähert sich der Mittelwert dem Erwartungswert an.}
+* \textcolor{darkcyan}{Der Erwartungswert kann bestimmt werden, wenn Messraum und Verteilung einer ZV festgelegt wurden.}
+  * \footnotesize \textcolor{darkcyan}{Durch den Messraum wissen wir, welche Werte die ZV annehmen kann.}
+  * \textcolor{darkcyan}{Die Verteilung sagt uns, mit welcher Wahrscheinlichkeitsmasse /-dichte diese Werte assoziiert sind.}
+
+
+
+# \textcolor{darkblue}{SKF 2}. *Erwartungswert - Bernoulli ZV*
+
+\large
+\color{darkblue} 2. Berechnen Sie den Erwartungswert einer Bernoulli Zufallsvariable.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Es sei $\xi \sim \mbox{Bern}(\mu)$. Dann gilt $\mathbb{E}(\xi) = \mu$.
+\vspace{5mm}
+
+\color{darkcyan}
+\underline{Beweis}
+\vspace{1mm}
+
+$\xi$ ist diskret mit $\mathcal{X} = \{0,1\}$. Also gilt
+\begin{align}
+\begin{split}
+\mathbb{E}(\xi)
+& = \sum_{x \in \{0,1\}} x\,\mbox{Bern}(x;\mu) \\
+& = 0\cdot \mu^0 (1 - \mu)^{1-0} + 1\cdot \mu^1 (1 - \mu)^{1-1} \\
+& = 1\cdot \mu^1 (1 - \mu)^{0} \\
+& = \mu.
+\end{split}
+\end{align}
+$\hfill \Box$
+
+\color{black}
+Konkretes Beispiel:
+
+Es sei $\xi \sim \mbox{Bern}(\mu)$ mit $\mu = 0.5$. 
+\textcolor{darkcyan}{Per Definition ist $\mathcal{X} = \{0,1\}$ gegeben. Wenn wir sagen, dass das Ergebnis $0 \in \mathcal{X}$ Kopf und $1 \in \mathcal{X}$ Zahl repräsentiert, können wir mit einer Bernoullig-ZV mit $\mu = 0.5$ einen Münzwurf modellieren.}
+Dann ergibt sich für den Erwartungswert
+\begin{align*}
+\mathbb{E}(\xi) = \mu = 0.5
+\end{align*}
+
+
+
+# \color{darkcyan} Wdhl.: Bernoulli ZV
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Bernoulli-Zufallsvariable]
+\justifying
+Es sei $\xi$ eine Zufallsvariable mit Ergebnisraum $\mathcal{X} = \{0,1\}$ und WMF
+\begin{equation}
+p : \mathcal{X} \to [0,1], x\mapsto p(x) := \mu^{x}(1 - \mu)^{1-x} \mbox{ mit } \mu \in [0,1].
+\end{equation}
+
+Dann sagen wir, dass $\xi$ einer \textit{Bernoulli-Verteilung mit Parameter
+$\mu \in [0,1]$} unterliegt und nennen $\xi$ eine \textit{Bernoulli-Zufallsvariable}.
+Wir kürzen dies mit $\xi \sim \mbox{Bern}(\mu)$ ab. Die WMF einer
+Bernoulli-Zufallsvariable bezeichnen wir mit
+\begin{equation}
+\mbox{Bern}(x;\mu) := \mu^x (1 - \mu)^{1 - x}.
+\end{equation}
+\end{definition}
+
+```{r, echo = FALSE, out.width = "90%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_4_bernoulliverteilung_wmf.pdf"))
+```
+
+\vspace{-6mm}
+\center
+\color{darkcyan}´
+$\mathbb{E}(\xi) = 0.1$ \hspace{18mm} $\mathbb{E}(\xi) = 0.5$ \hspace{18mm} $\mathbb{E}(\xi) = 0.7$
+
+
+
+# \textcolor{darkblue}{SKF 3}. *Erwartungswert-Eigenschaften*
+
+\large
+\color{darkblue} 3. Nennen Sie drei Eigenschaften des Erwartungswerts.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{theorem}[Eigenschaften des Erwartungswerts]
+\normalfont
+\justifying
+\begin{itemize}
+\item[(1)] (Linear-affine Transformation) Für eine Zufallsvariable $\xi$ und $a,b\in \mathbb{R}$ gilt
+\begin{equation}
+\mathbb{E}(a\xi + b) = a\mathbb{E}(\xi) + b.
+\end{equation}
+\item[(2)] (Linearkombination) Für Zufallsvariablen $\xi_1,...,\xi_n$ und $a_1,...,a_n \in \mathbb{R}$ gilt
+\begin{equation}
+\mathbb{E}\left(\sum_{i=1}^n a_i\xi_i \right) = \sum_{i = 1}^n a_i \mathbb{E}(\xi_i).
+\end{equation}
+\item [(3)] (Faktorisierung bei Unabhängigkeit) Für unabhängige Zufallsvariablen $\xi_1,...,\xi_n$ gilt
+\begin{equation}
+\mathbb{E}\left(\prod_{i=1}^n \xi_i \right) = \prod_{i = 1}^n \mathbb{E}(\xi_i).
+\end{equation}
+\end{itemize}
+\end{theorem}
+
+
+
+# \textcolor{darkblue}{SKF 4}. *Varianz*
+
+\large
+\color{darkblue} 4. Definieren und interpretieren Sie die Varianz einer Zufallsvariable.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Varianz und Standardabweichung]
+\justifying
+Es sei $\xi$ eine Zufallsvariable mit Erwartungswert $\mathbb{E}(\xi)$. 
+Die \textit{Varianz von $\xi$} ist definiert als
+\begin{equation}
+\mathbb{V}(\xi) := \mathbb{E}\left((\xi - \mathbb{E}(\xi))^2\right),
+\end{equation}
+unter der Annahme, dass dieser Erwartungswert existiert. Die 
+\textit{Standardabweichung von $\xi$} ist definiert
+\begin{equation}
+\mathbb{S}(\xi) := \sqrt{\mathbb{V}(\xi)}.
+\end{equation}
+\end{definition}
+
+Bemerkungen
+
+* Die Varianz misst die Streuung (Breite) einer Verteilung.
+* Quadration ist nötig wegen $\mathbb{E}(\xi-\mathbb{E}(\xi)) = \mathbb{E}(\xi) - \mathbb{E}(\xi) = 0$.
+* \textcolor{darkcyan}{Intuitiv quantifiziert die Varianz, wie viel die Werte, die eine ZV annehmen kann "variieren", besser gesagt vom Erwartungswert abweichen, oder anders ausgedrückt um den Erwartungswert streuen.}
+
+
+
+# \textcolor{darkblue}{SKF 5}. *Varianz - Bernoulli ZV*
+
+\large
+\color{darkblue} 5. Berechnen Sie die Varianz einer Bernoulli Zufallsvariable.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Es sei $\xi \sim \mbox{Bern}(\mu)$. Dann ist die Varianz von $\xi$ gegeben durch $\mathbb{V}(\xi) = \mu(1-\mu).$
+
+\color{darkcyan}
+\tiny
+\underline{Beweis}
+\vspace{1mm}
+
+$\xi$ ist eine diskrete Zufallsvariable und es gilt $\mathbb{E}(\xi) = \mu$. Also gilt
+\begin{align}
+\begin{split}
+\mathbb{V}(\xi)
+& = \mathbb{E}\left((\xi - \mu)^2\right) \\
+& = \sum_{x \in \{0,1\}} (x - \mu)^2 \mbox{Bern}(x;\mu) \\
+& = (0 - \mu)^2 \mu^0(1-\mu)^{1-0}  + (1 - \mu)^2\mu^1(1-\mu)^{1-1}  \\
+& = \mu^2 (1-\mu)  + (1 - \mu)^2\mu  \\
+& = \left(\mu^2  + (1 - \mu)\mu\right)(1-\mu)  \\
+& = \left(\mu^2 + \mu - \mu^2\right)(1 - \mu) \\
+& = \mu(1-\mu).
+\end{split}
+\end{align}
+$\hfill \Box$
+
+\vspace{-3mm}
+\color{black}
+\footnotesize
+Konkretes Beispiel:
+
+Es sei $\xi \sim \mbox{Bern}(\mu)$ mit $\mu = 0.5$. Dann ergibt sich für die Varianz 
+\begin{align*}
+\mathbb{V}(\xi) = \mu(1-\mu) = 0.5(0.5) = 0.25
+\end{align*}
+
+
+
+# \textcolor{darkcyan}{Weitere Beispiele}
+\footnotesize 
+```{r, echo = FALSE, out.width = "90%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_4_bernoulliverteilung_wmf.pdf"))
+```
+
+\vspace{-6mm}
+\center
+\color{darkcyan}
+$\mathbb{E}(\xi) = 0.1$ \hspace{18mm} $\mathbb{E}(\xi) = 0.5$ \hspace{18mm} $\mathbb{E}(\xi) = 0.7$
+
+$\mathbb{V}(\xi) = 0.1 \cdot 0.9 = 0.09$ \hspace{8mm} $\mathbb{V}(\xi) = 0.5 \cdot 0.5 = 0.25$ \hspace{6mm} $\mathbb{V}(\xi) = 0.7 \cdot 0.3 = 0.21$
+
+
+
+
+
+# \textcolor{darkblue}{SKF 6}. *Erwartungswert einer quadrierten ZV*
+
+\large
+\color{darkblue} 6. Drücken Sie $\mathbb{E}(\xi^2)$ mithilfe der Varianz und des Erwartungswerts von $\xi$ aus.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Gemäß Varianzverschiebungssatz gilt $\mathbb{V}(\xi) = \mathbb{E}\left(\xi^2 \right) - \mathbb{E}(\xi)^2$. 
+
+Durch Umstellen der Gleichung erhalten wir 
+\begin{align*}
+& \mathbb{V}(\xi) = \mathbb{E}\left(\xi^2 \right) - \mathbb{E}(\xi)^2 \\
+\Leftrightarrow & \mathbb{V}(\xi) +  \mathbb{E}(\xi)^2 = \mathbb{E}\left(\xi^2 \right) 
+\end{align*}
+
+Somit können wir $\mathbb{E}(\xi^2)$ mithilfe der Varianz einer quadrierten ZV $\xi^2$ ($\mathbb{V}(\xi)$) und des Erwartungswerts von $\xi$ ($\mathbb{E}(\xi)$), wobei wir den Erwartungswert in Quadrat nehmen, formal
+
+\begin{align*}
+\mathbb{E}\left(\xi^2 \right) = \mathbb{V}(\xi) +  \mathbb{E}(\xi)^2
+\end{align*}
+
+
+
+# \textcolor{darkblue}{SKF 7}. *Varianzeigenschaften*
+
+\large
+\color{darkblue} 7. Was ist $\mathbb{V}(a\xi)$ für konstantes $a \in \mathbb{R}$?
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Nach dem ersten Satz (Linear-affine Transformation) des Theorems zu Varianzeigenschaften gilt für eine Zufallsvariable $\xi$ und  $a,b\in \mathbb{R}$
+\begin{align*}
+\mathbb{V}(a\xi + b) = a^2 \mathbb{V}(\xi)
+\mbox{ und }
+\mathbb{S}(a\xi + b) = |a|\mathbb{S}(\xi).
+\end{align*}
+
+Somit gilt 
+
+\begin{align*}
+\mathbb{V}(a\xi) = a^2 \mathbb{V}(\xi)
+\end{align*}
+
+
+
+# \textcolor{darkblue}{SKF 8}. *Kovarianz und Korrelation*
+
+\large
+\color{darkblue} 8. Definieren Sie die Kovarianz und Korrelation zweier Zufallsvariablen $\xi$ und $\ups$.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Kovarianz und Korrelation]
+\justifying
+Die \textit{Kovarianz} zweier Zufallsvariablen $\xi$ und $\ups$ ist definiert als
+\begin{equation}
+\mathbb{C}(\xi,\ups) :=
+\mathbb{E}\left(\left(\xi - \mathbb{E}(\xi) \right)\left(\ups - \mathbb{E}(\ups)\right)\right).
+\end{equation}
+Die \textit{Korrelation} zweier Zufallsvariablen $\xi$ und $\ups$ ist definiert als
+\begin{equation}
+\rho(\xi,\ups)
+:= \frac{\mathbb{C}(\xi,\ups)}{\sqrt{\mathbb{V}(\xi)}\sqrt{\mathbb{V}(\ups)}}
+ = \frac{\mathbb{C}(\xi,\ups)}{\mathbb{S}(\xi){\mathbb{S}(\ups)}}.
+\end{equation}
+\end{definition}
+
+\footnotesize
+Bemerkungen
+
+* Die Kovarianz von $\xi$ mit sich selbst ist die Varianz von $\xi$,
+\begin{equation}
+\mathbb{C}(\xi,\xi) =
+\mathbb{E}\left(\left(\xi - \mathbb{E}(\xi) \right)^2\right) =
+\mathbb{V}(\xi).
+\end{equation}
+* $\rho(\xi,\ups)$ wird auch \textit{Korrelationskoeffizient} von $\xi$ und $\ups$ genannt.
+* Wenn $\rho(\xi,\ups) = 0$ ist, werden $\xi$ und $\ups$ \textit{unkorreliert} genannt.
+
+
+
+# \textcolor{darkblue}{SKF 9}. *Varianz von ZV-Linearkombinationen bei Unabhängigkeit*
+
+\large
+\color{darkblue} 9. Geben Sie das Theorem zur Varianz von Linearkombinationen von Zufallsvariablen bei Unabhängigkeit wieder.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{theorem}[Korrelation und Unabhängigkeit]
+\justifying
+\normalfont
+$\xi$ und $\ups$ seien zwei Zufallsvariablen. Wenn $\xi$ und $\ups$ unabhängig sind, 
+dann ist $\mathbb{C}(\xi,\ups) = 0$ und $\xi$ und $\ups$ sind unkorreliert. Ist dagegen
+$\mathbb{C}(\xi,\ups) = 0$ und sind $\xi$ und $\ups$ somit unkorreliert, dann sind $\xi$ 
+und $\ups$ nicht notwendigerweise unabhängig.
+\end{theorem}
+
+
+
+# \textcolor{darkblue}{SKF 10}. *Stichprobe.*
+
+\large
+\color{darkblue} 10. Definieren Sie den Begriff der Stichprobe.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+\setstretch{1.1}
+
+$\xi_1,...,\xi_n$ seien Zufallsvariablen. Dann nennt man $\xi_1,...,\xi_n$ auch eine \textit{Stichprobe}.
+
+
+
+
+
+
+# \textcolor{darkblue}{SKF 11}. *Stichprobenmittels.*
+
+\large
+\color{darkblue} 11. Definieren Sie den Begriff des Stichprobenmittels.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Das \textit{Stichprobenmittel} von $\xi_1,...,\xi_n$ ist definiert als der arithmetische Mittelwert
+\begin{equation}
+\bar{\xi}_n := \frac{1}{n}\sum_{i=1}^n \xi_i.
+\end{equation}
+
+\setstretch{1.3}
+\footnotesize
+Bemerkungen
+
+* $\mathbb{E}(\xi),\mathbb{V}(\xi)$, und $\mathbb{S}(\xi)$ sind Kennzahlen einer Zufallsvariable $\xi$.
+* $\bar{\xi}_n, S_n^2$, und $S_n$ sind Kennzahlen einer Stichprobe $\xi_1,...,\xi_n$.
+* $\bar{\xi}_n, S_n^2$, und $S_n$ sind Zufallsvariablen, ihre Realisationen werden mit $\bar{x}_n, s_n^2,$ und $s_n$ bezeichnet. 
+* \color{darkcyan} Hingegen sind Erwartungswert $\mathbb{E}(\xi)$ und Varianz $\mathbb{V}(\xi)$ nicht zufällig.
+* \color{darkcyan} Stichprobenkennzahlen können berechnet werden, wenn wir Realisierungen einer ZV haben. 
+
+
+
+# \textcolor{darkblue}{SKF 12}. *Stichprobenvariaz und -standardabweichung*
+
+\large
+\color{darkblue} 12. Definieren Sie Stichprobenvarianz und Stichprobenstandardabweichung.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Die \textit{Stichprobenvarianz} von $\xi_1,...,\xi_n$ ist definiert als
+\begin{equation}
+S_n^2 := \frac{1}{n-1}\sum_{i=1}^n (\xi_i - \bar{\xi}_n)^2.
+\end{equation}
+Die \textit{Stichprobenstandardabweichung} ist definiert als
+\begin{equation}
+S_n := \sqrt{S_n^2}.
+\end{equation}
+
+
+# \textcolor{darkcyan}{Stichprobenmittel, -varianz und -standardabweichung}
+\footnotesize
+
+* Es seien $\xi_1,...,\xi_{10} \sim N(1,2)$.
+* Wir nehmen die folgenden Realisationen an
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{ccccccccccc}
+   $x_1$
+&  $x_2$
+&  $x_3$
+&  $x_4$
+&  $x_5$
+&  $x_6$
+&  $x_7$
+&  $x_8$
+&  $x_9$
+&  $x_{10}$ \\\hline
+   0.54
+&  1.01
+& -3.28
+&  0.35
+&  2.75
+& -0.51
+&  2.32
+&  1.49
+&  0.96
+&  1.25
+\end{tabular}
+\end{center}
+\end{table}
+* Die Stichprobenmittelrealisation ist
+\begin{equation}
+\bar{x}_{10}
+= \frac{1}{10}\sum_{i = 1}^{10}x_i
+= \frac{6.88}{10}
+= 0.68.
+\end{equation}
+* Die Stichprobenvarianzrealisation ist
+\begin{equation}
+s_{10}^2
+= \frac{1}{9}\sum_{i=1}^{10} (x_i - \bar{x}_{10})^2
+= \frac{1}{9}\sum_{i=1}^{10} (x_i - 0.68)^2
+= \frac{25.37}{9}
+= 2.82.
+\end{equation}
+* Die Stichprobenstandardabweichungrealisation ist
+\begin{equation}
+s_{10} = \sqrt{s_{10}^2} = \sqrt{2.82} = 1.68.
+\end{equation}
+
+
+
+# \textcolor{darkblue}{SKF 13}. *Erwartungswertparameter, Erwartungswert, Stichprobenmittel*
+
+\large
+\color{darkblue} 13. Erläutern Sie die Unterschiede zwischen dem Erwartungswertparameter, dem Erwartungswert und dem Stichprobenmittel von normalverteilten Zufallsvariablen.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+* Der Erwartungswertparameter, so wie wir ihn für die Normalverteilung $N(\mu, \sigma^2)$ definieren, ist eine im Modell gegebene Größe, welche die funktionale Form (i.e. $\frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(x - \mu)^2\right)$) der Normalverteilung bestimmt.
+  * \footnotesize Unterschiedliche Werte für den Parameter $\mu$ ergeben unterschiedliche funktionale Formen (vgl. Einheit (4) Zufallsvariablen)
+* Der Erwartungswert $\mathbb{E}(\xi)$ ist eine Kennzahl einer Zufallsvariable $\xi$. 
+  * \footnotesize Für eine gegebene ZV mit definiertem Messraum und Verteilung ergibt sich immer der gleiche Erwartungswert. 
+* Das Stichprobenmittel $\bar{\xi}_n$ ist eine Kennzahle einer Stichprobe $\xi_1,...,\xi_n$.
+  * \footnotesize $\bar{\xi}_n$ ist eine Zufallsvariable, dessen Realisation mit $\bar{x}_n$ bezeichnet wird; so wie die Realisation einer Stichprobe mit $x_1,...,x_n$ bezeichnet wird. 
+  * Für eine gegebene Stichprobe $\xi_1,...,\xi_n$ ist das Stichprobenmittel $\bar{\xi}_n$ immer der gleiche Wert. 
+  * Jede Realisation einer Stichprobe ($x_1,...,x_n$) hat zugehörige Stichprobenkennzahlen, zu denen auch das Stichprobenmittel $\bar{x}_n$ zählt. Dieser Wert ist bei gegebener Stichprobenrealisation immer der gleiche. 
+  * Verschiedenen Realisationen einer Stichprobe $\xi_1, ..., \xi_n$ können (und werden aller Wahrscheinlichkeit nach) verschiedene Werte für $\bar{\xi}_n$ ergeben. 
+
+
+
+# \textcolor{darkblue}{SKF 14}. *Kovarianz und Korrelation*
+
+\large
+\color{darkblue} 14. Definieren Sie die Kovarianz und die Korrelation zweier Zufallsvariablen.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Kovarianz und Korrelation]
+\justifying
+Die \textit{Kovarianz} zweier Zufallsvariablen $\xi$ und $\ups$ ist definiert als
+\begin{equation}
+\mathbb{C}(\xi,\ups) :=
+\mathbb{E}\left(\left(\xi - \mathbb{E}(\xi) \right)\left(\ups - \mathbb{E}(\ups)\right)\right).
+\end{equation}
+Die \textit{Korrelation} zweier Zufallsvariablen $\xi$ und $\ups$ ist definiert als
+\begin{equation}
+\rho(\xi,\ups)
+:= \frac{\mathbb{C}(\xi,\ups)}{\sqrt{\mathbb{V}(\xi)}\sqrt{\mathbb{V}(\ups)}}
+ = \frac{\mathbb{C}(\xi,\ups)}{\mathbb{S}(\xi){\mathbb{S}(\ups)}}.
+\end{equation}
+\end{definition}
+
+\footnotesize
+Bemerkungen
+
+* Die Kovarianz von $\xi$ mit sich selbst ist die Varianz von $\xi$,
+\begin{equation}
+\mathbb{C}(\xi,\xi) =
+\mathbb{E}\left(\left(\xi - \mathbb{E}(\xi) \right)^2\right) =
+\mathbb{V}(\xi).
+\end{equation}
+* $\rho(\xi,\ups)$ wird auch \textit{Korrelationskoeffizient} von $\xi$ und $\ups$ genannt.
+* Wenn $\rho(\xi,\ups) = 0$ ist, werden $\xi$ und $\ups$ \textit{unkorreliert} genannt.
+* Es gilt $-1 \le \rho(\xi,\ups) \le 1$.
+
+
+
+# \textcolor{darkblue}{SKF 15}. *Kovarianzverschiebungssatz*
+
+\large
+\color{darkblue} 15. Schreiben Sie die Kovarianz zweier Zufallsvariablen mithilfe von Erwartungswerten.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Gemäß Kovarianzverschiebungssatz gilt für zwei Zufallsvariablen $\xi$ und $\ups$
+\begin{align*}
+\mathbb{C}(\xi,\ups) = \mathbb{E}(\xi\ups) - \mathbb{E}(\xi)\mathbb{E}(\ups)
+\end{align*}
+
+\textcolor{darkcyan}{Die Kovarianz ergibt sich aus der Differenz von dem Erwartungswert des Produktes und dem Produkt beider Erwartungswerte.}
+
+
+
+# \textcolor{darkblue}{SKF 16}. *Korrelation und Unabhgk. zweier ZVen*
+
+\large
+\color{darkblue} 16. Geben Sie das Theorem zur Korrelation und Unabhängigkeit zweier Zufallsvariablen wieder.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{theorem}[Korrelation und Unabhängigkeit]
+\justifying
+\normalfont
+$\xi$ und $\ups$ seien zwei Zufallsvariablen. Wenn $\xi$ und $\ups$ unabhängig sind, 
+dann ist $\mathbb{C}(\xi,\ups) = 0$ und $\xi$ und $\ups$ sind unkorreliert. Ist dagegen
+$\mathbb{C}(\xi,\ups) = 0$ und sind $\xi$ und $\ups$ somit unkorreliert, dann sind $\xi$ 
+und $\ups$ nicht notwendigerweise unabhängig.
+\end{theorem}
+
+
+
+# \textcolor{darkblue}{SKF 17}. *Varianz der Summe zweier ZVen bei Unabhgk.*
+
+\large
+\color{darkblue} 17. Was ist die Varianz der Summe zweier Zufallsvariablen bei Unabhängigkeit?
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Generell gilt 
+
+\begin{align*}
+\mathbb{V}(a\xi + b\ups + c) = a^2\mathbb{V}(\xi) + b^2\mathbb{V}(\ups) + 2ab\mathbb{C}(\xi,\ups).
+\end{align*}
+
+Da bei bei Unabhängigkeit $\mathbb{C}(\xi,\ups)=0$, ist die Varianz der Simmer zweier ZVen gegeben durch die Summe der Varianzen, formal
+
+\begin{align*}
+\mathbb{V}(\xi + \ups) = \mathbb{V}(\xi) + \mathbb{V}(\ups).
+\end{align*}
+
+
+
+
+# \textcolor{darkblue}{SKF 18}. *Varianz der Summe zweier ZVen*
+
+\large
+\color{darkblue} 18. Was ist die Varianz der Summe zweier Zufallsvariablen im Allgemeinen?
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{theorem}[Varianzen von Summen und Differenzen von Zufallsvariablen]
+\normalfont
+\justifying
+$\xi$ und $\ups$ seien zwei Zufallsvariablen und es seien $a,b,c \in \mathbb{R}$. Dann gilt
+\begin{equation}
+\mathbb{V}(a\xi + b\ups + c) = a^2\mathbb{V}(\xi) + b^2\mathbb{V}(\ups) + 2ab\mathbb{C}(\xi,\ups).
+\end{equation}
+
+Speziell gelten
+\begin{equation}
+\mathbb{V}(\xi + \ups) = \mathbb{V}(\xi) + \mathbb{V}(\ups) + 2 \mathbb{C}(\xi,\ups)
+\end{equation}
+und
+\begin{equation}
+\mathbb{V}(\xi - \ups) = \mathbb{V}(\xi) + \mathbb{V}(\ups) - 2 \mathbb{C}(\xi,\ups)
+\end{equation}
+\end{theorem}
+
+Bemerkungen
+
+* Varianzen von Zufallsvariablen addieren sich nicht einfach. \textcolor{darkcyan}{(Außer die ZVen sind unabhängig, dann gilt der zweite Satz des Theorems zu Eigenschaften der Varianz (Linearkombination bei Unabhängigkeit)}
+* Die Varianz der Summe zweier Zufallsvariablen hängt von ihrer Kovarianz ab.
+
+
