@@ -81,11 +81,6 @@ Inhalte basieren auf Kursmaterialien für [WTFI](https://www.ipsy.ovgu.de/Instit
 \item Geben Sie das Theorem zur Korrelation und Unabhängigkeit zweier Zufallsvariablen wieder.
 \item Was ist die Varianz der Summe zweier Zufallsvariablen bei Unabhängigkeit?
 \item Was ist die Varianz der Summe zweier Zufallsvariablen im Allgemeinen?
-\item Definieren Sie das Stichprobenmittel für eine Stichprobe zweidimensionaler Zufallsvektoren.
-\item Definieren Sie die Stichprobenkovarianz einer Stichproben von zweidimensionaler Zufallsvektoren.
-\item Wann ergeben sich für die Stichprobenkovarienz hohe positive oder hohe negative Werte?
-\item Wann ergeben sich für die Stichprobenkovarianzwerte nahe Null?
-\item Definieren Sie den Stichprobenkorrelationskoeffizienten.
 \end{enumerate}
 
 
@@ -177,7 +172,7 @@ $\hfill \Box$
 Konkretes Beispiel:
 
 Es sei $\xi \sim \mbox{Bern}(\mu)$ mit $\mu = 0.5$. 
-\textcolor{darkcyan}{Per Definition ist $\mathcal{X} = \{0,1\}$ gegeben. Wenn wir sagen, dass das Ergebnis $0 \in \mathcal{X}$ Kopf und $1 \in \mathcal{X}$ Zahl repräsentiert, können wir mit einer Bernoullig-ZV mit $\mu = 0.5$ einen Münzwurf modellieren.}
+\textcolor{darkcyan}{Per Definition ist $\mathcal{X} = \{0,1\}$ gegeben. Wenn wir sagen, dass das Ergebnis $0 \in \mathcal{X}$ Kopf und $1 \in \mathcal{X}$ Zahl repräsentiert, können wir mit einer Bernoullig-ZV und indem wir ein $\mu = 0.5$ wählen, einen Münzwurf modellieren.}
 Dann ergibt sich für den Erwartungswert
 \begin{align*}
 \mathbb{E}(\xi) = \mu = 0.5
@@ -213,7 +208,7 @@ knitr::include_graphics(file.path(abb_dir, "wtfi_4_bernoulliverteilung_wmf.pdf")
 
 \vspace{-6mm}
 \center
-\color{darkcyan}´
+\color{darkcyan}
 $\mathbb{E}(\xi) = 0.1$ \hspace{18mm} $\mathbb{E}(\xi) = 0.5$ \hspace{18mm} $\mathbb{E}(\xi) = 0.7$
 
 
@@ -275,7 +270,7 @@ Bemerkungen
 
 * Die Varianz misst die Streuung (Breite) einer Verteilung.
 * Quadration ist nötig wegen $\mathbb{E}(\xi-\mathbb{E}(\xi)) = \mathbb{E}(\xi) - \mathbb{E}(\xi) = 0$.
-* \textcolor{darkcyan}{Intuitiv quantifiziert die Varianz, wie viel die Werte, die eine ZV annehmen kann "variieren", besser gesagt vom Erwartungswert abweichen, oder anders ausgedrückt um den Erwartungswert streuen.}
+* \textcolor{darkcyan}{Intuitiv quantifiziert die Varianz, wie "viel" die Werte, die eine ZV annehmen kann "variieren", besser gesagt vom Erwartungswert abweichen. Oder anders ausgedrückt um den Erwartungswert streuen.}
 
 
 
@@ -356,10 +351,10 @@ Durch Umstellen der Gleichung erhalten wir
 \Leftrightarrow & \mathbb{V}(\xi) +  \mathbb{E}(\xi)^2 = \mathbb{E}\left(\xi^2 \right) 
 \end{align*}
 
-Somit können wir $\mathbb{E}(\xi^2)$ mithilfe der Varianz einer quadrierten ZV $\xi^2$ ($\mathbb{V}(\xi)$) und des Erwartungswerts von $\xi$ ($\mathbb{E}(\xi)$), wobei wir den Erwartungswert in Quadrat nehmen, formal
+Somit können wir $\mathbb{E}(\xi^2)$ mithilfe der Varianz $\mathbb{V}(\xi)$ und des Erwartungswerts $\mathbb{E}(\xi)$ von $\xi$ aufschreiben, wobei wir den Erwartungswert in Quadrat nehmen, formal
 
 \begin{align*}
-\mathbb{E}\left(\xi^2 \right) = \mathbb{V}(\xi) +  \mathbb{E}(\xi)^2
+\mathbb{E}\left(\xi^2 \right) = \mathbb{V}(\xi) +  \mathbb{E}(\xi)^2.
 \end{align*}
 
 
@@ -373,7 +368,7 @@ Somit können wir $\mathbb{E}(\xi^2)$ mithilfe der Varianz einer quadrierten ZV 
 \color{black}
 \footnotesize
 
-Nach dem ersten Satz (Linear-affine Transformation) des Theorems zu Varianzeigenschaften gilt für eine Zufallsvariable $\xi$ und  $a,b\in \mathbb{R}$
+Nach dem ersten Satz des Theorems zu Varianzeigenschaften (Linear-affine Transformation) gilt für eine Zufallsvariable $\xi$ und  $a,b\in \mathbb{R}$
 \begin{align*}
 \mathbb{V}(a\xi + b) = a^2 \mathbb{V}(\xi)
 \mbox{ und }
@@ -435,14 +430,10 @@ Bemerkungen
 \color{black}
 \footnotesize
 
-\begin{theorem}[Korrelation und Unabhängigkeit]
-\justifying
-\normalfont
-$\xi$ und $\ups$ seien zwei Zufallsvariablen. Wenn $\xi$ und $\ups$ unabhängig sind, 
-dann ist $\mathbb{C}(\xi,\ups) = 0$ und $\xi$ und $\ups$ sind unkorreliert. Ist dagegen
-$\mathbb{C}(\xi,\ups) = 0$ und sind $\xi$ und $\ups$ somit unkorreliert, dann sind $\xi$ 
-und $\ups$ nicht notwendigerweise unabhängig.
-\end{theorem}
+Nach dem zweiten Satz des Theorems zu Varianzeigenschaften (Linearkombination bei Unabhängigkeit) gil für unabhängige Zufallsvariablen $\xi_1,...,\xi_n$ und $a_1,...,a_n \in \mathbb{R}$
+\begin{align*}
+\mathbb{V}\left(\sum_{i=1}^n a_i\xi_i\right) = \sum_{i=1}^n a_i^2 \mathbb{V}(\xi_i).
+\end{align*}
 
 
 
@@ -571,15 +562,15 @@ s_{10} = \sqrt{s_{10}^2} = \sqrt{2.82} = 1.68.
 \color{black}
 \footnotesize
 
-* Der Erwartungswertparameter, so wie wir ihn für die Normalverteilung $N(\mu, \sigma^2)$ definieren, ist eine im Modell gegebene Größe, welche die funktionale Form (i.e. $\frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(x - \mu)^2\right)$) der Normalverteilung bestimmt.
+* Der Erwartungswertparameter, so wie wir ihn für die Normalverteilung $N(\mu, \sigma^2)$ definieren, ist eine im Modell gegebene Größe, welche die funktionale Form (i.e. $\frac{1}{\sqrt{2\pi \sigma^2}}\exp\left(-\frac{1}{2\sigma^2}(x - \mu)^2\right)$) der Normalverteilung (mit) vorgibt.
   * \footnotesize Unterschiedliche Werte für den Parameter $\mu$ ergeben unterschiedliche funktionale Formen (vgl. Einheit (4) Zufallsvariablen)
 * Der Erwartungswert $\mathbb{E}(\xi)$ ist eine Kennzahl einer Zufallsvariable $\xi$. 
   * \footnotesize Für eine gegebene ZV mit definiertem Messraum und Verteilung ergibt sich immer der gleiche Erwartungswert. 
 * Das Stichprobenmittel $\bar{\xi}_n$ ist eine Kennzahle einer Stichprobe $\xi_1,...,\xi_n$.
   * \footnotesize $\bar{\xi}_n$ ist eine Zufallsvariable, dessen Realisation mit $\bar{x}_n$ bezeichnet wird; so wie die Realisation einer Stichprobe mit $x_1,...,x_n$ bezeichnet wird. 
-  * Für eine gegebene Stichprobe $\xi_1,...,\xi_n$ ist das Stichprobenmittel $\bar{\xi}_n$ immer der gleiche Wert. 
+  * Für eine gegebene Stichprobe $\xi_1,...,\xi_n$ ist das Stichprobenmittel immer die Kennzahl $\bar{\xi}_n$. 
   * Jede Realisation einer Stichprobe ($x_1,...,x_n$) hat zugehörige Stichprobenkennzahlen, zu denen auch das Stichprobenmittel $\bar{x}_n$ zählt. Dieser Wert ist bei gegebener Stichprobenrealisation immer der gleiche. 
-  * Verschiedenen Realisationen einer Stichprobe $\xi_1, ..., \xi_n$ können (und werden aller Wahrscheinlichkeit nach) verschiedene Werte für $\bar{\xi}_n$ ergeben. 
+  * Verschiedenen Realisationen $x_1,...,x_n$ einer Stichprobe $\xi_1, ..., \xi_n$ können (und werden aller Wahrscheinlichkeit nach) verschiedene Werte für die Realisation $\bar{x}_n$ des Stichprobenmittels $\bar{\xi}_n$ ergeben.
 
 
 
@@ -620,6 +611,90 @@ Bemerkungen
 * Wenn $\rho(\xi,\ups) = 0$ ist, werden $\xi$ und $\ups$ \textit{unkorreliert} genannt.
 * Es gilt $-1 \le \rho(\xi,\ups) \le 1$.
 
+
+
+# \textcolor{darkcyan}{Korrelation und Kausalität}
+
+\vfill
+
+```{r, echo = FALSE, out.width = "90%"}
+knitr::include_graphics(file.path(abb_dir,"correlation_meme.png"))
+```
+
+\tiny
+\flushright
+(Quelle: https://xkcd.com/552/)
+
+
+
+# \textcolor{darkcyan}{Beispiel (aus VL)}
+\vspace{1mm}
+
+\footnotesize
+Es sei $\xi := (\xi_1,\xi_2)$ ein Zufallsvektor mit WMF $p_{\xi_1,\xi_2}$ definiert durch
+
+\center
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{c|ccc|c}
+$p_{\xi_1,\xi_2}(x_1,x_2)$	& 	$x_2 = 1$ 	& 	$x_2 = 2$ 	& 	$x_2 = 3$ 	&	$p_{\xi_1}(x_1)$		\\\hline
+$x_1 = 1$				&	$0.10$		&	$0.05$		&	$0.15$		&	$0.30$				\\
+$x_1 = 2$				&	$0.60$		&	$0.05$		&	$0.05$		&	$0.70$				\\\hline
+$p_{\xi_2}(x_2)$	&	$0.70$		&	$0.10$		& 	$0.20$		&				    	\\
+\end{tabular}
+\vspace{1mm}
+
+\flushleft
+$\xi_1$, $\xi_2$ sind also zwei Zufallsvariablen mit einer definierten bivariaten Verteilung.
+Um $\mathbb{C}(\xi_1,\xi_2)$ und $\rho(\xi_1,\xi_2)$ zu berechnen, halten wir zunächst fest, dass
+\begin{equation}
+\mathbb{E}(\xi_1) = \sum_{x_1=1}^2 x_1 p_{\xi_1}(x_1) = 1\cdot 0.3 + 2\cdot 0.7 = 1.7
+\end{equation}
+und
+\begin{equation}
+\mathbb{E}(\xi_2) = \sum_{x_2=1}^3 x_2 p_{\xi_2}(x_2) = 1\cdot 0.7 + 2\cdot 0.1 + 3\cdot 0.2 = 1.5.
+\end{equation}
+Mit der Definition der Kovarianz von $\xi_1$ und $\xi_2$, gilt dann
+
+
+
+
+# \textcolor{darkcyan}{Beispiel (aus VL)}
+
+\vspace{1mm}
+
+\footnotesize
+\begin{tiny}
+\begin{align*}
+\begin{split}
+& \mathbb{C}(\xi_1,\xi_2) 																						\\
+& = \mathbb{E}((\xi_1 - \mathbb{E}(\xi_1))(\xi_2 - \mathbb{E}(\xi_2)))												\\
+& = \sum_{x_1 = 1}^2 \sum_{x_2 = 1}^3 (x_1 - \mathbb{E}(\xi_1))(x_2 - \mathbb{E}(\xi_2))p_{\xi_1,\xi_2}(x_1,x_2) 	\\
+& = \sum_{x_1 = 1}^2 \sum_{x_2 = 1}^3 (x_1 - 1.7)(x_2 - 1.5)p_{\xi_1,\xi_2}(x_1,x_2) 							\\
+& = \sum_{x_1 = 1}^2   	(x_1 - 1.7)(1 - 1.5)p_{\xi_1,\xi_2}(x_1,1)  											\\
+& 	\quad\quad\quad	 + 	(x_1 - 1.7)(2 - 1.5)p_{\xi_1,\xi_2}(x_1,2)   											\\
+& 	\quad\quad\quad  + 	(x_1 - 1.7)(3 - 1.5)p_{\xi_1,\xi_2}(x_1,3) 												\\
+& = \quad 		(1 - 1.7)(1 - 1.5)p_{\xi_1,\xi_2}(1,1)
+		 	+	(1 - 1.7)(2 - 1.5)p_{\xi_1,\xi_2}(1,2)
+		 	+	(1 - 1.7)(3 - 1.5)p_{\xi_1,\xi_2}(1,3) 															\\
+& \quad\, 	+ 	(2 - 1.7)(1 - 1.5)p_{\xi_1,\xi_2}(2,1)
+	     	+ 	(2 - 1.7)(2 - 1.5)p_{\xi_1,\xi_2}(2,2)
+	     	+ 	(2 - 1.7)(3 - 1.5)p_{\xi_1,\xi_2}(2,3) 															\\
+& = \quad 		(-0.7)\cdot (-0.5) \cdot 0.10	\quad\quad\quad\quad\quad\quad
+			+ 	(-0.7)\cdot   0.5  \cdot 0.05 	\quad\quad\quad\quad\quad\quad\quad\quad
+			+ 	(-0.7)\cdot   1.5  \cdot 0.15																\\
+& \quad\,	+  	0.3   \cdot (-0.5) \cdot 0.60   \quad\quad\quad\quad\quad\quad\quad\quad
+	    	+  	0.3   \cdot   0.5  \cdot 0.05	\quad\quad\quad\quad\quad\quad\quad\quad\quad\quad
+			+  	0.3   \cdot   1.5  \cdot 0.05 																\\
+& = \,    0.035
+		- 0.0175
+		- 0.1575
+        - 0.09
+	    + 0.0075
+		+ 0.0225\\
+& = - 0.2.
+\end{split}
+\end{align*}
+\end{tiny}
 
 
 # \textcolor{darkblue}{SKF 15}. *Kovarianzverschiebungssatz*
