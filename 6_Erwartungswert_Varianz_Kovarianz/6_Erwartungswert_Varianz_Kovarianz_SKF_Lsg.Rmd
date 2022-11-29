@@ -48,7 +48,7 @@ Inhalte basieren auf Kursmaterialien für [WTFI](https://www.ipsy.ovgu.de/Instit
 \vfill
 \center
 \huge
-\text{(6) Erwartungswert und Kovarianz}
+\text{(6) Erwartungswert, Varianz, Kovarianz}
 
 
 # Selbstkontrollfragen
