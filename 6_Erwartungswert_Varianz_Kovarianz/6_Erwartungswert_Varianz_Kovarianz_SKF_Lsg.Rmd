@@ -430,7 +430,7 @@ Bemerkungen
 \color{black}
 \footnotesize
 
-Nach dem zweiten Satz des Theorems zu Varianzeigenschaften (Linearkombination bei Unabhängigkeit) gil für unabhängige Zufallsvariablen $\xi_1,...,\xi_n$ und $a_1,...,a_n \in \mathbb{R}$
+Nach dem zweiten Satz des Theorems zu Varianzeigenschaften (Linearkombination bei Unabhängigkeit) gilt für unabhängige Zufallsvariablen $\xi_1,...,\xi_n$ und $a_1,...,a_n \in \mathbb{R}$
 \begin{align*}
 \mathbb{V}\left(\sum_{i=1}^n a_i\xi_i\right) = \sum_{i=1}^n a_i^2 \mathbb{V}(\xi_i).
 \end{align*}
@@ -617,7 +617,7 @@ Bemerkungen
 
 \vfill
 
-```{r, echo = FALSE, out.width = "90%"}
+```{r, echo = FALSE, out.width = "80%"}
 knitr::include_graphics(file.path(abb_dir,"correlation_meme.png"))
 ```
 
@@ -750,7 +750,7 @@ Generell gilt
 \mathbb{V}(a\xi + b\ups + c) = a^2\mathbb{V}(\xi) + b^2\mathbb{V}(\ups) + 2ab\mathbb{C}(\xi,\ups).
 \end{align*}
 
-Da bei bei Unabhängigkeit $\mathbb{C}(\xi,\ups)=0$, ist die Varianz der Simmer zweier ZVen gegeben durch die Summe der Varianzen, formal
+Da bei bei Unabhängigkeit $\mathbb{C}(\xi,\ups)=0$, ist die Varianz der Summe zweier ZVen gegeben durch die Summe der Varianzen, formal
 
 \begin{align*}
 \mathbb{V}(\xi + \ups) = \mathbb{V}(\xi) + \mathbb{V}(\ups).
