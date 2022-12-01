@@ -62,7 +62,7 @@ Inhalte basieren auf Kursmaterialien für [WTFI](https://www.ipsy.ovgu.de/Instit
 \item Berechnen Sie die Varianz einer Bernoulli Zufallsvariable.
 \item Drücken Sie $\mathbb{E}(\xi^2)$ mithilfe der Varianz und des Erwartungswerts von $\xi$ aus.
 \item Was ist $\mathbb{V}(a\xi)$ für konstantes $a \in \mathbb{R}$?
-\item Definieren Sie die Kovarianz und Korrelation zweier Zufallsvariablen $\xi$ und $\ups$.
+\item \sout{Definieren Sie die Kovarianz und Korrelation zweier Zufallsvariablen $\xi$ und $\ups$.}
 \item Geben Sie das Theorem zur Varianz von Linearkombinationen von Zufallsvariablen bei Unabhängigkeit wieder.
 \item Definieren Sie den Begriff der Stichprobe.
 \item Definieren Sie den Begriff des Stichprobenmittels.
@@ -380,44 +380,6 @@ Somit gilt
 \begin{align*}
 \mathbb{V}(a\xi) = a^2 \mathbb{V}(\xi)
 \end{align*}
-
-
-
-# \textcolor{darkblue}{SKF 8}. *Kovarianz und Korrelation*
-
-\large
-\color{darkblue} 8. Definieren Sie die Kovarianz und Korrelation zweier Zufallsvariablen $\xi$ und $\ups$.
-
-\vspace{3mm}
-\color{black}
-\footnotesize
-
-\begin{definition}[Kovarianz und Korrelation]
-\justifying
-Die \textit{Kovarianz} zweier Zufallsvariablen $\xi$ und $\ups$ ist definiert als
-\begin{equation}
-\mathbb{C}(\xi,\ups) :=
-\mathbb{E}\left(\left(\xi - \mathbb{E}(\xi) \right)\left(\ups - \mathbb{E}(\ups)\right)\right).
-\end{equation}
-Die \textit{Korrelation} zweier Zufallsvariablen $\xi$ und $\ups$ ist definiert als
-\begin{equation}
-\rho(\xi,\ups)
-:= \frac{\mathbb{C}(\xi,\ups)}{\sqrt{\mathbb{V}(\xi)}\sqrt{\mathbb{V}(\ups)}}
- = \frac{\mathbb{C}(\xi,\ups)}{\mathbb{S}(\xi){\mathbb{S}(\ups)}}.
-\end{equation}
-\end{definition}
-
-\footnotesize
-Bemerkungen
-
-* Die Kovarianz von $\xi$ mit sich selbst ist die Varianz von $\xi$,
-\begin{equation}
-\mathbb{C}(\xi,\xi) =
-\mathbb{E}\left(\left(\xi - \mathbb{E}(\xi) \right)^2\right) =
-\mathbb{V}(\xi).
-\end{equation}
-* $\rho(\xi,\ups)$ wird auch \textit{Korrelationskoeffizient} von $\xi$ und $\ups$ genannt.
-* Wenn $\rho(\xi,\ups) = 0$ ist, werden $\xi$ und $\ups$ \textit{unkorreliert} genannt.
 
 
 
