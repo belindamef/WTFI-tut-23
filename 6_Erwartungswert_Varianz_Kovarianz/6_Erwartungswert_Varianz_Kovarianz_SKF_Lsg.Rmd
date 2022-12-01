@@ -62,7 +62,7 @@ Inhalte basieren auf Kursmaterialien für [WTFI](https://www.ipsy.ovgu.de/Instit
 \item Berechnen Sie die Varianz einer Bernoulli Zufallsvariable.
 \item Drücken Sie $\mathbb{E}(\xi^2)$ mithilfe der Varianz und des Erwartungswerts von $\xi$ aus.
 \item Was ist $\mathbb{V}(a\xi)$ für konstantes $a \in \mathbb{R}$?
-\item \sout{Definieren Sie die Kovarianz und Korrelation zweier Zufallsvariablen $\xi$ und $\ups$.}
+\item \st{Definieren Sie die Kovarianz und Korrelation zweier Zufallsvariablen $\xi$ und $\ups$.}
 \item Geben Sie das Theorem zur Varianz von Linearkombinationen von Zufallsvariablen bei Unabhängigkeit wieder.
 \item Definieren Sie den Begriff der Stichprobe.
 \item Definieren Sie den Begriff des Stichprobenmittels.
