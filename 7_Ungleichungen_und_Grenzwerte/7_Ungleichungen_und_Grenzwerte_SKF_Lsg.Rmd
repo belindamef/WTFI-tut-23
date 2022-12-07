@@ -1,0 +1,463 @@
+---
+fontsize: 8pt
+bibliography: ../Referenzen.bib
+citation_package: natbib
+output:
+  beamer_presentation:
+    keep_tex: true
+    includes:
+      in_header: ../Header.tex
+classoption: t  
+---
+
+
+```{r, include = F}
+source("../R_common.R")
+abb_dir = file.path(dirname(getwd()), "Abbildungen")
+```
+
+#  {.plain}
+\center
+```{r, echo = FALSE, out.width = "20%"}
+knitr::include_graphics(file.path(abb_dir,"otto.png"))
+```
+
+\vspace{2mm}
+
+\huge
+Tutorium 
+
+\Large
+Wahrscheinlichketstheorie und Frequentistische Inferenz
+\vspace{4mm}
+
+\normalsize
+BSc Psychologie WiSe 2022/23
+
+\vspace{12mm}
+\normalsize
+Belinda Fleischmann
+
+\vspace{3mm}
+\scriptsize
+Inhalte basieren auf Kursmaterialien für [WTFI](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Lehre/Wintersemester+2023/Wahrscheinlichkeitstheorie+und+Frequentistische+Inferenz.html) von [Dirk Ostwald](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Team/Dirk+Ostwald.html), lizenziert unter [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de)
+
+
+
+#  {.plain}
+\vfill
+\center
+\huge
+\text{(7) Ungleichungen und Grenzwerte}
+
+# Selbstkontrollfragen
+\small
+\vfill
+
+\begin{enumerate}
+\item Geben Sie die Markov Ungleichung wieder.
+\item Geben Sie die Chebyshev Ungleichung wieder.
+\item Geben Sie die Cauchy-Schwarz Ungleichung wieder.
+\item Geben Sie die Korrelationsungleichung wieder.
+\item Definieren Sie den Begriff der Konvergenz in Wahrscheinlichkeit.
+\item Definieren Sie den Begriff der Konvergenz in Verteilung.
+\item Geben Sie das Schwache Gesetz der Großen Zahl wieder.
+\item Erläutern Sie den Zentralen Grenzwertsatz nach Lindenberg und Lévy.
+\item Erläutern Sie den Zentralen Grenzwertsatz nach Liapunov.
+\item Warum sind die Zentralen Grenzwertsätze für die statistische Modellbildung wichtig?
+\end{enumerate}
+
+
+
+# \textcolor{darkblue}{SKF 1}. *Markov Ungleichung*
+
+\large
+\color{darkblue} 1. Geben Sie die Markov Ungleichung wieder.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{theorem}[Markov Ungleichung]
+\justifying
+\normalfont
+$\xi$ sei eine Zufallsvariable mit $\mathbb{P}(\xi \ge 0) = 1$. Dann gilt für alle  $x \in \mathbb{R}$, dass
+\begin{equation}
+\mathbb{P}(\xi \ge x) \le \frac{\mathbb{E}(\xi)}{x}.
+\end{equation}
+\end{theorem}
+
+
+\color{darkcyan}
+Bemerkungen
+
+* \color{darkcyan} Weil $\mathbb{P}(\xi \ge 0) = 1$ gilt, sagt man auch, dass $\xi$ eine \textit{nicht-negative} Zufallvariable ist.
+* Die Ungleichung setzt Überschreitungswahrscheinlichkeiten und Erwartungswerte in Bezug.
+* Gilt z.B. für eine nichtnegative Zufallsvariable $\xi$, dass $\mathbb{E}(\xi) = 1$, dann ist $\mathbb{P}(\xi \ge 100) \le 0.01$.
+
+
+
+# \color{darkcyan} Beispiel 
+\footnotesize
+
+Beispiel ($\xi \sim G(\alpha,\beta)$)
+\vspace{1mm}
+
+\begin{itemize}
+\item Wir halten ohne Beweis fest, dass für $\xi \sim G(\alpha,\beta)$ gilt, dass $\mathbb{E}(\xi) = \alpha\beta$.
+\item Wir betrachten den Fall $\alpha := 5, \beta := 2$, so dass $G(x;5,2) = \chi^2(10)$
+\end{itemize}
+
+```{r, echo = FALSE, out.width = "95%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_7_markov_ungleichung.pdf"))
+```
+
+
+
+# \textcolor{darkblue}{SKF 2}. *Chebyshev Ungleichung*
+
+\large
+\color{darkblue} 2. Geben Sie die Chebyshev Ungleichung wieder.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{theorem}[Chebyshev Ungleichung]
+\justifying
+\normalfont
+Es sei $\xi$ eine Zufallsvariable mit Varianz $\mathbb{V}(\xi)$. Dann gilt für alle $x \in \mathbb{R}$
+\begin{equation}
+\mathbb{P}(|\xi - \mathbb{E}(\xi)| \ge x) \le \frac{\mathbb{V}(\xi)}{x^2}.
+\end{equation}
+\end{theorem}
+Bemerkungen
+
+\color{darkcyan}
+* \color{darkcyan} Die Chebyshev Ungleichung setzt Abweichungen vom Erwartungswert in Bezug zur Varianz.
+* Zum Beispiel gilt
+\begin{equation}
+\mathbb{P}\left(|\xi - \mathbb{E}(\xi)| \ge 3 \sqrt{\mathbb{V}(\xi)}\right)
+\le  \frac{\mathbb{V}(\xi)}{\left(3 \sqrt{\mathbb{V}(\xi)}\right)^2} =
+\frac{1}{9}.
+\end{equation}
+
+
+
+# \textcolor{darkblue}{SKF 3}. *Cauchy-Schwarz Ungleichung*
+
+\large
+\color{darkblue} 3. Geben Sie die Cauchy-Schwarz Ungleichung wieder.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{theorem}[Cauchy-Schwarz-Ungleichung]
+\normalfont
+\justifying
+$\xi$ und $\ups$ seien zwei Zufallsvariablen und $\mathbb{E}(\xi\ups)$ sei endlich. 
+Dann gilt
+\begin{equation}
+\mathbb{E}(\xi\ups)^2 \le \mathbb{E}\left(\xi^2\right)\mathbb{E}\left(\ups^2 \right).
+\end{equation}
+\end{theorem}
+
+\color{darkcyan}
+Bemerkungen
+
+* \color{darkcyan} Analog gilt für Vektoren $x,y \in \mathbb{R}^n$, dass $\langle x,y \rangle^2 \le \Vert x \Vert \cdot \Vert y \Vert$.
+* Die Korrelationsungleichung ist eine direkte Konsequenz der Cauchy-Schwarz-Ungleichung.
+
+
+
+# \textcolor{darkblue}{SKF 4}. *Korrelationsgleichung*
+
+\large
+\color{darkblue} 4. Geben Sie die Korrelationsungleichung wieder.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{theorem}[Korrelationsungleichung]
+\justifying
+\normalfont
+$\xi$ und $\ups$ seien Zufallsvariablen mit $\mathbb{V}(\xi), \mathbb{V}(\ups) > 0$. Dann gilt
+\begin{equation}
+\rho(\xi,\ups)^2
+= \frac{\mathbb{C}(\xi,\ups)^2}{\mathbb{V}(\xi)\mathbb{V}(\ups)}
+\le 1.
+\end{equation}
+\end{theorem}
+
+\color{darkcyan}
+Bemerkung
+
+* \color{darkcyan} Es gilt also 
+\begin{equation}
+\rho(\xi,\ups)^2 \le 1 \Leftrightarrow |\rho(\xi,\ups)| \le 1 \Leftrightarrow \rho(\xi,\ups) \in [-1,1].
+\end{equation}
+
+
+
+# \textcolor{darkblue}{SKF 5}. *Konvergenz in Wahrscheinlichkeit*
+
+\large
+\color{darkblue} 5. Definieren Sie den Begriff der Konvergenz in Wahrscheinlichkeit.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Konvergenz in Wahrscheinlichkeit]
+\justifying
+Eine Folge von Zufallsvariable $\xi_1,\xi_2,...$ \textit{konvergiert gegen eine Zufallsvariable $\xi$ in Wahrscheinlichkeit}, wenn für jedes noch so kleine $\epsilon > 0$ gilt, dass
+\begin{equation}
+\lim_{n \to \infty} \mathbb{P}(|\xi_n - \xi| < \epsilon) 	= 1 \Leftrightarrow
+\lim_{n \to \infty} \mathbb{P}(|\xi_n - \xi| \ge \epsilon) 	= 0
+\end{equation}
+Die Konvergenz von $\xi_1,\xi_2,....$ gegen $\xi$ in Wahrscheinlichkeit wird geschrieben als
+\begin{equation}
+\xi_n\xrightarrow[n \to \infty]{\mbox{P}} \xi
+\end{equation}
+\end{definition}
+
+\color{darkcyan}
+Bemerkungen
+
+* \color{darkcyan} $\xi_n\xrightarrow[n \to \infty]{\text{P}} \xi$  heißt, dass sich die Wahrscheinlichkeit, 
+ dass $\xi_n$ in dem zufälligen Intervall 
+\begin{equation} 
+]\xi-\epsilon, \xi+\epsilon[
+\end{equation}
+liegt, unabhängig davon, wie klein dieses Intervall sein mag, $1$ nähert, wenn $n$ gegen Unendlich strebt.
+* Intuitiv heißt das, dass sich für eine konstante Zufallsvariable $\xi := a$ die Verteilung 
+  von $\xi_n$ mehr und mehr um $a$ konzentriert, wenn $n$ gegen Unendlich strebt.
+  
+
+
+# \textcolor{darkblue}{SKF 6}. *Konvergenz in Verteilung*
+
+\large
+\color{darkblue} 6. Definieren Sie den Begriff der Konvergenz in Verteilung.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Konvergenz in Verteilung]
+\justifying
+Eine Folge $\xi_1,\xi_2,...$ von Zufallsvariablen \textit{konvergiert in Verteilung 
+gegen eine Zufallsvariable $\xi$}, wenn
+\begin{equation}
+\lim_{n \to \infty} P_{\xi_n}(x) = P_\xi(x).
+\end{equation}
+für alle $\xi$ an denen $P_\xi$ stetig ist.
+Die Konvergenz in Verteilung von $\xi_1,\xi_2,...$ gegen $\xi$ wird geschrieben als
+\begin{equation}
+\xi_n\xrightarrow[n\to \infty]{\text{D}} \xi,
+\end{equation}
+Gilt $\xi_n\xrightarrow[n\to \infty]{\text{D}} \xi$, dann heißt die Verteilung von 
+$\xi$ die \textit{asymptotische Verteilung der Folge $\xi_1,\xi_2,...$}.
+\end{definition}
+
+\color{darkcyan}Bemerkungen
+
+* \color{darkcyan} $\xi\xrightarrow[n\to \infty]{\text{D}} \xi$ ist eine Aussage über die Konvergenz von KVFs.
+* Konvergenz in Wahrscheinlichkeit impliziert Konvergenz in Verteilung.
+
+
+
+
+# \textcolor{darkblue}{SKF 7}. *Das schwache Gesetz der Großen Zahlen*
+
+\large
+\color{darkblue} 7. Geben Sie das Schwache Gesetz der Großen Zahl wieder.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{theorem}[Schwaches Gesetz der Großen Zahl]
+\justifying
+\normalfont
+$\xi_1,...,\xi_n$ seien unabhängig und gleichverteilte Zufallsvariablen mit 
+$\mathbb{E}(\xi_i) = \mu$ für alle $i = 1,...,n$. Weiterhin bezeichne
+\begin{equation}
+\bar{\xi}_n := \frac{1}{n}\sum_{i=1}^n \xi_i
+\end{equation}
+das Stichprobenmittel der $\xi_i, i = 1,...,n$. Dann konvergiert $\bar{\xi}_n$ in
+Wahrscheinlichkeit gegen $\mu$,
+\begin{equation}
+\bar{\xi}_n \xrightarrow[n \to \infty]{\mbox{P}} \mu.
+\end{equation}
+\end{theorem}
+
+\footnotesize
+\color{darkcyan}Bemerkungen
+
+* \color{darkcyan} $\bar{\xi}_n \xrightarrow[n\to\infty]{\mbox{P}} \mu$ heißt, dass die Wahrscheinlichkeit,
+dass das Stichprobenmittel nahe dem Erwartungswert der zugrundeliegenden Verteilung
+liegt, sich 1 nähert, wenn $n\to\infty$.
+
+
+
+# \textcolor{darkblue}{SKF 8}. *Zentraler Grenzwertsatz nach Lindenberg und Lévy*
+
+\large
+\color{darkblue} 8. Erläutern Sie den Zentralen Grenzwertsatz nach Lindenberg und Lévy.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Erläuterung: 
+
+Der zentrale Grenzwertsatz nach Lindenberg und Lévy besagt, dass wenn wir n unabhängig und identisch verteilten ZVen mit gleichem Erwartungswert $\mathbb{E}(\xi_i) = \mu$ und Varianz $\mathbb{V}(\xi_i) := \sigma^2 > 0$ haben, dann entspricht die KVF $P_{\zeta_n}(z)$ einer ZV $\zeta_n$ welche definiert ist als
+\begin{align*}
+\zeta_n:= \sqrt{n}\left(\frac{\bar{\xi}_n - \mu}{\sigma}\right)
+\end{align*}
+bei $n \to \infty$ der KVF der Standardnormalverteilung, welche wir mit $\Phi$ bezeichnen. 
+
+
+
+# \color{darkcyan} Theorem
+\footnotesize
+\begin{theorem}[Zentraler Grenzwertsatz nach Lindenberg und Lévy]
+\justifying
+\normalfont
+$\xi_1,...,\xi_n$ seien unabhängig und identisch verteilte Zufallsvariablen mit
+\begin{equation}
+\mathbb{E}(\xi_i) := \mu \mbox{ und }
+\mathbb{V}(\xi_i) := \sigma^2 > 0
+\mbox{ für alle } i = 1,....,n.
+\end{equation}
+Weiterhin sei $\zeta_n$ die Zufallsvariable definiert als
+\begin{equation}
+\zeta_n := \sqrt{n}\left(\frac{\bar{\xi}_n - \mu}{\sigma}\right).
+\end{equation}
+Dann gilt für alle $z \in \mathbb{R}$
+\begin{equation}
+\lim_{n \to \infty} P_{\zeta_n}(z) = \Phi(z),
+\end{equation}
+wobei $\Phi$ die kumulative Verteilungsfunktion der Standardnormalverteilung bezeichnet.
+\end{theorem}
+
+\footnotesize
+Bemerkung
+
+* Wir zeigen später, dass damit für $n\to\infty$ asymptotisch auch gilt, dass
+\begin{equation}
+\sum_{i=1}^n \xi_i \sim N(n\mu, n\sigma^2)
+\mbox{ und }
+\bar{\xi}_n \sim N\left(\mu,\frac{\sigma^2}{n}\right).
+\end{equation}
+
+
+# 
+
+\footnotesize
+Beispiel ($\xi_1,...,\xi_n \sim \chi^2(k)$)
+
+\footnotesize
+* Wir halten ohne Beweis fest, dass $\mathbb{E}(\xi_i) = k$ und $\mathbb{V}(\xi_i) = 2k$.
+* Wir betrachten das Szenario $\xi_i \sim \chi(3)$ für $i = 1,...,n$.
+* Die linken Abbildungen zeigen Histogrammschätzer der Wahrscheinlichkeitsdichte von
+\begin{equation}
+\zeta_n := \sqrt{n}\left(\frac{\bar{\xi}_n - \mu}{\sigma}\right)
+\end{equation}
+basierend auf 1000 Realisationen von $\zeta_n$ für $n = 2$ und $n = 200$, sowie die WDF von $N(0,1)$.
+* Die rechte Abbildung zeigt die entsprechenden (empirischen) kumulativen Verteilungsfunktionen.
+
+\vspace{1mm}
+```{r, echo = FALSE, out.width = "95%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_7_lindenberg_levy.pdf"))
+```
+
+
+
+# \textcolor{darkblue}{SKF 9}. *Zentraler Grenzwertsatz Liapunov*
+
+\large
+\color{darkblue} 9. Erläutern Sie den Zentralen Grenzwertsatz nach Liapunov.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Erläuterung: 
+
+Der zentrale Grenzwertsatz nach Liapunov besagt, dass wenn wir n unabhängig aber nicht notwendigerweise identisch verteilten ZVen mit jeweiligen Erwartungswerten $\mathbb{E}(\xi_i)=\mu_i$ und Varianzen $\mathbb{V}(\xi_i) = \sigma^2_i$ haben, dann entspricht die KVF $P_{\zeta_n}(z)$ einer ZV $\zeta_n$ welche definiert ist als
+\begin{align*}
+\zeta_n := \frac{\sum_{i=1}^n \xi_i - \sum_{i=1}^n \mu_i}{\sqrt{\sum_{i=1}^n \sigma_i^2}}
+\end{align*}
+bei $n \to \infty$ der KVF der Standardnormalverteilung $\Phi$, wenn für $\xi_1,...,\xi_n$ die folgenden zwei Eigenschaften gelten:
+
+\begin{align*}
+\mathbb{E}(|\xi_i - \mu_i|^3) < \infty \mbox{ und }
+\lim_{n \to \infty} \frac{\sum_{i=1}^n \mathbb{E}\left(|\xi_i - \mu_i|^3\right)}{(\sum_{i=1}^n \sigma_i^2)^{3/2}} = 0.
+\end{align*}
+
+
+# \color{darkcyan} Theorem
+\footnotesize
+\begin{theorem}[Zentraler Grenzwertsatz nach Liapounov]
+\justifying
+\normalfont
+$\xi_1,...,\xi_n$ seien unabhängige aber nicht notwendigerweise identisch verteilten Zufallsvariablen mit
+\begin{equation}
+\mathbb{E}(\xi_i) := \mu_i \mbox{ und }
+\mathbb{V}(\xi_i) := \sigma^2_i > 0
+\mbox{ für alle } i = 1,....,n.
+\end{equation}
+Weiterhin sollen für $\xi_1,...,\xi_n$ folgend Eigenschaften gelten:
+\begin{equation}
+\mathbb{E}(|\xi_i - \mu_i|^3) < \infty \mbox{ und }
+\lim_{n \to \infty} \frac{\sum_{i=1}^n \mathbb{E}\left(|\xi_i - \mu_i|^3\right)}{(\sum_{i=1}^n \sigma_i^2)^{3/2}} = 0.
+\end{equation}
+Dann gilt für die Zufallsvariable $\zeta_n$ definiert als
+\begin{equation}
+\zeta_n := \frac{\sum_{i=1}^n \xi_i - \sum_{i=1}^n \mu_i}{\sqrt{\sum_{i=1}^n \sigma_i^2}},
+\end{equation}
+für alle $z\in\mathbb{R}$, dass
+\begin{equation}
+\lim_{n \to \infty} P_{\zeta_n}(z) = \Phi(z),
+\end{equation}
+wobei $\Phi$ KVF der Standardnormalverteilung bezeichnet.
+\end{theorem}
+
+Bemerkungen 
+
+* Wir zeigen später, dass dann auch gilt, dass $\sum_{i=1}^n \xi_i \sim N\left(\sum_{i=1}^n \mu_i, \sum_{i=1}^n \sigma_i^2\right)$.
+
+
+
+
+# \textcolor{darkblue}{SKF 10}. *Zentraler Grenzwertsatz*
+
+\large
+\color{darkblue} 10. Warum sind die Zentralen Grenzwertsätze für die statistische Modellbildung wichtig?
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+* \justifying Die Zentralen Grenzwertsätze besagen, dass die Summe von unabhängigen
+Zufallsvariablen mit Erwartungswert 0 asymptotisch, d.h. für unendlich viele 
+Zufallsvariablen, normalverteilt mit Erwartungswertparameter 0 ist.
+* Modelliert man eine Messgröße $y$ also als Summe eines deterministischen
+Einflusses $\mu$ und der Summe
+\begin{equation}
+\varepsilon := \sum_{i=1}^n \xi_i
+\end{equation}
+einer Vielzahl von unabhängigen Zufallsvariablen $\xi_i, i = 1,...,n$, welche
+unbekannte Störeinflüsse beschreiben, so ist für großes $n$ die Annahme
+\begin{equation}\label{eq:stat_model}
+y = \mu + \varepsilon \mbox{ mit } \varepsilon \sim N(0,\sigma^2)
+\end{equation}
+also mathematisch gerechtfertigt. Wie wir später sehen werden, liegt die Annahme
+in Gleichung \eqref{eq:stat_model} vielen statischen Modellen zugrunde.
+
+
+
