@@ -238,12 +238,11 @@ knitr::include_graphics(file.path(abb_dir, "wtfi_8_realisierungen.pdf"))
 \footnotesize
 
 \begin{itemize} 
-\item \textit{Transformation} einer ZV meint die Anwendung einer Funktion auf Zufallsvariablen sowie die arithmetische Verknüpfung
-mehrerer Zufallsvariablen.
+\item \textit{Transformation} einer ZV meint die Anwendung einer Funktion auf ZVen sowie die arithmetische Verknüpfung mehrerer ZVen.
 \item Die zentrale Fragestellung dabei ist:  
 "Wenn die Zufallsvariable $\xi$ normalverteilt ist, wie ist dann eine Zufallsvariable
 $\ups$, die sich durch Transformation von $\xi$ ergibt, verteilt?"
-\item Die Anwendung einer (deterministischen) Funktionauf eine zufällige Größe ergibt im Allgemeinen wieder eine zufällige Größe. 
+\item Die Anwendung einer (deterministischen) Funktion auf eine zufällige Größe ergibt im Allgemeinen wieder eine zufällige Größe. 
 \end{itemize}
 
 \color{darkcyan}
@@ -269,11 +268,7 @@ Bemerkungen
 # \color{darkcyan} Beispiel für Transformation einer normalverteilen ZV
 \footnotesize
 
-\color{darkcyan} Es sei $\xi$ eine normalverteilte ZV $\xi \sim N(0,1)$ und $\ups := \xi^2$ ihre Transformation. 
-
-Aufgrund der Quadrierung können wir bereits analytisch feststellen, dass $\ups$ nicht die gleiche Verteilung haben kann wie $xi$. 
-
-Wir können das auch mithilfe einer Simulation zeigen. 
+\color{darkcyan} Es sei $\xi$ eine normalverteilte ZV $\xi \sim N(0,1)$ und $\ups := \xi - 4.2$ ihre Transformation.
 
 \vspace{2mm}
 \footnotesize
@@ -367,7 +362,7 @@ knitr::include_graphics(file.path(abb_dir, "wtfi_8_hist_y.pdf"))
 Werkzeuge zum Berechnen der WDFen von transformierten Zufallsvariablen.
 * Diese Werkzeuge sind von allgemeiner Form:
   * \footnotesize "Wenn $\xi$ eine Zufallsvariable mit WDF $p_\xi$ ist, 
-  * und $\ups := f(\xi)$ die durch $f$ transformierte Zufallsvariable ist,
+  * und $\ups := f(\xi)$ die durch $f$ transformierte Zufallsvariable,
   * dann gilt für die WDF von $\ups$ die folgende Formel: $p_\ups := \{\mbox{Formel}\}$".
 
 
@@ -381,7 +376,7 @@ Werkzeuge zum Berechnen der WDFen von transformierten Zufallsvariablen.
 \color{black}
 \footnotesize
 
-**Standardtransformationen** spielen inbesondere in der frequentistischen Inferenz zentrale Rollen, weil 
+**Standardtransformationen** spielen insbesondere in der frequentistischen Inferenz zentrale Rollen, weil 
 
 (1) \footnotesize \justifying die Zentralen Grenzwertsätze die Annahme additiv unabhängig normalverteilter Störvariablen, und damit normalverteilter Daten, rechtfertigt,
 (2)  wie wir in der nächsten Vorlesungseinheit sehen werden, es sich bei Schätzern und Statistiken um Transformationen von Zufallsvariablen handelt, und
@@ -662,7 +657,7 @@ knitr::include_graphics(file.path(abb_dir, "wtfi_8_mittelwert.pdf"))
 \color{darkcyan}
 Anmerkung:
 
-* \color{darkcyan} die linke Abbildung zeigt *eine* der 10 ZVen $\xi_1, ..., \xi_10$
+* \color{darkcyan} die linke Abbildung zeigt *eine* der 10 ZVen $\xi_1, ..., \xi_{10}$
 
 # \textcolor{darkblue}{SKF 6}. $Z$-*Transformationstheorem*
 
