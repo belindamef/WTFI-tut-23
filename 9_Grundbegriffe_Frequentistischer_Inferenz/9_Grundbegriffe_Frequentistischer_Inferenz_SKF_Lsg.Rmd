@@ -1,0 +1,392 @@
+---
+fontsize: 8pt
+bibliography: ../Referenzen.bib
+citation_package: natbib
+output:
+  beamer_presentation:
+    keep_tex: true
+    includes:
+      in_header: ../Header.tex
+classoption: t  
+---
+
+
+```{r, include = F}
+source("../R_common.R")
+abb_dir = file.path(dirname(getwd()), "Abbildungen")
+```
+
+#  {.plain}
+\center
+```{r, echo = FALSE, out.width = "20%"}
+knitr::include_graphics(file.path(abb_dir,"otto.png"))
+```
+
+\vspace{2mm}
+
+\huge
+Tutorium 
+
+\Large
+Wahrscheinlichketstheorie und Frequentistische Inferenz
+\vspace{4mm}
+
+\normalsize
+BSc Psychologie WiSe 2022/23
+
+\vspace{12mm}
+\normalsize
+Belinda Fleischmann
+
+\vspace{3mm}
+\scriptsize
+Inhalte basieren auf Kursmaterialien für [WTFI](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Lehre/Wintersemester+2023/Wahrscheinlichkeitstheorie+und+Frequentistische+Inferenz.html) von [Dirk Ostwald](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Team/Dirk+Ostwald.html), lizenziert unter [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de)
+
+
+
+#  {.plain}
+\vfill
+\center
+\huge
+\text{(9) Grundbegriffe Frequentistischer Inferenz}
+
+
+
+# Selbstkontrollfragen
+\small
+\setstretch{2.6}
+
+1. Definieren und erläutern Sie den Begriff des parametrischen statistischen Modells.
+2. Definieren und erläutern Sie den Begriff eine parametrischen statistischen Produktmodells.
+3. Erläutern Sie den Unterschied zwischen univariaten und multivariaten statistischen Modellen.
+4. Formulieren und erläutern Sie das Normalverteilungsmodell.
+5. Formulieren und erläutern Sie das Bernoullimodell.
+6. Definieren und erläutern Sie den Begriff der Statistik.
+7. Definieren und erläutern Sie den Begriff des Schätzers.
+8. Nennen und erläutern Sie die Standardprobleme der frequentistischen Inferenz.
+9. Erläutern Sie die Standardannahmen der frequentistischen Inferenz.
+
+
+
+
+# \textcolor{darkcyan}{Wdhl.:}
+\textcolor{darkblue}{Modellbasierte Datenwissenschaft}
+\vspace{3mm}
+
+```{r, echo = FALSE, out.width = "75%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_9_modellbasierte_datenwissenschaft.pdf"))
+```
+
+\textcolor{darkblue}{Frequentistische Inferenz}
+\small
+\vspace{3mm}
+\center
+\begin{tabular}{ll}
+Modellformulierung & $\Rightarrow$ Statistische Modelle                                \\
+Modellschätzung    & $\Rightarrow$ Parameterschätzung und Konfidenzintervalle          \\
+Modellevaluation   & $\Rightarrow$ Hypothesentests (cf. Allgemeines Lineares Modell)
+\end{tabular}
+
+
+
+# \textcolor{darkblue}{SKF 1}. *Das parametrischen statistischen Modell*
+
+\large
+\color{darkblue} 1. Definieren und erläutern Sie den Begriff des parametrischen statistischen Modells.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Statistisches Modell]
+\justifying
+Ein \textit{statistisches Modell} ist ein Tripel
+\begin{equation}
+\mathcal{M} := (\mathcal{Y}, \mathcal{A}, \{\mathbb{P}_\theta |\theta \in \Theta\})
+\end{equation}
+bestehend  aus einem \textit{Datenraum} $\mathcal{Y}$, einer $\sigma$-Algebra
+$\mathcal{A}$ auf $\mathcal{Y}$ und einer mindestens zweielementigen Menge
+$\{\mathbb{P}_\theta |\theta \in \Theta\}$ von Wahrscheinlichkeitsmaßen auf
+$(\mathcal{Y}, \mathcal{A})$, die durch $\theta \in \Theta$ indiziert sind.
+Wenn $\Theta \subset \mathbb{R}^k$ ist, heißt ein statistisches Modell auch \textit{parametrisches} 
+statistisches Modell und $\Theta$ heißt \textit{Parameterraum} des statistischen Modells.
+\end{definition}
+
+* \justifying Der Datenraum $\mathcal{Y}$ enthält alle Werte, die ein Zufallsvektor $y$, welcher den Vorgang der Datenbeobachtung beschreibt, annehmen kann. Im Kontext statistischer Modelle wird $y$ auch *Daten*, *Beobachtung*, *Messung* oder *Stichprobe* genannt. Eine Realisierung von $y$, also konkret vorliegende Datenwerte $\tilde{y} \in \mathcal{Y}$, werden *Datensatz*, *Beobachtungswert*, *Messwert* oder *Stichprobenwert* genannt. 
+
+* \justifying $\{\mathbb{P}_\theta |\theta \in \Theta\}$ ist eine mindestens zweielementige Menge von Wahrscheinlichkeitsmaßen auf $(\mathcal{Y}, \mathcal{A})$, wobei jedes Element $\mathbb{P}_\theta$ eine Abbildung $\mathbb{P}_\theta:\mathcal{A} \to [0,1]$ ist \textcolor{darkcyan}{(vgl. Def. Wahrscheinlichkeitsraum und Wahrscheinlichkeitsmaß Einheit (2))}.
+
+
+
+# \textcolor{darkblue}{SKF 1}. *Das parametrischen statistischen Modell* (fortgeführt)
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+* \justifying Der Parameterraum $\Theta$ ist die Menge aller möglichen wahren, aber unbekannten, Parameterwerte. Der wahre, aber unbekannten, Parameterwert $\theta^*$ bleibt auch nach der
+statistischen Analyse unbekannt. In der mathematischen Analyse von Inferenzmethoden
+betrachtet man alle möglichen wahren, aber unbekannten, Parameterwerte, schreibt
+also einfach $\{\mathbb{P}_\theta |\theta \in \Theta\}$.
+
+* \justifying In einem konkreten Datenanalyseproblem nimmt man an, dass die beobachteten
+Werte $\tilde{y} = (\tilde{y}_1,...,\tilde{y}_n)$ von $y = (y_1,...,y_n)$ durch
+$\theta^*$ generiert wurde, wobei $\theta^*$ hier den *wahren, aber unbekannten, Parameterwert* 
+bezeichnet. 
+
+* \justifying Im Gegensatz zum Wahrscheinlichkeitsraummodell betrachtet man bei statistische Modellen
+zwei oder mehr Wahrscheinlichkeitsmaße, die die Verteilung von $y$ mutmaßlich bestimmen. 
+Das jeweils zugrundeliegende Wahrscheinlichkeitsmaß ist mit $\theta \in \Theta$ indiziert, 
+
+
+
+
+# \textcolor{darkblue}{SKF 2}. *Das parametrische statistische Produktmodell*
+
+\large
+\color{darkblue} 2. Definieren und erläutern Sie den Begriff eine parametrischen statistischen Produktmodells.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+* Für ein statistisches Modell $\mathcal{M}_0 := (\mathcal{Y}_0, \mathcal{A}_0, \{\mathbb{P}_\theta^0 |\theta \in \Theta\})$
+heißt das statistische Modell $\mathcal{M} := (\mathcal{Y}, \mathcal{A}, \{\mathbb{P}_\theta |\theta \in \Theta\})$,
+für das $\mathcal{Y}$ das $n$-fache kartesische Produkt von $\mathcal{Y}_0$ mit sich selbst,
+$\mathcal{A}$ die entsprechende Produkt-$\sigma$-Algebra ist, und $\{\mathbb{P}_\theta |\theta \in \Theta\}$
+die entsprechende Menge an Produktmaßen ist, das zu $\mathcal{M}_0$ gehörige *Produktmodell*.
+* \justifying Produktmodelle modellieren die $n$-fache unabhängige Wiederholung eines Zufallsvorgangs.
+Der entsprechende Zufallsvektor $y  := (y_1,....,y_n)$ entspricht dann einer Menge
+von $n$ unabhängigen Zufallsvariablen/vektoren.
+
+
+
+
+# \textcolor{darkblue}{SKF 3}. *Unterschied uni- und multivariate Modelle*
+
+\large
+\color{darkblue} 3. Erläutern Sie den Unterschied zwischen univariaten und multivariaten statistischen Modellen.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Wir sprechen von einem *univariaten statistischen Modell*, wenn für ein Produktmodell die Menge $\mathcal{Y}_0$ eindimensional ist und von einem *multivariaten statistischen Modell*, wenn für ein Produktmodell die Menge $\mathcal{Y}_0$ mehrdimensional ist. 
+
+
+
+# \textcolor{darkblue}{SKF 4}. *Das Normalverteilungsmodell*
+
+\large
+\color{darkblue} 4. Formulieren und erläutern Sie das Normalverteilungsmodell.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Normalverteilungsmodell]
+Das univariate parametrische Produktmodell
+\begin{equation}
+\mathcal{M} := \left(\mathcal{Y}, \mathcal{A}, \{\mathbb{P}_\theta|\theta \in \Theta\}\right)
+\end{equation}
+mit
+\begin{equation}
+\mathcal{Y} := \mathbb{R}^n, \mathcal{A} := \mathcal{B}(\mathbb{R}^n), \theta := (\mu, \sigma^2), \Theta := \mathbb{R} \times \mathbb{R}_{>0},
+\end{equation}
+also
+\begin{equation}
+\{\mathbb{P}_\theta|\theta \in \Theta\}
+:= \left\lbrace \prod_{i=1}^n N(\mu,\sigma^2)|(\mu,\sigma^2)\in \mathbb{R} \times \mathbb{R}_{>0} \right\rbrace,
+\end{equation}
+und damit
+\begin{equation}
+y_1,...,y_n \sim N(\mu,\sigma^2) \mbox{ mit } (\mu,\sigma^2)\in \mathbb{R} \times \mathbb{R}_{>0}
+\end{equation}
+heißt \textit{Normalverteilungsmodell}.
+\end{definition}
+\footnotesize
+
+
+* \justifying Das Normalverteilungsmodell ist ein univariates parametrisches statistischen Modell, genauer gesagt ein univariates parametrisches Produktmodell. 
+
+* \justifying Der Datenraum ist das $n$-fache kartesische Produkt der reellen Zahlen mit sich selbst. \textcolor{darkcyan}{(vgl. Vorkurs (1) Def. Die Menge $\mathbb{R}^n$)}
+
+
+
+# \textcolor{darkblue}{SKF 4}. *Das Normalverteilungsmodell* (fortgeführt)
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+* \justifying Die $\sigma$-Algebra $\mathcal{A}$ ist definiert als die *Borelsche* $\sigma$-Algebra $\mathcal{B}(\mathbb{R}^n)$
+
+* \justifying $\theta$ ist ein Tupel bestehend aus zwei Parametern $\mu$ und $\sigma^2$ und $\Theta := \mathbb{R} \times \mathbb{R}_{>0}$ ist die Menge aller möglichen wahren, aber unbekannten, Parameterwerte für $\mu \in \mathbb{R}$ und $\sigma^2 \in \mathbb{R}_{>0}$.
+
+* \justifying $\{\mathbb{P}_\theta|\theta \in \Theta\}$ ist die Menge aller Wahrscheinlickeitsmaße, auf $(\mathcal{Y}, \mathcal{A})$. Jedes Element $\mathbb{P}_\theta$ dieser Menge ist das Wahrscheinlichkeitsmaß für einen möglichen wahren, aber unbekannten Parameterwertepaar $\theta := (\mu, \sigma^2)$, und ist definiert als das $n$-fache Produkt einer univariaten Normalverteilung mit Erwartungswertparameter $\mu$ und Varianzparameter $\sigma^2$. 
+
+* \justifying Es wird angenommen, dass jede der $n$ Zufallsvariablen $y_1,...,y_n$ normalverteilt ist mit Erwartungswertparameter $\mu$ und Varianzparameter $\sigma^2$. 
+
+
+# \textcolor{darkblue}{SKF 5}. *Das Bernoullimodell*
+
+\large
+\color{darkblue} 5. Formulieren und erläutern Sie das Bernoullimodell.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Bernoullimodell]
+Das univariate parametrische Produktmodell
+\begin{equation}
+\mathcal{M} := \left(\mathcal{Y}, \mathcal{A}, \{\mathbb{P}_\theta|\theta \in \Theta\}\right)
+\end{equation}
+mit
+\begin{equation}
+\mathcal{Y} := \{0,1\}^n, \mathcal{A} := \mathcal{P}\left(\{0,1\}^n\right), \theta:= \mu, \Theta := ]0,1[,
+\end{equation}
+also
+\begin{equation}
+\{\mathbb{P}_\theta|\theta \in \Theta\} := \left\lbrace \prod_{i=1}^n \mbox{Bern}(\mu)|\mu \in ]0,1[ \right\rbrace,
+\end{equation}
+und damit
+\begin{equation}
+y_1,...,y_n \sim \mbox{Bern}(\mu) \mbox{ mit } \mu \in ]0,1[,
+\end{equation}
+heißt \textit{Bernoullimodell}.
+\end{definition}
+
+\textcolor{darkcyan}{Erläuterung analog zu SKF 4}
+
+
+
+# \textcolor{darkblue}{SKF 6}. *Statistik.*
+
+\large
+\color{darkblue} 6. Definieren und erläutern Sie den Begriff der Statistik.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Statistik]
+\justifying
+$\mathcal{M}$ sei ein statistisches Modell und $(\Sigma,\mathcal{S})$ sei ein Messraum.
+Dann wird eine Zufallsvariable der Form
+\begin{equation}
+S : \mathcal{Y} \to \Sigma
+\end{equation}
+\textit{Statistik} genannt.
+\end{definition}
+
+Bemerkungen
+
+* \justifying Daten und Statistiken werden durch Zufallsvariablen modelliert. Statistiken 
+modellieren dabei von Datenwissenschaftler:innen konstruierte Funktionen, die 
+bestenfalls datenbasierte Information liefern, aus der sich Schlüsse über die 
+latenten datengenerierenden Prozesse ziehen lassen.
+
+
+
+# \textcolor{darkblue}{SKF 7}. *Schätzer*
+
+\large
+\color{darkblue} 7. Definieren und erläutern Sie den Begriff des Schätzers.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Schätzer]
+\justifying
+$\mathcal{M}$ sei ein statistisches Modell, $(\Sigma,\mathcal{S})$ sei ein Messraum  
+und $\tau : \Theta \to \Sigma$ sei eine Abbildung, die jedem $\theta \in \Theta$ 
+eine Kenngröße $\tau(\theta) \in \Sigma$ zuordnet. Dann heißt eine Statistik 
+\begin{equation}
+\hat{\tau} : \mathcal{Y} \to \Sigma
+\end{equation}
+ein \textit{Schätzer} für $\tau$.
+\end{definition}
+
+
+
+# \textcolor{darkblue}{SKF 8}. *Standardprobleme der frequentistischen Inferenz*
+
+\large
+\color{darkblue} 8. Nennen und erläutern Sie die Standardprobleme der frequentistischen Inferenz.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Mithilfe statistischer Modelle behandelt die Frequentistische Inferenz folgende Standardprobleme:
+
+\vspace{2mm}
+\noindent (1) Parameterschätzung
+
+Ziel der Parameterschätzung ist es, einen möglichst guten Tipp für wahre, aber unbekannte, 
+Parameterwerte oder Funktionen dieser abzugeben, typischerweise mithilfe der Daten.
+
+\vspace{2mm}
+\noindent (2) Konfidenzintervalle
+
+Ziel der Bestimmung von Konfidenzintervallen ist es, basierend auf der angenommenen
+Verteilung der Daten eine quantitative Aussage über die mit Schätzwerten assoziierte 
+Unsicherheit zu treffen.
+
+\vspace{2mm}
+\noindent (3) Hypothesentests
+
+Ziel des Hypothesentestens ist es, basierend auf der angenommenen
+Verteilung der Daten in einer möglichst zuverlässigen Form zu entscheiden, ob ein
+wahrer, aber unbekannter Parameterwert in einer von zwei sich gegenseitig 
+ausschließenden Untermengen des Parameterraumes liegt.
+
+
+# \textcolor{darkblue}{SKF 8}. *Standardprobleme der frequentistischen Inferenz* (fortgeführt)
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_9_frequentistische_inferenz.pdf"))
+```
+
+
+
+# \textcolor{darkblue}{SKF 9}. *Standardannahmen der frequentistischen Inferenz*
+
+\large
+\color{darkblue} 9. Erläutern Sie die Standardannahmen der frequentistischen Inferenz.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+$\mathcal{M}$ sei ein statistisches Modell mit $y_1,...,y_n \sim p_\theta$. 
+
+**Es wird angenommen, dass ein konkreter Datensatz eine der möglichen Realisierungen von $y_1,...,y_n \sim p_\theta$ ist.**
+
+Aus Frequentistischer Sicht kann man eine Studie unendlich oft wiederholen und
+zu jedem Datensatz Schätzer oder Statistiken auswerten, z.B. das Stichprobenmittel:
+
+\footnotesize
+\begin{itemize}
+\item[] Datensatz (1) : $\tilde{y}^{(1)} = \left(\tilde{y}_1^{(1)}, \tilde{y}_2^{(1)}, ...,\tilde{y}_n^{(1)}\right)$
+						mit $\bar{y}_n^{(1)} = \frac{1}{n}\sum_{i=1}^n \tilde{y}_i^{(1)}$
+\item[] Datensatz (2) : $\tilde{y}^{(2)} = \left(\tilde{y}_1^{(2)}, \tilde{y}_2^{(2)}, ...,\tilde{y}_n^{(2)}\right)$
+                        mit $\bar{y}_n^{(2)} = \frac{1}{n}\sum_{i=1}^n \tilde{y}_i^{(2)}$
+\item[] Datensatz (3) : $\tilde{y}^{(3)} = \left(\tilde{y}_1^{(3)}, \tilde{y}_2^{(3)}, ...,\tilde{y}_n^{(3)}\right)$
+                        mit $\bar{y}_n^{(3)} = \frac{1}{n}\sum_{i=1}^n \tilde{y}_i^{(3)}$
+\item[] Datensatz (4) : $\tilde{y}^{(4)} = \left(\tilde{y}_1^{(4)}, \tilde{y}_2^{(4)}, ...,\tilde{y}_n^{(4)}\right)$
+                        mit $\bar{y}_n^{(4)} = \frac{1}{n}\sum_{i=1}^n \tilde{y}_i^{(4)}$
+\item[] Datensatz (5) : $\tilde{y}^{(5)} = ...$
+\end{itemize}
+
+Um die Qualität statistischer Methoden zu beurteilen betrachtet die Frequentistische
+Statistik deshalb die Wahrscheinlichkeitsverteilungen von Schätzern und Statistiken
+unter Annahme von $y_1,...,y_n \sim p_\theta$. Was zum Beispiel ist die Verteilung von
+$\bar{y}_n^{(1)}$, $\bar{y}_n^{(2)}$, $\bar{y}_n^{(3)}$, $\bar{y}_n^{(4)}$, ... also die
+Verteilung der Zufallsvariable $\bar{y}_n$?
+
+Wenn eine statistische Methode im Sinne der Frequentistischen Standardannahmen
+"gut" ist, dann heißt das also, dass sie bei häufiger Anwendung "im Mittel gut" ist.
+Im Einzelfall, also im Normalfall nur eines vorliegenden Datensatzes, kann sie auch 
+"schlecht" sein.
