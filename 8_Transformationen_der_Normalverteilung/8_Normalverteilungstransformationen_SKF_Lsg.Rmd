@@ -279,7 +279,7 @@ n       = 1e4                          # Anzahl von u.i.v Realisierungen (ZVen)
 mu      = 0                            # Erwartungswertparameter von \xi
 sigsqr  = 1                            # Varianzparameter von \xi
 
-# Quadrieren einer Zufallsvariable
+# Transformation einer Zufallsvariable
 x       = rnorm(n, mu, sqrt(sigsqr))   # Realisierungen x_i, i = 1,....,n von \xi
 y       = x - 4.2                      # Realisierungen y_i = x_i - 4.2 von \ups
 
