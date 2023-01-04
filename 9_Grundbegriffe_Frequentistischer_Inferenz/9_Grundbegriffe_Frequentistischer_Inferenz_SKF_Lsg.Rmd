@@ -244,7 +244,7 @@ Das univariate parametrische Produktmodell
 \end{equation}
 mit
 \begin{equation}
-\mathcal{Y} := \{0,1\}^n, \mathcal{A} := \mathcal{P}\left(\{0,1\}^n\right), \theta:= \mu, \Theta := ]0,1[,
+\mathcal{Y} := \{0,1\}^n, \mathcal{A} := \mathcal{P}\left(\{0,1\}^n\right), \theta:= \mu, \Theta := \; ]0,1[,
 \end{equation}
 also
 \begin{equation}
@@ -252,12 +252,26 @@ also
 \end{equation}
 und damit
 \begin{equation}
-y_1,...,y_n \sim \mbox{Bern}(\mu) \mbox{ mit } \mu \in ]0,1[,
+y_1,...,y_n \sim \mbox{Bern}(\mu) \mbox{ mit } \mu \in \; ]0,1[,
 \end{equation}
 heißt \textit{Bernoullimodell}.
 \end{definition}
 
-\textcolor{darkcyan}{Erläuterung analog zu SKF 4}
+
+
+# \textcolor{darkblue}{SKF 5}. *Das Bernoullimodell* (fortgeführt)
+
+\large
+\color{darkblue} 5. Formulieren und erläutern Sie das Bernoullimodell.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+* \justifying Die $\sigma$-Algebra $\mathcal{A}$ ist definiert als die Potenzmenge von dem $n$-fachen Kartesischen Produkts der Menge $\{0,1\}$ mit sich selbst.
+* \justifying $\theta$ besteht nur aus dem Parameter $\mu$ und $\Theta := \; ]0,1[$ ist die Menge aller möglichen wahren, aber unbekannten, Parameterwerte für $\mu \in \; ]0,1[$.
+* \justifying $\{\mathbb{P}_\theta|\theta \in \Theta\}$ ist die Menge aller Wahrscheinlickeitsmaße, auf $(\mathcal{Y}, \mathcal{A})$. Jedes Element $\mathbb{P}_\theta$ dieser Menge ist das Wahrscheinlichkeitsmaß für einen möglichen wahren, aber unbekannten Parameterwert $\theta := \mu$, und ist definiert als das $n$-fache Produkt einer Bernoulliverteilung mit Parameter $\mu$. 
+* \justifying Es wird angenommen, dass jede der $n$ Zufallsvariablen $y_1,...,y_n$ bernoulliverteilt ist mit Parameter $\mu$. 
 
 
 
