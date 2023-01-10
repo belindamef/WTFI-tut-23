@@ -1,0 +1,547 @@
+---
+fontsize: 8pt
+bibliography: ../Referenzen.bib
+citation_package: natbib
+output:
+  beamer_presentation:
+    keep_tex: true
+    includes:
+      in_header: ../Header.tex
+classoption: t  
+---
+
+
+```{r, include = F}
+source("../R_common.R")
+abb_dir = file.path(dirname(getwd()), "Abbildungen")
+```
+
+#  {.plain}
+\center
+```{r, echo = FALSE, out.width = "20%"}
+knitr::include_graphics(file.path(abb_dir,"otto.png"))
+```
+
+\vspace{2mm}
+
+\huge
+Tutorium 
+
+\Large
+Wahrscheinlichketstheorie und Frequentistische Inferenz
+\vspace{4mm}
+
+\normalsize
+BSc Psychologie WiSe 2022/23
+
+\vspace{12mm}
+\normalsize
+Belinda Fleischmann
+
+\vspace{3mm}
+\scriptsize
+Inhalte basieren auf Kursmaterialien für [WTFI](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Lehre/Wintersemester+2023/Wahrscheinlichkeitstheorie+und+Frequentistische+Inferenz.html) von [Dirk Ostwald](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Team/Dirk+Ostwald.html), lizenziert unter [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de)
+
+
+
+# Orga
+\vspace{1mm}
+\textcolor{darkblue}{Tutorium zu Wahrscheinlichkeitstheorie und Frequentistische Inferenz }
+
+\footnotesize
+\center
+\footnotesize
+\renewcommand{\arraystretch}{1.1}
+\begin{tabular}{llll}
+\textbf{Mittwochs}    & \textbf{Tutorium}                   & Donnerstags & Vorlesung					                            \\\hline
+12.10.22   & (1) Einführung Tut. + Mathe Gdlg.              & 13.10.22   & (1) Einführung 				                        \\
+19.10.22   & (1) Einführung (VO SKF)                        & 20.10.22   & (2) Wahrscheinlichkeitsräume 	                \\
+26.10.22   & (2) Wahrscheinlichkeitsräume                   & 27.10.22   & (3) Elementare Wahrscheinlichkeiten            \\
+02.11.22   & (3) Elementare Wahrscheinlichkeiten            & 03.11.22   & (4) Zufallsvariablen I                         \\
+09.11.22   & (4) Zufallsvariablen                           & 10.11.22   & (4) Zufallsvariablen II                        \\
+16.11.22   & (4) Zufallsvariablen                           & 17.11.22   & (5) Multivariate Verteilungen                  \\
+23.11.22   & (5) Multivariate Verteilungen                  & 24.11.22   & (6) Erwartungswert und Kovarianz               \\
+30.11.22   & (6) Erwartungswert und Kovarianz               & 01.12.22   & (7) Ungleichungen und Grenzwerte               \\
+07.12.22   & (7) Ungleichungen und Grenzwerte               & 08.12.22   & (8) Transformationen d. Normalverteilung      \\
+14.12.22   & (8) Transformationen d. Normalverteilung      & 15.12.22   & (9) Grundbegr. Frequentistischer Inferenz      \\
+21.12.22   & (9) Grundbegr. Frequentistischer Inferenz      & 22.12.22   & \textcolor{gray}{Weihnachtspause}              \\
+           & \textcolor{gray}{Weihnachtspause}                                                                            \\
+04.01.23   & \textcolor{gray}{\textit{Ersatztermin im Januar}}               & 05.01.23   & (10) Parameterschätzung                        \\
+\textbf{11.01.23}   & \textbf{(10) Parameterschätzung}     & 12.01.23   & (11) Konfidenzintervalle                       \\
+18.01.23   & (11) Konfidenzintervalle                       & 19.01.23   & (12) Hypothesentests I                         \\
+25.01.23   & (12) Hypothesentests I                         & 26.01.23   & (12) Hypothesentests II                        \\
+27.01.23   & (12) Hypothesentests II                                                                                      \\\hline
+02.02.23 & Klausur                                                                                                      \\
+\end{tabular}
+
+
+
+#  {.plain}
+\vfill
+\center
+\huge
+\text{(10) Parameterschätzung}
+
+
+
+# Selbstkontrollfragen
+\footnotesize
+\begin{enumerate}
+\item Definieren und erläutern Sie den Begriff des Parameterpunktschätzers.
+\item Definieren Sie den Begriff der Likelihood-Funktion.
+\item Definieren Sie den Begriff der Log-Likelihood-Funktion.
+\item Definieren Sie den Begriff des Maximum-Likelihood Schätzers.
+\item Erläutern Sie das Vorgehen zur Maximum-Likelihood Schätzung für ein parametrisches Produktmodell.
+\item Geben Sie den Maximum-Likelihood Schätzer für den Parameter $\mu$ des Bernoullimodells an.
+\item Geben Sie den Maximum-Likelihood Schätzer für den Parameter $\mu$ des Normalverteilungmodels an.
+\item Geben Sie den Maximum-Likelihood Schätzer für den Parameter $\sigma^2$ des Normalverteilungmodels an.
+\item Definieren und erläutern Sie den Begriff der Erwartungstreue eines Schätzers.
+\item Definieren Sie die Begriffe der Varianz und des Standardfehlers eines Schätzers.
+\item Erläutern Sie den Begriff des asymptotischen Erwartungstreue eines Schätzers
+\item Erläutern Sie den Begriff der Konsistenz eines Schätzers.
+\item Erläutern Sie den Begriff der asymptotischen Normalität eines Schätzers.
+\item Nennen Sie vier Eigenschaften eines Maximum-Likelihood Schätzers.
+\end{enumerate}
+
+
+
+# \textcolor{darkblue}{SKF 1}. *Parameterpunktschätzer*
+
+\large
+\color{darkblue} 1.  Definieren und erläutern Sie den Begriff des Parameterpunktschätzers.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Parameterpunktschätzer]
+\justifying
+$\mathcal{M} := (\mathcal{Y}, \mathcal{A}, \{\mathbb{P}_\theta|\theta \in \Theta\})$
+sei ein statistisches Modell, $(\Theta,\mathcal{S})$ sei ein Messraum und
+$\hat{\theta} : \mathcal{Y} \to \Theta$ sei eine Abbildung. Dann nennen wir
+$\hat{\theta}$ einen \textit{Parameterpunktschätzer} für $\theta$.
+\end{definition}
+
+
+Bemerkungen
+
+* Parameterpunktschätzer nennt man auch einfach *Parameterschätzer*.
+* Parameterpunktschätzer sind Schätzer mit $\tau := \mbox{id}_\Theta$.
+* Parameterschätzer nehmen Zahlwerte in $\Theta$ an.
+* Notationstechnisch wird oft nicht zwischen $\hat{\theta}$ und $\hat{\theta}(y)$ unterschieden.
+
+\color{black}
+weitere Erläuterung
+
+* Parameterpunktschätzer sind Abbildungen, die Werte aus dem Datenraum ($\mathcal{Y}$) eines statistisches Modells nehmen und Werte im Parameterraum ($\Theta$) annehmen.
+* Intuitiv ist ein Parameterschätzer ein konkreter Zahlenwert, der den Wert eines wahren, aber unbekannten Parameters "schätzt".  
+
+
+
+
+# \textcolor{darkblue}{SKF 2}. *Likelihood-Funktion*
+
+\large
+\color{darkblue} 2.  Definieren Sie den Begriff der Likelihood-Funktion.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Likelihood-Funktion]
+\justifying
+$\mathcal{M}$ sei ein parametrisches statistisches Produktmodell mit WMF oder WDF $p_\theta$,
+also $\ups_1,...,\ups_n \sim p_\theta$. Dann ist die \textit{Likelihood Funktion} definiert als
+\begin{equation}
+L_n : \Theta \to [0,\infty[, \theta \mapsto L_n(\theta) := \prod_{i=1}^n p_\theta(y_i)
+\end{equation}
+\end{definition}
+
+\color{darkcyan}
+Bemerkungen
+
+* \color{darkcyan} $L_n$ ist eine Funktion des Parameters eines statistischen Modells.
+* Werte von $L_n$ sind die gemeinsamen Wahrscheinlichkeitsmassen bzw. -dichten von Datenwerten $y_1,...,y_n$.
+* Generell gibt es keinen Grund anzunehmen, dass $L_n$ über $\Theta$ zu 1 integriert.
+* Die Likelihood-Funktion ist also keine WMF oder WDF.
+
+ 
+
+# \textcolor{darkblue}{SKF 3}. *Log-Likelihood-Funktion*
+
+\large
+\color{darkblue} 3.  Definieren Sie den Begriff der Log-Likelihood-Funktion.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Log-Likelihood-Funktion]
+\justifying
+$\mathcal{M}$ sei ein parametrisches statistisches Produktmodell mit WMF oder WDF $p_\theta$,
+also $\ups_1,...,\ups_n \sim p_\theta$ und Likelihood-Funktion $L_n$. Dann ist die \textit{Log-Likelihood-Funktion} ist definiert als
+\begin{equation}
+\mathcal{\ell}_n : \Theta \to \mathbb{R}, \theta \mapsto \ell_n(\theta) := \ln L_n(\theta).
+\end{equation}
+\end{definition}
+
+\color{darkcyan}
+Bemerkungen
+
+* \color{darkcyan} Die Log-Likelihood-Funktion ist die logarithmierte Likelihood-Funktion.
+* Das Arbeiten mit der Log-Likelihood-Funktion ist oft einfacher als mit der Likelihood Funktion.
+
+
+
+
+# \textcolor{darkblue}{SKF 4}. *ML-Schätzer*
+
+\large
+\color{darkblue} 4.  Definieren Sie den Begriff des Maximum-Likelihood Schätzers.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Maximum-Likelihood Schätzer]
+\justifying
+$\mathcal{M}$ sei ein parametrisches statistisches Produktmodell mit Parameter
+$\theta \in \Theta$. Ein \textit{Maximum-Likelihood Schätzer} von $\theta$
+ist definiert als
+\begin{equation}
+\hat{\theta}^{\mbox{\tiny ML}}_n : \mathcal{Y} \to \Theta,
+y \mapsto \hat{\theta}^{\mbox{\tiny ML}}_n(y)
+:= \argmax_{\theta \in \Theta} L_n(\theta)
+=  \argmax_{\theta \in \Theta} \ell_n(\theta).
+\end{equation}
+\end{definition}
+
+\color{darkcyan}
+Bemerkungen
+
+* \color{darkcyan} \justifying $L_n(\theta) := \prod_{i=1}^n p_\theta(y_i)$ hängt von $y := (y_1,...,y_n)$ ab,
+also hängt auch $\hat{\theta}^{\mbox{\tiny ML}}_n(y)$ von $y$ ab.
+* Weil $\ln$ monoton steigend ist, entspricht eine Maximumstelle von $\ell_n$ einer Maximumstelle von $L_n$.
+* Multiplikation von $L_n$ mit einer positiven Konstante, die nicht von $\theta$ abhängt,
+verändert einen Maximum-Likelihood Schätzer nicht, konstante additive Terme in der Log-Likelihood können also vernachlässigt werden.
+* Maximum-Likelihood Schätzung ist ein Optimierungsproblem (vgl. Vorkurs Einheit (5) Differentialrechnung - Extremwerte und Extremstellen).
+
+Achtung
+
+* \color{darkcyan}  $\argmax_{\theta \in \Theta} L_n (\theta)$ ist eine Maximum-*stelle* und *nicht* das Maximum. 
+* Das Maximum, also der maximale Wert, den $L_n(\theta)$ annehmen kann, wird mit $\max_{\theta \in \Theta} L_n(\theta)$ bezeichnet.  
+* $\argmax_{\theta \in \Theta} L_n(\theta)$ ergibt *denjenigen* Wert für $\theta \in \Theta$, für den $L_n(\theta)$ maximal wird. 
+
+
+
+# \textcolor{darkblue}{SKF 5}. *Vorgehen ML-Schätzung für parametrisches Produktmodell*
+
+\large
+\color{darkblue} 5.  Erläutern Sie das Vorgehen zur Maximum-Likelihood Schätzung für ein parametrisches Produktmodell.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\setstretch{1.8}
+Vorgehen zur Gewinnung von Maximum-Likelihood Schätzern
+
+(1) Formulierung der Log-Likelihood-Funktion.
+(2) Auswertung der Ableitung der Log-Likelihood-Funktion und Nullsetzen.
+(3) Auflösen nach potentiellen Maximumstellen.
+
+
+
+# \textcolor{darkblue}{SKF 6}. *ML- Schätzer für * $\mu$ *des Bernoullimodells*
+
+\large
+\color{darkblue} 6.  Geben Sie den Maximum-Likelihood Schätzer für den Parameter $\mu$ des Bernoullimodells an.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{align*}
+\hat{\mu}_{n}^{\mbox{\tiny ML}} : \{0,1\}^n \to [0,1],
+y \mapsto \hat{\mu}_{n}^{\mbox{\tiny ML}}(y):= \frac{1}{n}\sum_{i=1}^n y_i
+\end{align*}
+
+
+
+# \textcolor{darkblue}{SKF 7}. *ML- Schätzer für * $\mu$ *des Normalverteilungsmodells*
+
+\large
+\color{darkblue} 7.  Geben Sie den Maximum-Likelihood Schätzer für den Parameter $\mu$ des Normalverteilungsmodels an.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{align*}
+\hat{\mu}_{n}^{\mbox{\tiny ML}} :
+\mathbb{R}^n \to \mathbb{R}, y \mapsto \hat{\mu}_{n}^{\mbox{\tiny ML}}(y)
+:= \frac{1}{n}\sum_{i=1}^n y_i
+\end{align*}
+
+
+
+# \textcolor{darkblue}{SKF 8}. *ML- Schätzer für * $\sigma^2$ *des Normalverteilungsmodells*
+
+\large
+\color{darkblue} 8.  Geben Sie den Maximum-Likelihood Schätzer für den Parameter $\sigma^2$ des Normalverteilungsmodels an.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{align*}
+\hat{\sigma}_n^{2^{\mbox{\tiny ML}}} :
+\mathbb{R}^n \to \mathbb{R}_{\ge 0},
+y \mapsto \hat{\sigma}_n^{2^{\mbox{\tiny ML}}}(y)
+:= \frac{1}{n}\sum_{i=1}^n \left(y_i - \hat{\mu}_{n}^{\mbox{\tiny ML}}\right)^2.
+\end{align*}
+
+# \color{darkcyan} Ein Bsp. für $L_n$ und der Unterschied zwischen $p(x)$ und $p_{\theta}(y_i)$
+
+\vspace{3mm}
+\color{black}
+\footnotesize 
+
+Wir schauen uns die Likelihood-Funktion $L_n$ am Beispiel einer Bernoulli-ZV und dessen Realisierungen genauer an. 
+
+* Mal angenommen, wir haben einen **Datensatz** $y = (y_1, ...y_{n}) = (0,1,1,0,1)$ von $n=5$ Münzwürfen mit einer **verbogenen Münze** vorliegen. 
+* Da die Münze verbogen ist, können wir davon ausgehen, dass die Wahrscheinlichkeiten für Kopf oder Zahl nicht 0.5 sind, aber **wir wissen nicht, wie hoch die Wahrscheinlichkeiten sind** (anders ausgedrückt, was der wahre, aber unbekannte Parameter der Verteilung bzw. WMF/WDF ist, wenn wir die Daten als Realisierungen einer ZV modellieren). 
+* Wir nehmen an, dass dieser Datensatz Realisierungen einer Zufallsvariable entspricht und modellieren den Münzwurf mithilfe einer **Bernoulli-Zufallsvariable**.
+* Konkret bedeutet das, wir nehmen an, dass der uns vorliegender Datensatz $y = (y_1, ...y_{n})$ **eine der möglichen Realisierungen** einer Stichprobe $\ups_1,...,\ups_n$ ist, wobei jedes $\ups_i$ einer Bernoulli-Verteilung unterliegt. Das schreiben wir mit $\ups_1,...,\ups_n \sim \text{ Bern}(\mu)$
+
+
+Wiederholung aus (4) Zufallsvariablen:
+
+\tiny
+\begin{definition}[Bernoulli-Zufallsvariable]
+\justifying
+Es sei $\xi$ eine Zufallsvariable mit Ergebnisraum $\mathcal{X} = \{0,1\}$ und WMF
+\begin{equation}
+p : \mathcal{X} \to [0,1], x\mapsto p(x) := \mu^{x}(1 - \mu)^{1-x} \mbox{ mit } \mu \in [0,1].
+\end{equation}
+
+Dann sagen wir, dass $\xi$ einer \textit{Bernoulli-Verteilung mit Parameter
+$\mu \in [0,1]$} unterliegt und nennen $\xi$ eine \textit{Bernoulli-Zufallsvariable}.
+Wir kürzen dies mit $\xi \sim \mbox{Bern}(\mu)$ ab. Die WMF einer
+Bernoulli-Zufallsvariable bezeichnen wir mit
+\begin{equation}
+\mbox{Bern}(x;\mu) := \mu^x (1 - \mu)^{1 - x}.
+\end{equation}
+\end{definition}
+
+
+
+# \color{darkcyan} Ein Bsp. für $L_n$ und der Unterschied zwischen $p(x)$ und $p_{\theta}(y_i)$ (fortgeführt)
+
+\vspace{3mm}
+\color{black}
+\footnotesize 
+
+* Die **WMF** $p(x)$ ordnet jedem Wert $x \in \mathcal{X} = \{0,1\}$, den eine Zufallsvariable $\ups_i$ annehmen kann, eine Wahrscheinlichkeitsmasse zu. Deren funktionale Form $\mu^x (1 - \mu)^{1 - x}$ ist von $\mu$ geprägt. 
+* Bei einem Münzwurf mit ungezinktem Würfel wäre $\mu = 0.5$, und dann wären $p(0) = 0.5^0(1-0.5)^{1-0} = 1\cdot0.5^1 = 0.5$ und $p(1) = 0.5^1(1-0.5)^{1-1} = 0.5\cdot0.5^0 = 0.5$
+
+```{r, echo = FALSE, out.width = "90%"}
+knitr::include_graphics(file.path(abb_dir,"wtfi_4_bernoulliverteilung_wmf.pdf"))
+```
+
+\vspace{-6mm}
+* Wir wissen nicht, was der der wahre, aber unbekannte Parameterwert $\mu$ in unserem Modell einer verbogenen Münze ist. 
+* Bei der **Parameterschätzung** im Rahmen der frequentistischne Inferenz geben wir basierend auf Daten $y$ eine *Schätzung* dafür ab, was der wahre, aber unbekannte Parameterwert *sein könnte*. 
+* Eine Methode, eine solche Schätzung vorzunehmen, ist die **ML-Schätzung**. 
+* Dabei betrachten wir gewissermaßen verschiedene potentielle Werte für $\mu$ und suchen den Wert, für den die Likelihood-Funktion $L_n(\mu)$ maximal wird. 
+
+
+
+# \color{darkcyan} Ein Bsp. für $L_n$ und der Unterschied zwischen $p(x)$ und $p_{\theta}(y_i)$ (fortgeführt)
+
+\vspace{3mm}
+\color{black}
+\footnotesize 
+
+* Gemäß des Vorgehens zur Gewinnung von ML-Schätzern formulieren wir hierfür zunächst die **Likelihood-Funktion**
+\begin{align*}
+L_n (\theta)
+& := \prod_{i=1}^n p_\theta(y_i) \\
+ &= \prod_{i=1}^n \mu^{y_i}(1 - \mu)^{1-y_i}
+ = \mu^{\sum_{i=1}^n y_i}(1 - \mu)^{n - \sum_{i=1}^n y_i}.
+\end{align*}
+* Die Likelihood-Funktion ist das Produkt der Wahrscheinlichkeitsdichten bzw. -massen aller Datenpunkte gegebenen eines bestimmten Parameterwertes $p_{\theta}(y_i)$. 
+* Hierbei verwenden wir die funktionale Form der WMF der Bernoulli-ZV. 
+* **Beispiele für $p_{\theta}(y_i)$-Werte** für die Realiserung $y_i = 1$: 
+  * \footnotesize wenn $\theta = \mu = 0.5$, ergibt sich $p_{0.5}(1) = 0.5^1(1-0.5)^{1-1} = 0.5$
+  * wenn $\theta = \mu = 0.1$, ergibt sich $p_{0.1}(1) = 0.1^1(1-0.1)^{1-1} = 0.1$
+  * wenn $\theta = \mu = 0.7$, ergibt sich $p_{0.7}(1) = 0.1^1(1-0.7)^{1-1} = 0.7$
+* $p_{\theta}(y_i)$ ist also die Wahrscheinlichkeit des Datenpunkts $y_i$ (Realisierung der ZV), wenn der Parameter $\theta$ einen bestimmten Wert hätte und damit auch die ZV eine bestimmte "theoretische" Verteilung hätte.Anders ausgedrückt, die Wahrscheinlichkeit der Daten unter einem angenommenen Modell. 
+
+
+
+# \color{darkcyan} Ein Bsp. für $L_n$ und der Unterschied zwischen $p(x)$ und $p_{\theta}(y_i)$ (fortgeführt)
+
+\vspace{3mm}
+\color{black}
+\footnotesize 
+
+Um es noch ein bisschen konkreter zu machen: In unserem Beispiel, wenn wir $n=5$ Münzwurfergebnisse $y = (y_1, ...y_{n}) = (0,1,1,0,1)$ vorliegen haben, könnten wir die Likehoods für verschiedene potentielle Parameterwerte berechnen. 
+
+**Beispiele für Likelihood-Werte $L_n(\theta)$**
+
+* $L_n (0.5) =  p_{0.5}(0) \cdot p_{0.5}(1) \cdot p_{0.5}(1) \cdot p_{0.5}(0) \cdot p_{0.1}(1) = 0.5 \cdot 0.5 \cdot0.5 \cdot0.5 \cdot0.5  = 0.03125$
+* $L_n (0.1) =  p_{0.1}(0) \cdot p_{0.1}(1) \cdot p_{0.1}(1) \cdot p_{0.1}(0) \cdot p_{0.1}(1) = 0.9 \cdot 0.1 \cdot0.1 \cdot0.9 \cdot0.1  \approx 0.00081$
+* $L_n (0.7) =  p_{0.7}(0) \cdot p_{0.7}(1) \cdot p_{0.7}(1) \cdot p_{0.7}(0) \cdot p_{0.7}(1) = 0.3 \cdot 0.7 \cdot0.7 \cdot0.3 \cdot0.7  = 0.03087$
+* $L_n (0.6) =  p_{0.6}(0) \cdot p_{0.6}(1) \cdot p_{0.6}(1) \cdot p_{0.6}(0) \cdot p_{0.6}(1) = 0.4 \cdot 0.6 \cdot0.6 \cdot0.4 \cdot0.6  = 0.03456$
+
+Wenn wir also nur diese vier Parameterwerte vergleichen würden, würden wir die höchste Likelihood für $\mu = 0.6$ erhalten. Anders ausgedrückt, die Wahrscheinlichkeit, diese Daten zu beobachten ist am höchsten unter dem Modell einer Bernoulli-ZV mit Parameter $\mu=0.6$. 
+
+In der Praxis ist das manuelle Bestimmen und Vergleichen verschiedener $L_n$ überflüssig, weil uns für bestimmte, Modelle (wie etwa Bernoulli oder Normalverteilung) Schätzformeln vorliegen, von denen wir aufgrund der Ergebnisse analytischer Optimierung wissen, dass diese den ML-Schätzern entsprechen.
+Für Bernoulli ist das $\hat{\mu}^{ML}_n := \frac{1}{n}\sum^n_{i=1}y_i$. 
+
+In unserem Beispiel könnten wir also dem ML-Schätzer für $\mu$ bestimmen mit 
+
+\begin{align*}
+\hat{\mu}^{ML}_n &= \frac{1}{n}\sum^n_{i=1}y_i = \frac{1}{5} (0,1,1,0,1) = \frac{1}{5} \cdot 3 = 0.6
+\end{align*}
+
+
+
+# \textcolor{darkblue}{SKF 9}. *Erwartungstreue eines Schätzers*
+
+\large
+\color{darkblue} 9. Definieren und erläutern Sie den Begriff der Erwartungstreue eines Schätzers.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Fehler, Systematischer Fehler, und Erwartungstreue]
+$\ups := \ups_1,...,\ups_n \sim  p_\theta$ sei eine Stichprobe und $\hat{\tau}_n$ sei ein Schätzer für $\tau$.
+\begin{itemize}
+\item Der \textit{Fehler} von $\hat{\tau}_n$ ist definiert als
+\begin{equation}
+\hat{\tau}_n(\ups) - \tau(\theta).
+\end{equation}
+\item Der \textit{systematische Fehler (Bias)} von $\hat{\tau}_n$ ist definiert als
+\begin{equation}
+\mbox{B}(\hat{\tau}_n) := \mathbb{E}_{\theta}(\hat{\tau}_n(\ups)) - \tau(\theta).
+\end{equation}
+\item $\hat{\tau}_n$ heißt \textit{erwartungstreu (unbiased)}, wenn
+\begin{equation}
+\mbox{B}(\hat{\tau}_n) = 0\Leftrightarrow
+\mathbb{E}_{\theta}(\hat{\tau}_n(\ups)) = \tau(\theta) \mbox{ für alle } \theta \in \Theta, n \in \mathbb{N}.
+\end{equation}
+Andernfalls heißt $\hat{\tau}_n$  \textit{verzerrt (biased)}.
+\end{itemize}
+\end{definition}
+
+* \textcolor{darkcyan}{Der Fehler hängt von einer Realisation ab.}
+* \textcolor{darkcyan}{Der systematische Fehler ist der erwartete Fehler über viele Stichprobenrealisationen.}
+* Ein Schätzer $\hat{\tau}_n$ heißt *erwartungstreu*, wenn sein
+Erwartungswert dem wahren, aber unbekannten, Wert  $\tau(\theta)$ für alle
+$\theta \in \Theta$ gleicht.
+* Ein Parameterschätzer ist erwartungstreu, wenn $\mathbb{E}_{\theta}(\hat{\theta}_n(\ups)) = \theta$
+
+
+# \textcolor{darkcyan}{Wdhl.: Standardannahmen Frequentistischer Inferenz}
+
+\footnotesize
+$\mathcal{M}$ sei ein statistisches Modell mit Stichprobe $\ups_1,...,\ups_n  \sim p_\theta$.
+**Es wird angenommen, dass ein konkret vorliegender Datensatz $y = (y_1,...,y_n) \in \mathbb{R}^n$
+eine der möglichen Realisierungen von $\ups_1,...,\ups_n \sim p_\theta$ ist.**
+Aus Frequentistischer Sicht kann man eine Studie unter gleichen Umständen unendlich 
+oft wiederholen und zu jedem Datensatz Schätzer oder Statistiken auswerten, z.B. das Stichprobenmittel:
+
+\footnotesize
+\begin{itemize}
+\item[] Datensatz (1) : $y^{(1)} = \left(y_1^{(1)}, y_2^{(1)}, ...,y_n^{(1)}\right)$
+						mit $\bar{y}_n^{(1)} = \frac{1}{n}\sum_{i=1}^n y_i^{(1)}$
+\item[] Datensatz (2) : $y^{(2)} = \left(y_1^{(2)}, y_2^{(2)}, ...,y_n^{(2)}\right)$
+                        mit $\bar{y}_n^{(2)} = \frac{1}{n}\sum_{i=1}^n y_i^{(2)}$
+\item[] Datensatz (3) : $y^{(3)} = \left(y_1^{(3)}, y_2^{(3)}, ...,y_n^{(3)}\right)$
+                        mit $\bar{y}_n^{(3)} = \frac{1}{n}\sum_{i=1}^n y_i^{(3)}$
+\item[] Datensatz (4) : $y^{(4)} = \left(y_1^{(4)}, y_2^{(4)}, ...,y_n^{(4)}\right)$
+                        mit $\bar{y}_n^{(4)} = \frac{1}{n}\sum_{i=1}^n y_i^{(4)}$
+\item[] Datensatz (5) : $y^{(5)} = ...$
+\end{itemize}
+
+Um die Qualität statistischer Methoden zu beurteilen betrachtet die Frequentistische
+Statistik deshalb die Wahrscheinlichkeitsverteilungen von Schätzern und Statistiken
+unter Annahme von $\ups_1,...,\ups_n \sim p_\theta$. Was zum Beispiel
+ist die Verteilung der $\bar{y}_n^{(1)}$, $\bar{y}_n^{(2)}$, $\bar{y}_n^{(3)}$, $\bar{y}_n^{(4)}$, ...
+also die Verteilung der Zufallsvariable $\bar{\ups}_n$?
+
+Wenn eine statistische Methode im Sinne der Frequentistischen Standardannahmen "gut" ist, dann heißt das
+also, dass sie bei häufiger Anwendung "im Mittel gut" ist. Im Einzelfall, also
+im Normalfall nur eines vorliegenden Datensatzes, kann sie auch "schlecht" sein.
+
+
+# \textcolor{darkblue}{SKF 10}. *Varianz und Standardfehler eines Schätzers*
+
+\large
+\color{darkblue} 10. Definieren Sie die Begriffe der Varianz und des Standardfehlers eines Schätzers.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Varianz und Standardfehler]
+$\ups := \ups_1,...,\ups_n \sim  p_\theta$ sei eine Stichprobe und $\hat{\tau}_n$ sei ein Schätzer von $\tau$.
+\begin{itemize}
+\item Die \textit{Varianz} von $\hat{\tau}_n$ ist definiert als
+\begin{equation}
+\mathbb{V}_\theta(\hat{\tau}_n) :=
+\mathbb{E}_\theta
+\left((\hat{\tau}_n(\ups) - \mathbb{E}_\theta(\hat{\tau}_n(\ups)))^2\right).
+\end{equation}
+\item Der \textit{Standardfehler} von $\hat{\tau}_n$ ist definiert als
+\begin{equation}
+\mbox{SE}(\hat{\tau}_n) := \sqrt{\mathbb{V}_\theta(\hat{\tau}_n)}
+\end{equation}
+\end{itemize}
+\end{definition}
+
+Bemerkungen
+
+* Die Varianz eines Schätzers $\hat{\tau}_n$ ist die Varianz der Zufallsvariable $\hat{\tau}_n(\ups)$.
+* Der Standardfehler eines Schätzers $\hat{\tau}_n$ ist die Standardabweichung von $\hat{\tau}_n(\ups)$. 
+* \color{darkcyan}Die Varianz von Schätzern basiert auf der Varianz der Daten, ist aber nicht das gleiche. 
+
+
+# \small Schätzereigenschaften bei endlichen Stichproben | Varianz und Standardfehler
+\vspace{1mm}
+\small
+Simulation von $\ups_1,...,\ups_n \sim \mbox{Bern}(\mu)$ mit $\mu = 0.4$
+\vspace{1mm}
+
+\tiny
+\setstretch{0.9}
+```{r}
+# Modellformulierung
+mu          = 0.4                                   # wahrer, aber unbekannter, Parameterwert
+n_all       = c(20,100,200)                         # Stichprobengrößen n
+ns          = 1e4                                   # Anzahl der Simulationen
+mu_hat_ML   = matrix(rep(NaN, length(n_all)*ns),    # Maximum-Likelihood Schätzearray
+                     nrow = length(n_all))
+
+# Stichprobengroesseniterationen
+for(i in seq_along(n_all)){
+
+    # Simulationsiterationen
+    for(s in 1:ns){
+        y               = rbinom(n_all[i],1,mu)     # Stichprobenrealisation von y_1,...,y_n
+        mu_hat_ML[i,s]  = mean(y)                   # Stichprobenmittel
+    }
+}
+```
+
+\footnotesize
+Die Varianz bzw. der Standardfehler von $\hat{\mu}^{\mbox{\tiny ML}}_n$ hängen von $n$ ab.
+
+```{r, echo = FALSE, out.width = "90%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_10_sem.pdf"))
+```
+
+
