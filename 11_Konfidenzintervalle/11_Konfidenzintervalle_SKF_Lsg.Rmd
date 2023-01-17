@@ -1,0 +1,314 @@
+---
+fontsize: 8pt
+bibliography: ../Referenzen.bib
+citation_package: natbib
+output:
+  beamer_presentation:
+    keep_tex: true
+    includes:
+      in_header: ../Header.tex
+classoption: t  
+---
+
+
+```{r, include = F}
+source("../R_common.R")
+abb_dir = file.path(dirname(getwd()), "Abbildungen")
+```
+
+#  {.plain}
+\center
+```{r, echo = FALSE, out.width = "20%"}
+knitr::include_graphics(file.path(abb_dir,"otto.png"))
+```
+
+\vspace{2mm}
+
+\huge
+Tutorium 
+
+\Large
+Wahrscheinlichketstheorie und Frequentistische Inferenz
+\vspace{4mm}
+
+\normalsize
+BSc Psychologie WiSe 2022/23
+
+\vspace{12mm}
+\normalsize
+Belinda Fleischmann
+
+\vspace{3mm}
+\scriptsize
+Inhalte basieren auf Kursmaterialien für [WTFI](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Lehre/Wintersemester+2023/Wahrscheinlichkeitstheorie+und+Frequentistische+Inferenz.html) von [Dirk Ostwald](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Team/Dirk+Ostwald.html), lizenziert unter [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de)
+
+
+
+#  {.plain}
+\vfill
+\center
+\huge
+\text{(11) Konfidenzintervalle}
+
+
+
+# Selbstkontrollfragen
+\footnotesize
+\vfill
+\setstretch{3}
+1. Definieren Sie den Begriff des $\delta$-Konfidenzintervalls.
+2. Geben Sie zwei Interpretationen eines $\delta$-Konfidenzintervalls.
+3. Erläutern Sie die typischen Schritte zur Konstruktion eines $\delta$-Konfidenzintervalls.
+4. Definieren Sie die $T$-Konfidenzintervallstatistik und geben Sie ihre Verteilung an.
+5. Geben Sie das $\delta$-Konfidenzintervall für den Erwartungswert der Normalverteilung an.
+6. Definieren Sie die $U$-Konfidenzintervallstatistik und geben Sie ihre Verteilung an.
+7. Geben Sie das $\delta$-Konfidenzintervall für den Varianzparameter der Normalverteilung an.
+
+
+
+#
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_11_frequentistische_inferenz.pdf"))
+```
+
+
+#
+Standardannahmen Frequentistischer Inferenz
+
+\footnotesize
+$\mathcal{M}$ sei ein statistisches Modell mit Stichprobe $\ups_1,...,\ups_n  \sim p_\theta$.
+**Es wird angenommen, dass ein konkret vorliegender Datensatz $y = (y_1,...,y_n) \in \mathbb{R}^n$
+eine der möglichen Realisierungen von $\ups_1,...,\ups_n \sim p_\theta$ ist.**
+Aus Frequentistischer Sicht kann man eine Studie unter gleichen Umständen unendlich
+oft wiederholen und zu jedem Datensatz Schätzer oder Statistiken auswerten, z.B. das Stichprobenmittel:
+
+\footnotesize
+\begin{itemize}
+\item[] Datensatz (1) : $y^{(1)} = \left(y_1^{(1)}, y_2^{(1)}, ...,y_n^{(1)}\right)$
+						mit $\bar{y}^{(1)} = \frac{1}{n}\sum_{i=1}^n y_i^{(1)}$
+\item[] Datensatz (2) : $y^{(2)} = \left(y_1^{(2)}, y_2^{(2)}, ...,y_n^{(2)}\right)$
+                        mit $\bar{y}^{(2)} = \frac{1}{n}\sum_{i=1}^n y_i^{(2)}$
+\item[] Datensatz (3) : $y^{(3)} = \left(y_1^{(3)}, y_2^{(3)}, ...,y_n^{(3)}\right)$
+                        mit $\bar{y}^{(3)} = \frac{1}{n}\sum_{i=1}^n y_i^{(3)}$
+\item[] Datensatz (4) : $y^{(4)} = \left(y_1^{(4)}, y_2^{(4)}, ...,y_n^{(4)}\right)$
+                        mit $\bar{y}^{(4)} = \frac{1}{n}\sum_{i=1}^n y_i^{(4)}$
+\item[] Datensatz (5) : $y^{(5)} = ...$
+\end{itemize}
+
+Um die Qualität statistischer Methoden zu beurteilen betrachtet die Frequentistische
+Statistik deshalb die Wahrscheinlichkeitsverteilungen von Schätzern und Statistiken
+unter Annahme von $\ups_1,...,\ups_n \sim p_\theta$. Was zum Beispiel
+ist die Verteilung der $\bar{y}^{(1)}$, $\bar{y}^{(2)}$, $\bar{y}^{(3)}$, $\bar{y}^{(4)}$, ...
+also die Verteilung der Zufallsvariable $\bar{\ups}$?
+
+Wenn eine statistische Methode im Sinne der Frequentistischen Standardannahmen "gut" ist, dann heißt das
+also, dass sie bei häufiger Anwendung "im Mittel gut" ist. Im Einzelfall, also
+im Normalfall nur eines vorliegenden Datensatzes, kann sie auch "schlecht" sein.
+
+
+
+
+# \textcolor{darkblue}{SKF 1}. *$\delta$-Konfidenzintervalls* 
+
+\large
+\color{darkblue} 1. Definieren Sie den Begriff des $\delta$-Konfidenzintervalls.
+
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[$\delta$-Konfidenzintervall]
+\justifying
+Es sei $\ups = \ups_1,...,\ups_n \sim p_\theta$ eine Stichprobe, $\delta \in \,]0,1[$,
+und $G_u(\ups)$ und $G_o(\ups)$ seien zwei Statistiken. Dann ist ein
+$\delta$-\textit{Konfidenzintervall} ein Intervall der Form $\kappa := [G_u, G_o]$, so dass
+\begin{equation}
+\mathbb{P}_\theta\left(\kappa \ni \theta\right) =
+\mathbb{P}_\theta\left(G_u(\ups) \le \theta \le G_o(\ups) \right) =
+\delta \mbox{ für alle } \theta \in \Theta \mbox{ gilt}.
+\end{equation}
+$\delta$ heißt das \textit{Konfidenzniveau} oder die \textit{Überdeckungswahrscheinlichkeit}
+des Konfidenzintervalls. Die Statistiken $G_u(\ups)$ und $G_o(\ups)$ sind die unteren
+und oberen Grenzen des Konfidenzintervalls.
+\end{definition}
+
+\footnotesize
+Bemerkungen
+
+* $\theta$ ist fest, nicht zufällig, und unbekannt.
+* $\kappa$ ist ein zufälliges Intervall, weil $G_u(\ups)$ und $G_o(\ups)$ Zufallsvariablen sind.
+* $\kappa \ni \theta$ bedeutet $\theta \in \kappa$, aber $\kappa$ ist zufällig und steht deshalb vorn (cf. $\mathbb{P}(\xi = x)$).
+* Ein $\delta$-Konfidenzintervall überdeckt den wahren Wert $\theta$ mit Wahrscheinlichkeit $\delta$.
+* Oft wird $\delta = 0.95$ gewählt, also \textit{$95\%$-Konfidenzintervalle} betrachtet.
+
+
+
+# \textcolor{darkblue}{SKF 2}. *Interpretationen eines $\delta$-Konfidenzintervalls* 
+
+\large
+\color{darkblue} 2. Geben Sie zwei Interpretationen eines $\delta$-Konfidenzintervalls.
+
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+(1) \justifying  Wird ein Zufallsvorgang unter gleichen Umständen häufig wiederholt, so überdeckt
+das zugehörige $\delta$-Konfidenzintervall den wahren, aber unbekannten Parameterwert
+im langfristigen Mittel in $\delta\cdot 100 \%$ der Fälle. Technischer ausgedrückt, für unabhängig und identisch realisierte
+Stichproben einer Verteilung mit wahrem, aber unbekannten, Parameter $\theta$ überdeckt
+im langfristigen Mittel ein entsprechendes $\delta$-Konfidenzintervall $\theta$ in $\delta\cdot 100 \%$ aller Fälle.
+
+(2) Gegeben sei eine Menge von Zufallsvorgängen mit wahren, aber unbekannten,
+Parametern $\theta_1,\theta_2,...$ und realisierte $\delta$-Konfidenzintervalle für
+eben jene Menge von wahren, aber unbekannten Parametern $\theta_1,\theta_2,...$
+Dann überdecken im langfristigen Mittel $\delta\cdot 100 \%$ der Konfidenzintervalle
+den wahren, aber unbekannten, Wert $\theta_i$ für $i = 1,2,...$. Technischer ausgedrückt,
+für unabhängig realisierte Stichproben von Verteilungen mit wahren, aber unbekannten, Parametern
+$\theta_1, \theta_2,...$ überdecken im langfristigen Mittel entsprechende $\delta$-Konfidenzintervalle
+$\theta_i$ für $i = 1,2,...$ in $\delta\cdot 100 \%$ aller Fälle.
+
+
+
+# \textcolor{darkblue}{SKF 3}. *Konstruktion eines $\delta$-Konfidenzintervalls* 
+
+\large
+\color{darkblue} 3. Erläutern Sie die typischen Schritte zur Konstruktion eines $\delta$-Konfidenzintervalls.
+
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\setstretch{1.6}
+
+Allgemeine Konstruktion von Konfidenzintervallen
+
+(1) Definition des statistischen Modells
+(2) Definition der Konfidenzintervallstatistik
+(3) Analyse der Verteilung der Konfidenzintervallstatistik
+(4) Etablierung der Konfidenzbedingung
+(5) Definition des Konfidenzintervalls
+
+
+
+# \textcolor{darkblue}{SKF 4}. *$T$-Konfidenzintervallstatistik* 
+
+\large
+\color{darkblue} 4. Definieren Sie die $T$-Konfidenzintervallstatistik und geben Sie ihre Verteilung an.
+
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+$T$-Konfidenzintervallstatistik:
+
+\begin{align*}
+T := \frac{\sqrt{n}}{S}(\bar{\ups} - \mu) \mbox{ mit } \bar{\ups} := \frac{1}{n}\sum_{i=1}^n \ups_i \mbox{  und } S := \sqrt{\frac{1}{n-1}\sum_{i=1}^n(\ups_i - \bar{\ups})^2}.
+\end{align*}
+
+Verteilung:
+
+Für die $T$-Konfidenzintervallstatistik gilt $T \sim t(n - 1)$, die $T$-Konfidenzintervallstatistik
+ist also eine $t$-verteilte Zufallsvariable mit Freiheitsgradparameter $n-1$.
+Wir verzichten auf einen Beweis. Die $T$-Konfidenzintervallstatistik
+ist eine Funktion der Stichprobe $\ups_1,...,\ups_n$ (via $\bar{\ups}$ und $S$),
+während ihre Verteilung weder von $\mu$ noch von $\sigma^2$ abhängt.
+Wir bezeichnen die die WDF einer $t$-verteilten Zufallvariable mit $t$, die KVF 
+einer $t$-verteilten Zufallvariable mit $\Psi$ und die inverse KVF einer 
+$t$-verteilten Zufallvariable mit $\Psi^{-1}$.
+
+
+
+
+# \textcolor{darkblue}{SKF 5}. *$\delta$-Konfidenzintervall für Erwartungswert* 
+
+\large
+\color{darkblue} 5. Geben Sie das $\delta$-Konfidenzintervall für den Erwartungswert der Normalverteilung an.
+
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+  
+Es sei $\ups_1,...,\ups_n \sim N(\mu,\sigma^2)$ mit unbekannten Parametern $\mu$ und $\sigma^2$,
+es sei $\delta \in ]0,1[$ und es sei 
+\begin{equation}
+t_\delta := \Psi^{-1}\left(\frac{1+\delta}{2}; n - 1\right).
+\end{equation}
+Definiere
+\begin{equation}
+\kappa :=
+\left[\bar{\ups} - \frac{S}{\sqrt{n}}t_\delta,
+\bar{\ups} + \frac{S}{\sqrt{n}}t_\delta\right].
+\end{equation}
+Dann gilt wie oben gezeigt
+\begin{equation}
+\mathbb{P}(\kappa \ni \mu) = \delta.
+\end{equation}
+Damit ist $\kappa$ ein $\delta$-Konfidenzintervall für $\mu$. 
+
+Man beachte, dass $\kappa$ ein zufälliges Intervall ist, weil $\bar{\ups}$ und $S$ Zufallsvariablen sind.
+
+
+
+
+# \textcolor{darkblue}{SKF 6}. *$U$-Konfidenzintervallstatistik*
+
+\large
+\color{darkblue} 6. Definieren Sie die $U$-Konfidenzintervallstatistik und geben Sie ihre Verteilung an.
+
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+
+$U$-Konfidenzintervallstatistik:
+
+\begin{align*}
+U := \frac{n-1}{\sigma^2}S^2 \mbox{ mit } S^2 := \frac{1}{n-1}\sum_{i=1}^n \left(\ups_i - \bar{\ups}\right)^2.
+\end{align*}
+
+Verteilung:
+
+Für die  $U$-Konfidenzintervallstatistik gilt $U \sim \chi^2(n-1)$. 
+Die $U$-Konfidenzintervallstatistik
+ist eine Funktion von $\ups_1,...,\ups_n$ (via $S^2$) und $\sigma^2$, während ihre Verteilung nicht von
+$\sigma^2$ abhängt. Wir bezeichnen die WDF einer $\chi^2$-verteilten Zufallvariable mit $\chi^2$,
+die KVF einer $\chi^2$-verteilten Zufallvariable mit $\Xi$ und die inverse KVF einer
+$\chi^2$-verteilten Zufallvariable mit $\Xi^{-1}$.
+
+
+
+# \textcolor{darkblue}{SKF 7}. *$\delta$-Konfidenzintervall für Varianzparameter* 
+
+\large
+\color{darkblue} 7. Geben Sie das $\delta$-Konfidenzintervall für den Varianzparameter der Normalverteilung an.
+
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Es sei $\ups_1,...,\ups_n \sim N(\mu,\sigma^2)$ eine Stichprobe mit unbekanntem
+Varianzparameter $\sigma^2$ und bekanntem oder unbekanntem Erwartungswertparamter
+$\mu$ und es seien weiterhin $\delta \in ]0,1[$ sowie
+\begin{equation}
+\xi_1 := \Xi^{-1}\left(\frac{1 - \delta}{2};n-1 \right) \mbox{ und }
+\xi_2 := \Xi^{-1}\left(\frac{1 + \delta}{2};n-1 \right). 
+\end{equation}
+Definiere
+\begin{equation}
+\kappa := \left[\frac{(n-1)S^2}{\xi_2}, \frac{(n-1)S^2}{\xi_1}\right].
+\end{equation}
+Dann gilt wie oben gezeigt
+\begin{equation}
+\mathbb{P}(\kappa \ni \sigma^2) = \delta.
+\end{equation}
+Damit ist $\kappa$ ein $\delta$-Konfidenzintervall für $\sigma^2$. 
+
+Man beachte, dass $\kappa$ ein zufälliges Intervall ist, weil $S^2$ eine Zufallsvariable ist.
+
