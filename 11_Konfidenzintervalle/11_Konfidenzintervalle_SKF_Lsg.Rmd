@@ -108,7 +108,7 @@ im Normalfall nur eines vorliegenden Datensatzes, kann sie auch "schlecht" sein.
 
 
 
-# \textcolor{darkblue}{SKF 1}. *$\delta$-Konfidenzintervalls* 
+# \textcolor{darkblue}{SKF 1}. *$\delta$-Konfidenzintervall* 
 
 \large
 \color{darkblue} 1. Definieren Sie den Begriff des $\delta$-Konfidenzintervalls.
@@ -211,16 +211,21 @@ T := \frac{\sqrt{n}}{S}(\bar{\ups} - \mu) \mbox{ mit } \bar{\ups} := \frac{1}{n}
 
 Verteilung:
 
-Für die $T$-Konfidenzintervallstatistik gilt $T \sim t(n - 1)$, die $T$-Konfidenzintervallstatistik
+* Für die $T$-Konfidenzintervallstatistik gilt $T \sim t(n - 1)$, die $T$-Konfidenzintervallstatistik
 ist also eine $t$-verteilte Zufallsvariable mit Freiheitsgradparameter $n-1$.
-Wir verzichten auf einen Beweis. Die $T$-Konfidenzintervallstatistik
-ist eine Funktion der Stichprobe $\ups_1,...,\ups_n$ (via $\bar{\ups}$ und $S$),
-während ihre Verteilung weder von $\mu$ noch von $\sigma^2$ abhängt.
-Wir bezeichnen die die WDF einer $t$-verteilten Zufallvariable mit $t$, die KVF 
+* Die $T$-Konfidenzintervallstatistik ist eine Funktion der Stichprobe $\ups_1,...,\ups_n$ (via $\bar{\ups}$ und $S$), während ihre Verteilung weder von $\mu$ noch von $\sigma^2$ abhängt.
+* Wir bezeichnen die die WDF einer $t$-verteilten Zufallvariable mit $t$, die KVF 
 einer $t$-verteilten Zufallvariable mit $\Psi$ und die inverse KVF einer 
 $t$-verteilten Zufallvariable mit $\Psi^{-1}$.
 
 
+# \textcolor{darkcyan}{Verteilung der T-Konfidenzintervallstatistik}
+
+\vfill
+
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_11_t_statistik.pdf"))
+```
 
 
 # \textcolor{darkblue}{SKF 5}. *$\delta$-Konfidenzintervall für Erwartungswert* 
@@ -254,6 +259,55 @@ Man beachte, dass $\kappa$ ein zufälliges Intervall ist, weil $\bar{\ups}$ und 
 
 
 
+# \textcolor{darkcyan}{Etablierung der Konfidenzbedingung (Erwartungswertparameter)}
+
+\footnotesize
+
+Für $\delta \in ]0,1[$ seien
+\begin{equation}
+t_1 := \Psi^{-1}\left(\frac{1 - \delta}{2}; n - 1\right)
+\mbox{ und }
+t_2 := \Psi^{-1}\left(\frac{1 + \delta}{2}; n-1\right)
+\end{equation}
+Es gilt dann $(1 + \delta)/2 - (1 - \delta)/2 = \delta$ und zum Beispiel gilt für $n = 5$ und
+$\delta = 0.95$, $t_1 = \Psi^{-1}(0.025;4) = -2.57$ und $t_2 = \Psi^{-1}(0.975;4) = 2.57$.
+Weiterhin gilt mit der Symmetrie von $t(n-1)$, $t_1 = - t_2$. Es gilt hier also
+per Definition $\mathbb{P}\left(-t_2 \le T \le t_2 \right) = \delta$.
+
+```{r, echo = FALSE, out.width = "80%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_11_ki_t_konfidenzbedingung.pdf"))
+```
+
+
+
+# \textcolor{darkcyan}{Von Konfidenzbedingung zu Konfidenzintervall (Erwartungswertparameter)}
+
+\small
+Mit der Definition von $t_2$ wie oben folgt dann aber
+\footnotesize
+\begin{align}
+\begin{split}
+\delta
+& =
+\mathbb{P}\left(-t_2 \le T \le t_2 \right) 																			\\
+& =
+\mathbb{P}\left(-t_2 \le \frac{\sqrt{n}}{S}(\bar{\ups} - \mu) \le t_2 \right) 										\\
+& =
+\mathbb{P}\left(-\frac{S}{\sqrt{n}}t_2 \le \bar{\ups} - \mu \le \frac{S}{\sqrt{n}}t_2 \right) 					\\
+& =
+\mathbb{P}\left(-\bar{\ups} -\frac{S}{\sqrt{n}}t_2 \le - \mu \le - \bar{\ups} + \frac{S}{\sqrt{n}}t_2 \right) 	\\
+& =
+\mathbb{P}\left(\bar{\ups} + \frac{S}{\sqrt{n}}t_2 \ge \mu \ge \bar{\ups} - \frac{S}{\sqrt{n}}t_2 \right) 		\\
+& =
+\mathbb{P}\left(\bar{\ups} - \frac{S}{\sqrt{n}}t_2 \le \mu \le \bar{\ups} + \frac{S}{\sqrt{n}}t_2 \right) 		\\
+& =
+\mathbb{P}\left(\left[\bar{\ups} - \frac{S}{\sqrt{n}}t_2, \bar{\ups} + \frac{S}{\sqrt{n}}t_2\right] \ni \mu \right). 		\\
+\end{split}
+\end{align}
+\small
+Wir können nun das gesuchte Konfidenzintervall definieren.
+
+
 
 # \textcolor{darkblue}{SKF 6}. *$U$-Konfidenzintervallstatistik*
 
@@ -274,13 +328,17 @@ U := \frac{n-1}{\sigma^2}S^2 \mbox{ mit } S^2 := \frac{1}{n-1}\sum_{i=1}^n \left
 
 Verteilung:
 
-Für die  $U$-Konfidenzintervallstatistik gilt $U \sim \chi^2(n-1)$. 
-Die $U$-Konfidenzintervallstatistik
-ist eine Funktion von $\ups_1,...,\ups_n$ (via $S^2$) und $\sigma^2$, während ihre Verteilung nicht von
-$\sigma^2$ abhängt. Wir bezeichnen die WDF einer $\chi^2$-verteilten Zufallvariable mit $\chi^2$,
-die KVF einer $\chi^2$-verteilten Zufallvariable mit $\Xi$ und die inverse KVF einer
-$\chi^2$-verteilten Zufallvariable mit $\Xi^{-1}$.
+* Für die  $U$-Konfidenzintervallstatistik gilt $U \sim \chi^2(n-1)$. 
+* Die $U$-Konfidenzintervallstatistik ist eine Funktion von $\ups_1,...,\ups_n$ (via $S^2$) und $\sigma^2$, während ihre Verteilung nicht von $\sigma^2$ abhängt. 
+* Wir bezeichnen die WDF einer $\chi^2$-verteilten Zufallvariable mit $\chi^2$, die KVF einer $\chi^2$-verteilten Zufallvariable mit $\Xi$ und die inverse KVF einer $\chi^2$-verteilten Zufallvariable mit $\Xi^{-1}$.
 
+
+
+# \textcolor{darkcyan}{Verteilung der U-Konfidenzintervallstatistik}
+
+```{r, echo = FALSE, out.width = "80%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_11_u_statistik.pdf"))
+```
 
 
 # \textcolor{darkblue}{SKF 7}. *$\delta$-Konfidenzintervall für Varianzparameter* 
@@ -311,4 +369,49 @@ Dann gilt wie oben gezeigt
 Damit ist $\kappa$ ein $\delta$-Konfidenzintervall für $\sigma^2$. 
 
 Man beachte, dass $\kappa$ ein zufälliges Intervall ist, weil $S^2$ eine Zufallsvariable ist.
+
+
+
+# \textcolor{darkcyan}{Etablierung der Konfidenzbedingung (Varianzparameter)}
+
+\footnotesize 
+
+Für $\delta \in ]0,1[$ seien
+\begin{equation}
+\xi_1 := \Xi^{-1}\left(\frac{1 - \delta}{2}; n -1  \right)
+\mbox{ und }
+\xi_2 := \Xi^{-1}\left(\frac{1 + \delta}{2};n-1 \right)
+\end{equation}
+Es gilt dann $(1 + \delta)/2 - (1 - \delta)/2 = \delta$ gilt und zum Beispiel
+gilt für $n = 10$ und $\delta = 0.95$, $\xi_1 := \Xi^{-1}\left(0.025;9 \right) = 2.70$
+und $\xi_2 := \Xi^{-1}\left(0.975; 9 \right) = 19.0$. Es gilt hier also per Definition
+$\mathbb{P}\left(\xi_1 \le U \le \xi_2 \right) = \delta$.
+
+
+
+```{r, echo = FALSE, out.width = "80%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_11_ki_u_konfidenzbedingung.pdf"))
+```
+
+
+
+# \textcolor{darkcyan}{Von Konfidenzbedingung zu Konfidenzintervall (Varianzparameter)}
+
+\footnotesize 
+
+Mit der Definition von $\xi_1$ und $\xi_2$ wie oben folgt dann aber
+\footnotesize
+\begin{align}
+\begin{split}
+\delta
+& = \mathbb{P}\left(\xi_1 \le U \le \xi_2 \right)															\\
+& = \mathbb{P}\left(\xi_1 \le \frac{n-1}{\sigma^2}S^2  \le \xi_2 \right) 									\\
+& = \mathbb{P}\left(\xi_1^{-1} \ge \frac{\sigma^2}{(n-1)S^2} \ge \xi_2^{-1} \right) 						\\
+& = \mathbb{P}\left(\frac{(n-1)S^2}{\xi_1} \ge \sigma^2 \ge \frac{(n-1)S^2}{\xi_2} \right) 				\\
+& = \mathbb{P}\left(\frac{(n-1)S^2}{\xi_2} \le \sigma^2 \le \frac{(n-1)S^2)}{\xi_1} \right) 			\\
+& = \mathbb{P}\left(\left[\frac{(n-1)S^2}{\xi_2}, \frac{(n-1)S^2)}{\xi_1}\right] \ni \sigma^2 \right). 	\\
+\end{split}
+\end{align}
+
+Wir können nun das gesuchte Konfidenzintervall definieren.
 
