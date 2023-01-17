@@ -1,0 +1,167 @@
+---
+fontsize: 8pt
+bibliography: ../Referenzen.bib
+citation_package: natbib
+output:
+  beamer_presentation:
+    keep_tex: true
+    includes:
+      in_header: ../Header.tex
+classoption: t  
+---
+
+
+```{r, include = F}
+source("../R_common.R")
+abb_dir = file.path(dirname(getwd()), "Abbildungen")
+```
+
+#  {.plain}
+\center
+```{r, echo = FALSE, out.width = "20%"}
+knitr::include_graphics(file.path(abb_dir,"otto.png"))
+```
+
+\vspace{2mm}
+
+\huge
+Tutorium 
+
+\Large
+Wahrscheinlichketstheorie und Frequentistische Inferenz
+\vspace{4mm}
+
+\normalsize
+BSc Psychologie WiSe 2022/23
+
+\vspace{12mm}
+\normalsize
+Belinda Fleischmann
+
+\vspace{3mm}
+\scriptsize
+Inhalte basieren auf Kursmaterialien für [WTFI](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Lehre/Wintersemester+2023/Wahrscheinlichkeitstheorie+und+Frequentistische+Inferenz.html) von [Dirk Ostwald](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Team/Dirk+Ostwald.html), lizenziert unter [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de)
+
+
+
+
+
+# \textcolor{darkblue}{SKF 11}. *Asymptotische Erwartungstreue*
+
+\large
+\color{darkblue} 11. Erläutern Sie den Begriff des asymptotischen Erwartungstreue eines Schätzers
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Asymptotische Erwartungstreue]
+\justifying
+$\ups := \ups_1,...,\ups_n \sim p_\theta$ sei die Stichprobe eines parametrischen statistischen
+Produktmodells $\mathcal{M}$ und  $\hat{\tau}_n$ sei ein Schätzer für $\tau$.
+$\hat{\tau}_n$ heißt \textit{asymptotisch erwartungstreu}, wenn
+\begin{equation}
+\lim_{n\to\infty} \mathbb{E}_\theta(\hat{\tau}_n(\ups)) = \tau(\theta) \mbox{ für alle }
+\theta \in \Theta.
+\end{equation}
+\end{definition}
+
+\footnotesize
+Bemerkungen
+
+* Asymptotisch erwartungstreue Schätzer sind für "unendlich große" Stichproben erwartungstreu.
+* Erwartungstreue Schätzer sind immer auch asymptotisch erwartungstreu.
+
+
+
+
+# \textcolor{darkblue}{SKF 12}. *Konsistenz eines Schätzers*
+
+\large
+\color{darkblue} 12. Erläutern Sie den Begriff der Konsistenz eines Schätzers.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Konsistenz]
+\justifying
+$\ups := \ups_1,...,\ups_n \sim p_\theta$ sei die Stichprobe eines parametrischen statistischen
+Produktmodells $\mathcal{M}$ und $\hat{\tau}_n$ sei ein Schätzer von $\tau$. Eine
+Folge von Schätzern $\hat{\tau}_1, \hat{\tau}_2, ...$ wird dann eine
+\textit{konsistente Folge von Schätzern} genannt, wenn für jedes $\epsilon > 0$
+und jedes $\theta \in \Theta$ gilt, dass
+\begin{equation*}
+\lim_{n\to \infty}
+\mathbb{P}_\theta\left(|\hat{\tau}_n(\ups) - \tau(\theta)| \ge \epsilon \right) = 0.
+\end{equation*}
+Wenn $\hat{\tau}_1,\hat{\tau}_2,...$ eine konsistente Folge von Schätzern ist,
+dann heißt $\hat{\tau}_n$   \textit{konsistenter Schätzer}.
+\end{definition}
+\footnotesize
+Bemerkungen
+
+* Für $n \to \infty$ wird die Wahrscheinlichkeit, dass $\hat{\tau}_n(\ups)$ beliebig nah bei $\tau(\theta)$ liegt, groß.
+* Für $n \to \infty$ wird die Wahrscheinlichkeit, dass $\hat{\tau}_n(\ups)$ von $\tau(\theta)$ abweicht, klein.
+* Diese Eigenschaften gelten für alle möglichen wahren, aber unbekannten, Parameterwerte.
+* Die Konvergenz ist \textit{Konvergenz in Wahrscheinlichkeit}.
+* Konsistenz von Schätzern kann direkt oder mit Kriterien nachgewiesen werden.
+
+
+
+# \textcolor{darkblue}{SKF 13}. *Asymptotische Normalität*
+
+\large
+\color{darkblue} 13. Erläutern Sie den Begriff der asymptotischen Normalität eines Schätzers.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Asymptotische Normalität]
+\justifying
+$\ups_1,...,\ups_n \sim p_\theta$ sei die Stichprobe eines parametrischen statistischen
+Produktmodells $\mathcal{M}$ und $\hat{\theta}_n$ sei ein Parameterschätzer für
+$\theta$. Weiterhin sei $\tilde{\theta} \sim N(\mu,\sigma^2)$ eine normalverteilte
+Zufallsvariable mit Erwartungswertparameter $\mu$ und Varianzparameter $\sigma^2$.
+Wenn $\hat{\theta}_n$ in Verteilung gegen $\tilde{\theta}$ konvergiert, dann heißt
+$\hat{\theta}_n$ \textit{asymptotisch normalverteilt} und wir schreiben
+\begin{equation}
+\hat{\theta}_n  \stackrel{a}{\sim}  N(\mu,\sigma^2).
+\end{equation}
+\end{definition}
+
+\footnotesize
+Bemerkung
+
+* Konvergenz in Verteilung heißt $\lim_{n\to \infty} P_n(\hat{\theta}_n) = P(\tilde{\theta})$.
+
+
+
+# \textcolor{darkblue}{SKF 14}. *Eigenschaften eines ML-Schätzers*
+
+\large
+\color{darkblue} 14. Nennen Sie vier Eigenschaften eines Maximum-Likelihood Schätzers.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{theorem}[Eigenschaften von Maximum-Likelihood Schätzern]
+\normalfont
+\justifying
+$\ups_1,...,\ups_n \sim p_\theta$ sei die Stichprobe eines parametrischen 
+statistischen Produktmodells $\mathcal{M}$ und $\hat{\theta}_n^{\mbox{\tiny{ML}}}$ 
+sei ein Maximum-Likelihood Schätzer für $\theta$. Dann gilt, dass 
+$\hat{\theta}_n^{\mbox{\tiny{ML}}}$
+\begin{itemize}
+\item[(1)] nicht notwendigerweise erwartungstreu, aber
+\item[(2)] konsistent,
+\item[(3)] asymptotisch normalverteilt und
+\item[(4)] asymptotisch erwartungstreu.
+\end{itemize}
+\end{theorem}
+
+Bemerkungen
+
+* Maximum-Likelihood Schätzer sind überdies asymptotisch effizient

@@ -545,3 +545,216 @@ knitr::include_graphics(file.path(abb_dir, "wtfi_10_sem.pdf"))
 ```
 
 
+
+
+
+# \textcolor{darkblue}{SKF 11}. *Asymptotische Erwartungstreue*
+
+\large
+\color{darkblue} 11. Erläutern Sie den Begriff des asymptotischen Erwartungstreue eines Schätzers
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Asymptotische Erwartungstreue]
+\justifying
+$\ups := \ups_1,...,\ups_n \sim p_\theta$ sei die Stichprobe eines parametrischen statistischen
+Produktmodells $\mathcal{M}$ und  $\hat{\tau}_n$ sei ein Schätzer für $\tau$.
+$\hat{\tau}_n$ heißt \textit{asymptotisch erwartungstreu}, wenn
+\begin{equation}
+\lim_{n\to\infty} \mathbb{E}_\theta(\hat{\tau}_n(\ups)) = \tau(\theta) \mbox{ für alle }
+\theta \in \Theta.
+\end{equation}
+\end{definition}
+
+\footnotesize
+Bemerkungen
+
+* Asymptotisch erwartungstreue Schätzer sind für "unendlich große" Stichproben erwartungstreu.
+* Erwartungstreue Schätzer sind immer auch asymptotisch erwartungstreu.
+
+
+# \small \textcolor{darkcyan}{Asymptotische Schätzereigenschaften | Asymptotische Erwartungstreue}
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\textcolor{darkcyan}{Anhand der Simulation von 10000 Datensätzen (Stichproben) für unterscheidliche Stichprobengrößen ($n=1$ bis $n=100$) können wir sehen, dass der ML-Schätzer für die Varianz bei kleinen Stichproben eher ``unzuverlässig`` ist, aber bei steigender Stichprobengröße \textit{erwartungstreu} wird. }
+
+\small
+Simulation $\ups_1,...,\ups_n \sim N(\mu,\sigma^2)$ mit $\mu = 1$, $\sigma^2 = 2$
+\vspace{2mm}
+
+```{r, echo = FALSE, out.width = "85%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_10_sigsqr_ml.pdf"))
+```
+
+
+
+# \textcolor{darkblue}{SKF 12}. *Konsistenz eines Schätzers*
+
+\large
+\color{darkblue} 12. Erläutern Sie den Begriff der Konsistenz eines Schätzers.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Konsistenz]
+\justifying
+$\ups := \ups_1,...,\ups_n \sim p_\theta$ sei die Stichprobe eines parametrischen statistischen
+Produktmodells $\mathcal{M}$ und $\hat{\tau}_n$ sei ein Schätzer von $\tau$. Eine
+Folge von Schätzern $\hat{\tau}_1, \hat{\tau}_2, ...$ wird dann eine
+\textit{konsistente Folge von Schätzern} genannt, wenn für jedes $\epsilon > 0$
+und jedes $\theta \in \Theta$ gilt, dass
+\begin{equation*}
+\lim_{n\to \infty}
+\mathbb{P}_\theta\left(|\hat{\tau}_n(\ups) - \tau(\theta)| \ge \epsilon \right) = 0.
+\end{equation*}
+Wenn $\hat{\tau}_1,\hat{\tau}_2,...$ eine konsistente Folge von Schätzern ist,
+dann heißt $\hat{\tau}_n$   \textit{konsistenter Schätzer}.
+\end{definition}
+\footnotesize
+Bemerkungen
+
+* Für $n \to \infty$ wird die Wahrscheinlichkeit, dass $\hat{\tau}_n(\ups)$ beliebig nah bei $\tau(\theta)$ liegt, groß.
+* Für $n \to \infty$ wird die Wahrscheinlichkeit, dass $\hat{\tau}_n(\ups)$ von $\tau(\theta)$ abweicht, klein.
+* Diese Eigenschaften gelten für alle möglichen wahren, aber unbekannten, Parameterwerte.
+* Die Konvergenz ist \textit{Konvergenz in Wahrscheinlichkeit}.
+* Konsistenz von Schätzern kann direkt oder mit Kriterien nachgewiesen werden.
+
+
+
+
+# \small \textcolor{darkcyan}{Asymptotische Schätzereigenschaften | Konsistenz}
+\small
+\vspace{2mm}
+Simulation der Konsistenz von $\bar{\ups}_n$ bei $\ups_1,...,\ups_n \sim N(\mu,\sigma^2)$ mit $\mu = 1$, $\sigma^2 = 2$
+
+```{r, echo = FALSE, out.width = "60%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_10_konsistenz.pdf"))
+```
+
+\vspace{-2mm}
+
+\footnotesize
+
+* \color{darkcyan} Wenn ein Schätzer erwartungstreu ist, besteht bei jeder Schätzung dennoch eine nonzero Wahrscheinlichkeit, dass Schätzwert vom w.a.u. Parameterwert abweicht, da jede einzelne Schätzung ein Ausreißer sein kann. 
+* Die Konsistenzeigenschaft bezieht sich auf diese Wahrscheinlichkeit. 
+* Anhand der Simulation von 1000 Datensätzen (Stichproben) für unterscheidliche Stichprobengrößen ($n=1$ bis $n=1000$) können wir sehen, dass die Wahrscheinlichkeit dafür, dass der ML-Schätzer für den Erwartungswert vom w.a.u. Parameterwert abweicht, mit steigender Stichprobengröße $n$ abnimmt.
+
+
+
+# \textcolor{darkblue}{SKF 13}. *Asymptotische Normalität*
+
+\large
+\color{darkblue} 13. Erläutern Sie den Begriff der asymptotischen Normalität eines Schätzers.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Asymptotische Normalität]
+\justifying
+$\ups_1,...,\ups_n \sim p_\theta$ sei die Stichprobe eines parametrischen statistischen
+Produktmodells $\mathcal{M}$ und $\hat{\theta}_n$ sei ein Parameterschätzer für
+$\theta$. Weiterhin sei $\tilde{\theta} \sim N(\mu,\sigma^2)$ eine normalverteilte
+Zufallsvariable mit Erwartungswertparameter $\mu$ und Varianzparameter $\sigma^2$.
+Wenn $\hat{\theta}_n$ in Verteilung gegen $\tilde{\theta}$ konvergiert, dann heißt
+$\hat{\theta}_n$ \textit{asymptotisch normalverteilt} und wir schreiben
+\begin{equation}
+\hat{\theta}_n  \stackrel{a}{\sim}  N(\mu,\sigma^2).
+\end{equation}
+\end{definition}
+
+\footnotesize
+Bemerkung
+
+* Konvergenz in Verteilung heißt $\lim_{n\to \infty} P_n(\hat{\theta}_n) = P(\tilde{\theta})$.
+
+
+
+
+# \small \text{darkcyan}{Eigenschaften von Maximum-Likelihood Schätzern}
+\small
+Simulation der asymptotische Normalverteilung des Maximum-Likelihood Bernoulliparameterschätzers
+
+\footnotesize
+Die Varianz der asymptotischen Normalverteilung ergibt sich aus der Cramér-Rao Schranke.
+
+\footnotesize
+\center
+\vspace{10mm}
+\textcolor{gray}{---} Histogramm $\quad\quad\quad$ \textcolor{orange}{---} $N\left(\hat{\mu}^{\tiny \mbox{ML}}; \mu, J_n^{-1}(\mu)\right)$
+
+```{r, echo = F, eval = F}
+# Visualisierung
+dev.new()                                                                        # new figure
+fig  = par(                                                                      # figure parameters
+family      = "sans",                                                            # font family
+bty         = "l",                                                               # plot box, o, l, 7, c, or ]
+mfcol       = c(1,3),                                                            # subplot grid
+lwd         = 1,                                                                 # line width
+las         = 1,                                                                 # 0: axis parallel, 1: horizontal, 2: axis perpendicular, 3: vertical
+mgp         = c(2,1,0),                                                          # margin line in mex unit
+xaxs        = "i",                                                               # "internal" (tight) x-axis style
+yaxs        = "i",                                                               # "internal" (tight) y-axis style
+font.main   = 1,                                                                 # title font type
+cex         = .9,                                                                # font magnification factor
+cex.main    = 1.4)                                                               # title magnification factor
+
+for(i in seq_along(n_all)){
+    hist(
+    mu_hat_ML[i,],
+    prob        = TRUE,
+    ylim        = c(0,10),
+    xlim        = c(0,1),
+    col         = "gray90",
+    xlab        = TeX("$\\hat{\\mu}^{ML}$"),
+    ylab        = "",
+    main        = sprintf("n = %d", n_all[i]),
+    cex         = 1.3)
+    lines(
+    mu_hat_ML_y,
+    mu_hat_ML_p[i,],
+    lwd         = 2,
+    col         = "darkorange")
+}
+dev.copy2pdf(file  = file.path("10_Abbildungen/wtfi_10_effizienz.pdf"), width = 12, height = 4)   # PDF Speicherung
+```
+
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_10_effizienz.pdf"))
+```
+
+
+
+
+# \textcolor{darkblue}{SKF 14}. *Eigenschaften eines ML-Schätzers*
+
+\large
+\color{darkblue} 14. Nennen Sie vier Eigenschaften eines Maximum-Likelihood Schätzers.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{theorem}[Eigenschaften von Maximum-Likelihood Schätzern]
+\normalfont
+\justifying
+$\ups_1,...,\ups_n \sim p_\theta$ sei die Stichprobe eines parametrischen 
+statistischen Produktmodells $\mathcal{M}$ und $\hat{\theta}_n^{\mbox{\tiny{ML}}}$ 
+sei ein Maximum-Likelihood Schätzer für $\theta$. Dann gilt, dass 
+$\hat{\theta}_n^{\mbox{\tiny{ML}}}$
+\begin{itemize}
+\item[(1)] nicht notwendigerweise erwartungstreu, aber
+\item[(2)] konsistent,
+\item[(3)] asymptotisch normalverteilt und
+\item[(4)] asymptotisch erwartungstreu.
+\end{itemize}
+\end{theorem}
+
+Bemerkungen
+
+* Maximum-Likelihood Schätzer sind überdies asymptotisch effizient
