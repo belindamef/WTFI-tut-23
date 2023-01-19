@@ -676,7 +676,7 @@ Bemerkung
 
 
 
-# \small \text{darkcyan}{Eigenschaften von Maximum-Likelihood Schätzern}
+# \color{darkcyan}{Eigenschaften von Maximum-Likelihood Schätzern}
 \small
 Simulation der asymptotische Normalverteilung des Maximum-Likelihood Bernoulliparameterschätzers
 
