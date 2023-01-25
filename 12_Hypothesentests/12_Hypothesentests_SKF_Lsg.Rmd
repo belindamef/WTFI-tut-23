@@ -1,0 +1,1170 @@
+---
+fontsize: 8pt
+bibliography: ../Referenzen.bib
+citation_package: natbib
+output:
+  beamer_presentation:
+    keep_tex: true
+    includes:
+      in_header: ../Header.tex
+classoption: t  
+---
+
+
+```{r, include = F}
+source("../R_common.R")
+abb_dir = file.path(dirname(getwd()), "Abbildungen")
+```
+
+#  {.plain}
+\center
+```{r, echo = FALSE, out.width = "20%"}
+knitr::include_graphics(file.path(abb_dir,"otto.png"))
+```
+
+\vspace{2mm}
+
+\huge
+Tutorium 
+
+\Large
+Wahrscheinlichketstheorie und Frequentistische Inferenz
+\vspace{4mm}
+
+\normalsize
+BSc Psychologie WiSe 2022/23
+
+\vspace{12mm}
+\normalsize
+Belinda Fleischmann
+
+\vspace{3mm}
+\scriptsize
+Inhalte basieren auf Kursmaterialien für [WTFI](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Lehre/Wintersemester+2023/Wahrscheinlichkeitstheorie+und+Frequentistische+Inferenz.html) von [Dirk Ostwald](https://www.ipsy.ovgu.de/Institut/Abteilungen+des+Institutes/Methodenlehre+I+_+Experimentelle+und+Neurowissenschaftliche+Psychologie/Team/Dirk+Ostwald.html), lizenziert unter [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de)
+
+
+
+#  {.plain}
+\vfill
+\center
+\huge
+\text{(12) Hypothesentests}
+
+
+
+
+#
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_11_frequentistische_inferenz.pdf"))
+```
+
+
+# Selbstkontrollfragen
+\setstretch{1.8}
+\footnotesize
+1. Erläutern Sie die grundlegende Logik statistischer Hypothesentests.
+2. Geben Sie die Definition statistischer Hypothesen und eines Testszenarios wieder.
+3. Definieren Sie die Begriffe der einfachen und zusammengesetzten Hypothesen.
+4. Definieren Sie die Begriffe der einseitigen und zweiseitigen Hypothesen.
+5. Definieren Sie den Begriff des Tests.
+6. Definieren Sie den Begriff des Standardtests.
+7. Definieren Sie den Begriff des kritischen Bereichs eines Tests.
+8. Definieren Sie den Begriff des Ablehungsbereichs eines Tests.
+9. Definieren Sie den Begriff des kritischen Wert-basierten Tests.
+10. Definieren Sie richtige Testentscheidungen, Typ I Fehler und Typ II Fehler.
+11. Definieren Sie die Testgütefunktion.
+12. Erläutern Sie die Bedeutung der Testgütefunktion im Rahmen der Konstruktion statistischer Tests.
+13. Definieren Sie die Begriffe des Signifikanniveaus und des Level-$\alpha_0$-Tests.
+14. Definieren Sie den Begriff des Testumfangs.
+15. Erläutern Sie die prinzipielle Strategie zur Wahl von Null- und Alternativhypothesen in der Wissenschaft.
+16. Erläutern Sie zentrale Schritte zur Konstruktion eines Hypothesentests.
+
+
+
+# Selbstkontrollfragen
+\setstretch{1.8}
+\footnotesize
+17. \justifying Formulieren Sie das statistische Modell eines Einstichproben-T-Tests.
+18. Formulieren Sie die einfache Nullhypothese und zusammengesetzte Alternativhypothese dieses Tests.
+19. Definieren Sie den zweiseitigen Einstichproben-T-Test (ZETT).
+20. Skizzieren Sie qualitativ die Testgütefunktionen eines ZETTs für verschiedene kritische Werte.
+21. Wie muss der kritische Wert eines ZETTs definiert sein, damit der Test ein Level-$\alpha_0$-Test ist?
+22. Skizzieren Sie qualitativ die Bestimmung des kritischen Wertes $k_{\alpha_0}$ bei einem zws Einstichproben-T-Test.
+23. Erläutern Sie das praktische Vorgehen zur Durchführung eines ZETTs.
+24. Von welchen Werten hängt die Powerfunktion eines ZETTs ab?
+25. Skizzieren Sie qualitativ die Powerfunktion des ZETTs bei fester Stichprobengröße.
+26. Skizzieren Sie qualitativ die Powerfunktion des ZETTs bei festem Erwartungswertparameter.
+27. Erläutern Sie das favorisierte praktische Vorgehen zur Durchführung einer Poweranalyse.
+28. Erläutern Sie die Motivation zur Auswertung von p-Werten.
+29. Definieren Sie den Begriff des p-Werts.
+30. Geben Sie das Theorem zur Dualität von Konfidenzintervallen und Hypothesentests wieder.
+31. Erläutern Sie die Dualität von Konfidenzintervallen und Hypothesentests.
+
+
+# \textcolor{darkblue}{SKF 1}. *Logik statistischer Hypothesentests* 
+
+\large
+\color{darkblue} 1. Erläutern Sie die grundlegende Logik statistischer Hypothesentests.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\footnotesize
+\justifying Man hat einen **Datensatz** $y_1,...,y_n$ vorliegen und nimmt an, dass es sich
+dabei um die **Realisation einer Stichprobe** handelt, zum Beispiel von $\ups_1,...,\ups_n \sim
+N(\mu,\sigma^2)$.
+
+Man berechnet basierend auf dem Datensatz eine \textbf{Teststatistik}, zum Beispiel
+das anhand der Stichprobenvarianz und der Stichprobengröße normalisierte
+Stichprobenmittel $\sqrt{n}\bar{y}_n/s_n$.
+
+Man fragt sich, **wie wahrscheinlich** es wäre, den beobachteten oder
+einen extremeren Wert der Teststatistik **unter der Annahme eines *Nullmodels***
+zu observieren. Dabei meint man mit *Nullmodell* intuitiv ein Wahrscheinlichkeitsverteilungsmodell
+bei dem kein "interessanter Effekt" vorliegt, also zum Beispiel $\mu = 0$ gilt.
+Die Wahrscheinlichkeit ist wie immer Frequentistisch zu verstehen, d.h. als
+idealisierte relative Häufigkeit, wenn man viele Stichprobenrealisationen des
+Nullmodels generieren würde.
+
+Ist die betrachtete **Wahrscheinlichkeit dafür, den beobachteten oder einen
+extremeren Wert der Teststatistik unter Annahme des Nullmodells zu observieren**
+**groß**, so sagt man sich "Nunja, dann ist es wohl ganz plausibel,
+dass das Nullmodel die Daten generiert hat". Im Wissenschaftsjargon spricht man
+von einem **"nicht-signifikanten Ergebnis"**.
+
+Ist die betrachtete **Wahrscheinlichkeit dafür, den beobachteten oder einen
+extremeren Wert der Teststatistik unter Annahme des Nullmodells zu observieren
+dagegen klein**, so sagt man sich "Aha, dann ist es wohl nicht so plausibel, dass
+das Nullmodel die Daten generiert hat". Im Wissenschaftsjargon spricht man von einem
+**"signifikanten Ergebnis"**.
+
+Wie immer in der Frequentistischen Statistik weiß man nach Durchführung dieser
+Prozedur nicht, ob im vorliegenden Fall nun wirklich das Nullmodel oder ein
+anderes Modell die Daten generiert hat, sondern man weiß nur, wie oft man bei
+dieser Prozedur im Mittel richtig oder falsch liegen würde, wenn alle Annahmen
+zuträfen und man diese Prozedur sehr oft wiederholen würde.
+
+
+
+# \textcolor{darkblue}{SKF 2}. *Statistische Hypothesen und Testszenarios* 
+
+\large
+\color{darkblue} 2. Geben Sie die Definition statistischer Hypothesen und eines Testszenarios wieder.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Statistische Hypothesen und Testszenario]
+\justifying
+$\ups_1,...,\ups_n \sim p_\theta$ sei eine Stichprobe mit WMF oder WDF $p_\theta$,
+$\mathcal{Y}$ sei der Ergebnisraum des Zufallsvektors $\ups := (\ups_1,...,\ups_n)$, und
+$\Theta$ sei der Parameterraum des zugrundeliegenden statistischen Modells.
+Weiterhin sei $\{\Theta_0,\Theta_1\}$ eine Partition des Parameterraumes, so
+dass $\Theta = \Theta_0 \cup \Theta_1$ und $\Theta_0 \cap \Theta_1 = \emptyset$
+gelten. Eine \textit{statistische Hypothese} ist dann eine Aussage über den
+wahren, aber unbekannten, Parameterwert $\theta$ in Hinblick auf die Untermengen
+$\Theta_0$ und $\Theta_1$ des Parameterraums. Speziell werden die Aussagen
+\begin{itemize}
+\item $\theta \in \Theta_0$ als \textit{Nullhypothese} $H_0$
+\item $\theta \in \Theta_1$ als \textit{Alternativhypothese} $H_1$
+\end{itemize}
+bezeichnet. Die Einheit aus Stichprobe, Ergebnisraum, Parameterraum, und
+Hypothesen wird im Folgenden als \textit{Testszenario} bezeichnet.
+\end{definition}
+
+
+
+# \textcolor{darkblue}{SKF 3}. *Einfache und zusammengesetzte Hypothesen* 
+
+\large
+\color{darkblue} 3. Definieren Sie die Begriffe der einfachen und zusammengesetzten Hypothesen.
+
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Einfache und zusammengesetzte Hypothesen]
+\justifying
+Für statistische Hypothesen $\Theta_i,i = 0,1$ gilt:
+\begin{itemize}
+\item Enthält $\Theta_i$ nur ein einziges Element, so heißt $\Theta_i$ \textit{einfach}.
+\item Enthält $\Theta_i$ mehr als ein Element, so heißt $\Theta_i$ \textit{zusammengesetzt}.
+\end{itemize}
+\end{definition}
+
+\color{darkcyan}
+Bemerkungen
+
+* \color{darkcyan} Die Nullhypothese $\Theta_0 = \{0\}$ ist ein Beispiel für eine einfache Hypothese.
+* Bei einer einfachen Hypothese ist die Wahrscheinlichkeitsverteilung von $\ups$ genau festgelegt.
+* Bei einer zusammengesetzten Hypothese ist nur die Verteilungsklasse von $\ups$ festgelegt.
+
+
+
+# \textcolor{darkblue}{SKF 4}. *Ein- und zweiseitige Hypothesen* 
+
+\large
+\color{darkblue} 4. Definieren Sie die Begriffe der einseitigen und zweiseitigen Hypothesen.
+
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Einseitige und zweiseitige Hypothesen]
+\justifying
+$\Theta := \mathbb{R}$ sei ein eindimensionaler Parameterraum und $\theta_0$
+sei ein Element von $\Theta$. Dann werden zusammengesetzte Nullhypothesen der
+Form
+\begin{equation}
+\Theta_0 := ]-\infty,\theta_0] \mbox{ oder }
+\Theta_0 := [\theta_0,\infty[
+\end{equation}
+\textit{einseitige Nullhypothesen} genannt und auch in der Form
+\begin{equation}
+H_0 : \theta \le \theta_0 \mbox{ oder } H_0 : \theta \ge \theta_0
+\end{equation}
+geschrieben. Die entsprechenden Alternativhypothesen haben dabei die Form
+\begin{equation}
+\Theta_1 := ]\theta_0,\infty[ \mbox{ oder } \Theta_1 := ]-\infty, \theta_0[
+\mbox{ bzw. }  H_1 : \theta > \theta_0 \mbox{ oder } H_1 : \theta < \theta_0.
+\end{equation}
+Bei einer einfachen Nullhypothese der Form
+\begin{equation}
+\Theta_0 := \{\theta_0\} \mbox{ bzw. } H_0 : \theta = \theta_0
+\end{equation}
+wird die Alternativhypothese
+\begin{equation}
+\Theta_1 := \Theta \setminus \{\theta_0\} \mbox{ bzw. } H_1 : \theta \neq \theta_0
+\Leftrightarrow \Theta_1 := ]-\infty, \theta_0[\,\, \cup \,\,]\theta_0,\infty[
+\end{equation}
+\textit{zweiseitige Alternativhypothese} genannt.
+\end{definition}
+
+
+
+# \textcolor{darkblue}{SKF 5}. *Test* 
+
+\large
+\color{darkblue} 5. Definieren Sie den Begriff des Tests.
+
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Test]
+\justifying
+In einem Testszenario ist ein \textit{Test} $\phi$ eine Abbildung aus dem
+Ergebnisraum $\mathcal{Y}$ nach $\{0,1\}$,
+\begin{equation}
+\phi : \mathcal{Y} \to \{0,1\}, y \mapsto \phi(y).
+\end{equation}
+Dabei repräsentiert
+\begin{itemize}
+\item $\phi(y) = 0$ den Vorgang des Nichtablehnens der Nullhypothese.
+\item $\phi(y) = 1$ den Vorgang des Ablehnens der Nullhypothese.
+\end{itemize}
+\end{definition}
+
+\color{darkcyan}
+\footnotesize
+Bemerkung
+
+* \color{darkcyan}Weil $y$ eine Realisation von $\ups$ ist, ist $\phi(y)$ eine Realisation von $\phi(\ups)$.
+
+
+
+# \textcolor{darkblue}{SKF 6}. *Standardtest* 
+
+\large
+\color{darkblue} 6. Definieren Sie den Begriff des Standardtests.
+
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Standardtest]
+\justifying
+Ein \textit{Standardtest} ist definiert durch die Verkettung einer
+\textit{Teststatistik}
+\begin{equation}
+\gamma : \mathcal{Y} \to \mathbb{R}
+\end{equation}
+und einer \textit{Entscheidungsregel}
+\begin{equation}
+\delta : \mathbb{R} \to \{0,1\}.
+\end{equation}
+Ein Standardtest kann also geschrieben werden als
+\begin{equation}
+\phi := \delta \circ \gamma : \mathcal{Y} \to \{0,1\}.
+\end{equation}
+\end{definition}
+
+\footnotesize
+\color{darkcyan}
+Bemerkungen
+
+* \color{darkcyan}  Weil $y$ eine Realisation von $\ups$ ist, ist $\gamma(y) \in \mathbb{R}$ eine Realisation von $\gamma(\ups)$.
+* Weil $\gamma(y)$ eine Realisation von $\gamma(\ups)$ ist, ist $(\delta \circ \gamma)(y)$ eine Realisation von $(\delta \circ \gamma)(\ups)$.
+* Wir betrachten in der Folge nur Standardtests.
+
+
+
+# \textcolor{darkblue}{SKF 7}. *Kritischer Bereich* 
+
+\large
+\color{darkblue} 7. Definieren Sie den Begriff des kritischen Bereichs eines Tests.
+
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Kritischer Bereich]
+\justifying
+Die Untermenge $K$ des Ergebnisraums des Zufallsvektors $\ups := (\ups_1,...,\ups_n)$,
+für die ein Test den Wert 1 annimmt, heißt \textit{kritischer Bereich} des Tests,
+\begin{equation}
+K := \{y \in \mathcal{Y} |\phi(y) = 1 \} \subset \mathcal{Y}.
+\end{equation}
+\end{definition}
+
+\color{darkcyan}
+Bemerkungen
+
+* \color{darkcyan}Die Ereignisse $\{\phi(\ups) = 1\}$ und $\{\ups\in K\}$ sind äquivalent.
+* Die Ereignisse $\{\phi(\ups) = 1\}$ und $\{\ups\in K\}$ haben die gleiche Wahrscheinlichkeit.
+
+
+
+# \textcolor{darkblue}{SKF 8}. *Ablehungsbereich* 
+
+\large
+\color{darkblue} 8. Definieren Sie den Begriff des Ablehungsbereichs eines Tests.
+
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Ablehnungsbereich]
+\justifying
+Die Untermenge $A$ des Ergebnisraums einer Teststatistik, für die der Test
+den Wert 1 annimmt, heißt \textit{Ablehnungsbereich} des Tests,
+\begin{equation}
+A := \{\gamma(y) \in \mathbb{R} |\phi(y) = 1 \} \subset \mathbb{R}.
+\end{equation}
+\end{definition}
+
+\color{darkcyan}
+Bemerkungen
+
+* \color{darkcyan}Die Ereignisse $\{\phi(\ups) = 1\}$ und $\{\gamma(\ups) \in A\}$ sind äquivalent.
+* Die Ereignisse $\{\phi(\ups) = 1\}$ und $\{\gamma(\ups) \in A\}$ haben die gleiche Wahrscheinlichkeit.
+
+
+
+# \textcolor{darkblue}{SKF 9}. *Kritischer Wert-basierter Test* 
+
+\large
+\color{darkblue} 9. Definieren Sie den Begriff des kritischen Wert-basierten Tests.
+
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Kritischer Wert-basierte Tests]
+\justifying
+Ein \textit{kritischer Wert-basierter Test} ist ein Standardtest, bei dem die
+Entscheidungsregel $\delta$ von einem kritischen Wert $k \in \mathbb{R}$ abhängt.
+Speziell ist
+\begin{itemize}
+\item ein \textit{einseitiger kritischer Wert-basierter Test} von der Form
+\begin{equation}
+\phi : \mathcal{Y} \to \{0,1\}, y \mapsto \phi(y) := 1_{\{\gamma(y) \ge k\}} =
+\begin{cases}
+1 & \gamma(y) \ge k \\
+0 & \gamma(y) < k
+\end{cases}
+\end{equation}
+\item ein \textit{zweiseitiger kritischer Wert-basierter Test} von der Form
+\begin{equation}
+\phi : \mathcal{Y} \to \{0,1\}, y \mapsto \phi(y) := 1_{\{|\gamma(y)| \ge k\}} =
+\begin{cases}
+1 & |\gamma(y)| \ge k \\
+0 & |\gamma(y)| < k
+\end{cases}
+\end{equation}
+\end{itemize}
+\end{definition}
+
+
+
+# \textcolor{darkblue}{SKF 10}. *Testentscheidungen* 
+
+\large
+\color{darkblue} 10. Definieren Sie richtige Testentscheidungen, Typ I Fehler und Typ II Fehler.
+
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Richtige Testentscheidungen und Testfehler]
+\justifying
+Das Nichtablehnen der Nullhypothese, wenn die Nullhypothese zutrifft werden,
+sowie das Ablehnen der Nullhypothese, wenn die Nullhypothese nicht zutrifft,
+werden \textit{richtige Testentscheidungen} genannt. Es können weiterhin zwei
+Arten von Testfehlern auftreten: das Ablehnen der Nullhypothese, wenn die
+Nullhypothese zutrifft, heißt \textit{Typ I Fehler}, das Nichtablehnen der
+Nullhypothese, wenn die Alternativhypothese zutrifft, heißt
+\textit{Typ II Fehler}.
+\end{definition}
+
+\vspace{1mm}
+
+```{r, echo = FALSE, out.width = "55%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_12_testfehler.pdf"))
+```
+
+
+
+# \textcolor{darkblue}{SKF 11}. *Testgütefunktion.* 
+
+\large
+\color{darkblue} 11. Definieren Sie die Testgütefunktion.
+
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Testgütefunktion]
+\justifying
+Für einen Test $\phi$ ist die \textit{Testgütefunktion} definiert als
+\begin{equation}
+q_{\phi} : \Theta \to [0,1], \theta \mapsto q_{\phi}(\theta) := \mathbb{P}_\theta(\phi = 1).
+\end{equation}
+Für $\theta \in \Theta_1$ heißt $q_\phi$ auch \textit{Powerfunktion} oder
+\textit{Trennschärfefunktion}.
+\end{definition}
+\footnotesize
+
+\color{darkcyan}
+Bemerkungen
+
+* \color{darkcyan}Wir verzichten hier und im Folgenden auf die explizite Notation der Abhängigkeit von $\phi$ von $\ups$.
+* $\mathbb{P}_\theta$ bezeichnet die Verteilung von $\phi$ unter der Annahme $\ups_1,...,\ups_n \sim p_\theta$.
+* Es gilt $\mathbb{P}_\theta(\phi = 1) = \mathbb{P}_\theta (\ups \in K) = \mathbb{P}_\theta(\gamma \in A)$
+* Bei Poweranalysen betrachtet man $q_{\phi}$ als Funktion aller Testszenarien und Testparameter.
+* Ändert sich $\phi$, z.B. weil sich der kritische Wert von $\phi$ ändert, dann ändert sich $q_{\phi}(\theta)$.
+
+
+
+# \textcolor{darkblue}{SKF 12}. *Bedeutung der Testgütefunktion* 
+
+\large
+\color{darkblue} 12. Erläutern Sie die Bedeutung der Testgütefunktion im Rahmen der Konstruktion statistischer Tests.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Wir wollen statistische Tests so konstruieren, dass die **Wahrscheinlichkeit für Testfehler möglichst gering** ist. 
+
+* Mithilfe der Testgütefunktion können wir die **Wahrscheinlichkeiten für $\phi=1$** (Nullhypothese $H_0$ wird abgelehnt), und somit auch die Wahrscheinlichkeit für einen **Typ I Fehler** betrachten.
+
+* Für jedes $\theta \in \Theta$ \textcolor{darkcyan}{(wobei $\Theta =\Theta_0 \cup \Theta_1$)} liefert $q_\phi$ die Wahrscheinlichkeit, dass $H_0$ durch $\phi$ abgelehnt wird.
+
+* Im Idealfall hätte man einen Test $\phi$ mit
+\begin{align*}
+q_\phi(\theta) = \mathbb{P}_\theta(\phi = 1) = 0 \mbox{ für } \theta \in \Theta_0 \mbox{ und }
+q_\phi(\theta) = \mathbb{P}_\theta(\phi = 1) = 1 \mbox{ für } \theta \in \Theta_1.
+\end{align*}  
+Die Testentscheidung eines solchen $\phi$ wäre mit Wahrscheinlichkeit 1 richtig.
+
+* $\Rightarrow$ Gut sind kleine Werte von $q_\phi$ für $\theta \in \Theta_0$
+und große Werte von $q_\phi$ für $\theta \in \Theta_1$.
+
+Generell gibt es Abhängigkeiten zwischen den Werten von $q_\phi$ für
+$\theta \in \Theta_0$ und $\theta \in \Theta_1$:
+
+* Sei zum Beispiel $\phi_a$ der Test definiert durch $\phi_a(y) := 0$
+für alle $y \in \mathcal{Y}$, also der Test, der die Nullhypothese, unabhängig
+von den beobachteten Daten, \textit{niemals ablehnt}. Für diesen Test gilt
+$q_{\phi_a}(\theta) = 0$ für $\theta \in \Theta_0$. Allerdings gilt für diesen
+Test auch $q_{\phi_a}(\theta) = 0$ für $\theta \in \Theta_1$.
+
+* Andersherum sei $\phi_b$ der Test definiert durch $\phi_b(y) := 1$
+für alle $y \in \mathcal{Y}$, also ein Test, der die Nullhypothese, unabhängig
+von den beobachteten Daten, \textit{immer ablehnt}. Für diesen Test gilt
+$q_{\phi_b}(\theta) = 1$ für $\theta \in \Theta_1$. Allerdings gilt für diesen
+Test auch  $q_{\phi_b}(\theta) = 1$ für $\theta \in \Theta_0$.
+
+
+
+
+# \textcolor{darkblue}{SKF 12}. *Bedeutung der Testgütefunktion* (fortgeführt)
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+
+In der Konstruktion eines Tests muss also eine **angemessene Balance** zwischen
+
+* kleinen Werten von $q_\phi$  für $\theta \in \Theta_0$ und 
+* großen Werten von $q_\phi$ für $\theta \in \Theta_1$ gefunden werden.
+
+Die populärste Methode, eine solche Balance zu finden, ist in einem ersten Schritt ein $\alpha_0 \in [0,1]$ zu wählen und
+sicher zu stellen, dass
+\begin{equation}\label{eq:significance}
+q_\phi(\theta) \le \alpha_0 \mbox{ für alle } \theta \in \Theta_0.
+\end{equation}
+
+* Eine konventionelle Wahl für sein solches $\alpha_0$ ist zum Beispiel $\alpha_0 := 0.05$.
+* Unter allen Tests und statistischen Modellen, die Ungleichung \eqref{eq:significance} erfüllen, wird man dann einen Test oder ein statistisches Modell auswählen, so dass $q_\phi(\theta)$ für $\theta \in \Theta_1$ so groß wie möglich ist.
+
+
+# \textcolor{darkcyan}{Einstichproben-T-Test | (4) Analyse der Testgütefunktion)}
+
+\center Testgütefunktion $q_\phi$ für $\sigma^2 = 9, \mu_0 = 4, n = 12$ und $k = 1,2,3$.
+\vspace{2mm}
+\begin{equation*}
+\quad q_{\phi}(\mu) = \mathbb{P}_\mu(\phi = 1)
+\end{equation*}
+
+```{r, echo = FALSE, out.width = "80%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_12_t_test_ungerichtet_gütefunktion.pdf"))
+```
+
+
+
+# \textcolor{darkblue}{SKF 13}. *Signifikanniveaus und des Level-$\alpha_0$-Test* 
+
+\large
+\color{darkblue} 13. Definieren Sie die Begriffe des Signifikanniveaus und des Level-$\alpha_0$-Tests.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Level-$\alpha_0$-Test, Signifikanzlevel $\alpha_0$]
+$q_\phi$ sei die Testgütefunktion eines Tests $\phi$ und es sei
+$\alpha_0 \in [0,1]$. Dann heißt ein Test $\phi$, für den gilt, dass
+\begin{equation}
+q_\phi(\theta) \le \alpha_0 \mbox{ für alle } \theta \in \Theta_0
+\end{equation}
+ein \textit{Level-$\alpha_0$-Test} und man sagt, dass der Test das
+\textit{Signifikanzlevel $\alpha_0$} hat.
+\end{definition}
+
+
+
+# \textcolor{darkblue}{SKF 14}. *Testumfang* 
+
+\large
+\color{darkblue} 14. Definieren Sie den Begriff des Testumfangs.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[Testumfang $\alpha$]
+Es sei $\phi$ ein \textit{Level-$\alpha_0$-Test} mit \textit{Signifikanzlevel $\alpha_0$}. Die Zahl
+\begin{equation}
+\alpha := \max_{\theta \in \Theta_0} q_\phi(\theta) \in [0,1]
+\end{equation}
+heißt der \textit{Testumfang} von $\phi$.
+\end{definition}
+
+Bemerkungen
+
+* $\alpha$ ist die größtmögliche Wahrscheinlichkeit für einen Typ I Fehler.
+* Ein Test ist dann, und nur dann, ein Level-$\alpha_0$-Test, wenn $\alpha \le \alpha_0$ gilt.
+* Bei einer einfachen Nullhypothese gilt für den Testumfang, dass $\alpha = q_{\phi}(\theta_0) = \mathbb{P}_{\theta_0}(\phi = 1)$.
+
+
+
+# \textcolor{darkblue}{SKF 15}. *Wahl von Hypothesen* 
+
+\large
+\color{darkblue} 15. Erläutern Sie die prinzipielle Strategie zur Wahl von Null- und Alternativhypothesen in der Wissenschaft.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Das Vorgehen in der Testkonstruktion zunächst durch die Wahl
+eines Signifikanzlevels den Testumfang zu begrenzen und erst in einem zweiten
+Schritt dafür zu sorgen, dass die Wahrscheinlichkeit von $\phi = 1$ bei $\theta
+\in \Theta_1$ bei diesem Signifikanzlevel möglichst groß ist, induziert eine
+**Asymmetrie in der Behandlung von Null- und Alternativhypothese**. Implizit wichtet
+man mit diesem Vorgehen Typ I Fehler als schwerwiegender als Typ II Fehler.
+
+Dies wiederum impliziert eine mögliche Strategie zur Festlegung
+von Null- und Alternativhypothese: 
+
+* Die **Nullhypothese** ist die Hypothese, hinsichtlich deren assoziierter Testentscheidung man eher keinen Fehler machen möchte bzw. deren Fehlerwahrscheinlichkeit man primär kontrollieren möchte.
+* **In der wissenschaftlichen Anwendung ist es Standard, die falsche
+Konfirmation der eigenen Theorie als einen schwerwiegenderen Fehler als die
+falsche Ablehnung der eigenen Theorie zu werten.**
+* $\Rightarrow$ Die **falsche Konfirmation der eigenen Theorie** sollte also ein **Typ I
+Fehler**, das falsche Ablehnen der eigenen Theorie ein Typ II Fehler sein.
+* Damit die falsche Konfirmation der eigenen Theorie einen Typ I Fehler, also
+das Ablehnen von $H_0$ bei Zutreffen von $H_0$, darstellt, muss **die
+eigene Theorie** als **Alternativhypothese** aufgestellt werden. 
+* Die **Alternativhypothese fälschlichweise Abzulehnen** wird damit ein **Typ II Fehler**.
+
+
+
+# \textcolor{darkblue}{SKF 16}. *Konstruktion eines Hypothesentests* 
+
+\large
+\color{darkblue} 16. Erläutern Sie zentrale Schritte zur Konstruktion eines Hypothesentests.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+(1) Statistisches Modell und Testhypothesen
+(2) Definition und Analyse der Teststatistik
+(3) Definition des Tests
+(4) Analyse der Testgütefunktion
+(5) Testumfangkontrolle
+(6) Analyse der Powerfunktion
+
+
+
+# \textcolor{darkblue}{SKF 17}. *Einstichproben-T-Test* 
+
+\large
+\color{darkblue} 17.  Formulieren Sie das statistische Modell eines Einstichproben-T-Tests.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Das **Statistische Modell des Einstichproben-T-Tests** ist definiert als
+\begin{equation}
+\ups_i = \mu + \varepsilon_i \mbox{ mit } \varepsilon_i \sim N(0,\sigma^2) \mbox{ für } i = 1,...,n
+\end{equation}
+wobei
+
+* $\ups_i, i = 1,...,n$ beobachtbare Zufallsvariablen,
+* $\mu$ den wahren, aber unbekannten, Erwartungswertparameter der Stichprobenvariablen,
+* $\varepsilon_i, i = 1,...,n$ unabhängige normalverteilte nicht-beobachtbare Zufallsvariablen und
+* $\sigma^2>0$ den Varianzparameter der $\varepsilon_i$
+
+bezeichnen. 
+
+Dieses Modell ist äquivalent zum Normalverteilungsmodell
+\begin{equation}
+\ups = \ups_1,...,\ups_n \sim N(\mu,\sigma^2),
+\end{equation}
+also der **Annahme unabhängig und identisch normalverteilter Stichprobenvariablen**
+mit Erwartungswertparameter $\mu$ und Varianzparameter $\sigma^2$.
+
+
+
+# \textcolor{darkblue}{SKF 18}. *Hypothesen beim Einstichproben-T-Test* 
+
+\large
+\color{darkblue} 18. Formulieren Sie die einfache Nullhypothese und zusammengesetzte Alternativhypothese dieses Tests.
+
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Für ein
+$\mu_0$ betrachten wir die einfache **Nullhypothese** und die zusammengesetzte **Alternativhypothese**
+\begin{equation}
+H_0 : \mu = \mu_0 \Leftrightarrow \Theta_0 := \{\mu_0\}
+\mbox{ und }
+H_1 : \mu \neq \mu_0 \Leftrightarrow \Theta_1 := \mathbb{R} \setminus \{\mu_0\},
+\end{equation}
+respektive. 
+
+
+\color{darkcyan}Bezogen auf das Anwendungsbeispiel ist hier $\mu_0 := 0$ von Interesse:
+
+* \color{darkcyan} $H_0 : \mu = 0$ entspricht der Hypothese keines Effekts der Therapie auf die BDI Score Reduktion.
+* $H_1 : \mu \neq 0$ entspricht der Hypothese  eines Effekts der Therapie auf die BDI Score Reduktion.
+
+
+
+# \textcolor{darkcyan}{Einstichproben-T-Test | (2) Definition und Analyse der Teststatistik}
+
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+
+\begin{definition}[Einstichproben-T-Teststatistik]
+\justifying
+$\ups_1,...,\ups_n \sim N(\mu,\sigma^2)$ sei die Stichprobe eines Normalverteilungmodells,
+$\bar{\ups}$ bezeichne das Stichprobenmittel, $S$ bezeichne die Stichprobenstandardabweichung
+und es sei $\mu_0 \in \mathbb{R}$. Dann ist die \textit{T-Teststatistik} definiert als
+\begin{equation}
+T := \sqrt{n}\left(\frac{\bar{\ups} - \mu_0}{S} \right).
+\end{equation}
+\end{definition}
+Bemerkungen
+
+* Im Gegensatz zur T-Konfidenintervallstatistik muss bei der T-Teststatistik nicht $\mu_0 = \mu$ gelten.
+* Intuitiv kann die T-Teststatistik als mit der Stichprobengröße (Evidenz)
+gewichtetes Verhältnis von Signal (sytematischer Variabilität) zu Rauschen
+(unsystematischer Variabilität)
+verstanden werden:
+\begin{equation}
+\sqrt{\mbox{Stichprobengröße}}\left(\frac{\mbox{Signal}}{\mbox{Rauschen}}\right)
+= \sqrt{n}\left(\frac{\bar{\ups} - \mu_0}{S}\right)
+\end{equation}
+* Die T-Teststastitik ist eine skalare Deskription des Effekt vs. Variabilität Verhältnisses eines Datensatzes.
+* In der T-Teststatistik wird die Effektgröße in Einheiten der Stichprobenstandardabweichung gemessen:
+\begin{itemize}
+\footnotesize
+\item[$\circ$] $T = 1 \Leftrightarrow \sqrt{n}(\bar{\ups} - \mu_0) = 1 S$
+\item[$\circ$] $T = 2 \Leftrightarrow \sqrt{n}(\bar{\ups} - \mu_0) = 2 S$
+\end{itemize}
+
+
+
+
+
+# \textcolor{darkblue}{SKF 19}. *zweiseitiger Einstichproben-T-Test (ZETT)* 
+
+\large
+\color{darkblue} 19. Definieren Sie den zweiseitigen Einstichproben-T-Test (ZETT).
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{align*}
+\phi(\ups) := 1_{\{|T| \ge k\}} =
+{\begin{cases}
+1 & |T| \ge k \\
+0 & |T|  <  k
+\end{cases}}.
+\end{align*}
+
+
+
+# \textcolor{darkblue}{SKF 20}. *Testgütefunktionen eines ZETTs* 
+
+\large
+\color{darkblue} 20. Skizzieren Sie qualitativ die Testgütefunktionen eines ZETTs für verschiedene kritische Werte.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+\color{red}TODO: checken, ob zweiseitig korrekt
+
+```{r, echo = FALSE, out.width = "80%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_12_t_test_ungerichtet_gütefunktion.pdf"))
+```
+
+
+
+# \textcolor{darkblue}{SKF 21}. *Level-$\alpha_0$-Test* 
+
+\large
+\color{darkblue} 21. Wie muss der kritische Wert eines ZETTs definiert sein, damit der Test ein Level-$\alpha_0$-Test ist?
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{theorem}[Testumfangkontrolle]
+\justifying
+\normalfont
+$\phi$ sei der oben definierte Test. Dann ist $\phi$ ein
+Level-$\alpha_0$-Test mit Testumfang $\alpha_0$, wenn der kritische Wert
+definiert ist durch
+\begin{equation}
+k_{\alpha_0} := \Psi^{-1}\left(1 - \frac{\alpha_0}{2}; n-1 \right),
+\end{equation}
+wobei $\Psi^{-1}(\cdot; n-1)$ die inverse KVF der $t$-Verteilung mit $n-1$
+Freiheitsgraden ist.
+\end{theorem}
+
+
+
+# \textcolor{darkblue}{SKF 22}. *$k_{\alpha_0}$ bei einem zws Einstichproben-T-Test* 
+
+\large
+\color{darkblue} 22. Skizzieren Sie qualitativ die Bestimmung des kritischen Wertes $k_{\alpha_0}$ bei einem zws Einstichproben-T-Test.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\center Wahl von $k_{\alpha_0} := \Psi^{-1}(1- \frac{\alpha_0}{2}; n-1)$ mit $n =12$, $\alpha_0 := 0.05$ und Ablehnungsbereich
+\vspace{3mm}
+
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_12_t_test_ungerichtet_testumfangkontrolle.pdf"))
+```
+
+
+
+# \textcolor{darkblue}{SKF 23}. *Durchführung eines ZETTs* 
+
+\large
+\color{darkblue} 23. Erläutern Sie das praktische Vorgehen zur Durchführung eines ZETTs.
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+
+* \justifying Man nimmt an, dass ein vorliegender Datensatz $y_1,...,y_n$ eine
+Realisation von $\ups_1,...,\ups_n \sim N(\mu,\sigma^2)$ mit unbekannten Parametern
+$\mu$ und $\sigma^2 > 0$ ist.
+
+* Man möchte entscheiden ob für ein $\mu_0 \in \mathbb{R}$ eher
+$H_0 : \mu = \mu_0$ oder $H_1: \mu \neq \mu_0$ zutrifft.
+\item Man wählt ein Signifikanzlevel $\alpha_0$ und bestimmt den
+zugehörigen Freiheitsgradparameter-abhängigen kritischen Wert $k_{\alpha_0}$.
+Zum Beispiel gilt bei Wahl von $\alpha_0  := 0.05$ und $n=12$, also
+Freiheitsgradparameter 11, dass $k_{0.05}=\Psi^{-1}(1 - 0.05/2; 11) \approx 2.20$
+ist.
+
+* Anhand von $n, \mu_0, \bar{\ups}$ und $s_n$ berechnet man die
+Realisierung der T-Teststatistik
+\begin{equation}
+t := \sqrt{n}\left(\frac{\bar{y} - \mu_0}{s}\right)
+\end{equation}
+
+* Wenn $t$ größer-gleich $k_{\alpha_0}$ ist oder wenn $t$ kleiner-
+gleich $-k_{\alpha_0}$ ist, lehnt man die Nullhypothese ab, andernfalls lehnt
+man sie nicht ab. Die oben entwickelte Theorie  garantiert dann, dass
+man in höchstens $\alpha_0 \cdot 100$ von $100$ Fällen die Nullhypothese
+fälschlicherweise ablehnt.
+
+
+
+# \textcolor{darkblue}{SKF 24}. *Powerfunktion des ZETTs* 
+
+\large
+\color{darkblue} 24. Von welchen Werten hängt die Powerfunktion eines ZETTs ab?
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Die Powerfunktion eines zweiseitigen Einstichproben T-Tests hängt bei festgelegtem $\alpha_0$ vom wahren, aber unbekannten Parameterwert $\delta = \sqrt{n}\frac{\mu-\mu_0}{\sigma}$ und von der Stichprobengröße $n$ ab. 
+
+
+
+
+# \textcolor{darkblue}{SKF 25}. *Powerfunktion des ZETTs* 
+
+\large
+\color{darkblue} 25. Skizzieren Sie qualitativ die Powerfunktion des ZETTs bei fester Stichprobengröße.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+
+```{r, echo = F, eval = F}
+dev.new()
+graphics.off()
+par(
+family      = "sans",
+mfcol       = c(2,1),
+pty         = "m",
+bty         = "l",
+lwd         = 1,
+las         = 1,
+xaxs        = "i",
+yaxs        = "i",
+font.main   = 1,
+cex         = 1,
+cex.main    = 1)
+
+# Szenariospezifikation
+mu_0      = 0                                 # einfache Nullhypothese
+d_min     = -5                                # d  Minimum
+d_max     =  5                                # d Maximum
+d_res     = 50                                # d Auflösung
+d         = seq(d_min, d_max, len = d_res)    # d Raum
+n_min     = 2                                 # n Minimum
+n_max     = 50                                # n Maximum
+n_res     = 1e2                               # n Auflösung
+n         = seq(n_min,n_max, len = n_res)     # n Raum
+
+
+# Funktion von d, n = 12, \alpha_0 = 0.05
+alpha_0   = 0.05
+n_fix     = 12
+k_alpha_0 = qt(1 - alpha_0/2, n_fix-1)
+pi_d      = 1-pt(k_alpha_0, n_fix-1, d)+pt(-k_alpha_0, n_fix-1, d)
+plot(
+d,
+pi_d,
+type      = "l",
+lwd       = 2,
+ylim      = c(0,1),
+ylab      = " ",
+xlab      = TeX("$\\delta $"),
+main      = TeX("$\\pi(\\delta ,n = 12),\\, \\alpha_0 = 0.05$"))
+
+# Funktion von d, n = 12, \alpha_0 = 0.001
+alpha_0   = 0.001
+n_fix     = 12
+k_alpha_0 = qt(1-alpha_0/2, n_fix-1)
+pi_d      = 1-pt(k_alpha_0, n_fix-1, d)+pt(-k_alpha_0, n_fix-1, d)
+plot(
+d,
+pi_d,
+type      = "l",
+lwd       = 2,
+ylim      = c(0,1),
+ylab      = " ",
+xlab      = TeX("$\\delta $"),
+main      = TeX("$\\pi(\\delta ,n = 12),\\, \\alpha_0 = 0.001$"))
+
+
+dev.copy2pdf(
+file        = file.path(file.path(abb_dir,  "alm_9_t_test_ungerichtet_powerfunktionen_skf15.pdf")),
+width       = 8,
+height      = 7)
+
+```
+
+```{r, echo = FALSE, out.width = "65%"}
+knitr::include_graphics(file.path(abb_dir,  "alm_9_t_test_ungerichtet_powerfunktionen_skf15.pdf"))
+```
+
+
+
+
+
+# \textcolor{darkblue}{SKF 26}. *Powerfunktion des ZETTs* 
+
+\large
+\color{darkblue} 26. Skizzieren Sie qualitativ die Powerfunktion des ZETTs bei festem Erwartungswertparameter.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+
+```{r, echo = F, eval = F}
+dev.new()
+graphics.off()
+par(
+family      = "sans",
+mfcol       = c(2,1),
+pty         = "m",
+bty         = "l",
+lwd         = 1,
+las         = 1,
+xaxs        = "i",
+yaxs        = "i",
+font.main   = 1,
+cex         = 1,
+cex.main    = 1)
+
+# Szenariospezifikation
+mu_0      = 0                                 # einfache Nullhypothese
+d_min     = -5                                # d  Minimum
+d_max     =  5                                # d Maximum
+d_res     = 50                                # d Auflösung
+d         = seq(d_min, d_max, len = d_res)    # d Raum
+n_min     = 2                                 # n Minimum
+n_max     = 50                                # n Maximum
+n_res     = 1e2                               # n Auflösung
+n         = seq(n_min,n_max, len = n_res)     # n Raum
+
+# Funktion von n, d = 3, \alpha_0 = 0.05
+alpha_0   = 0.05
+d_fix     = 3
+k_alpha_0 = qt(1-alpha_0/2, n-1)
+pi_n      = 1-pt(k_alpha_0, n-1, d_fix)+pt(-k_alpha_0, n-1, d_fix)
+plot(
+n,
+pi_n,
+type      = "l",
+lwd       = 2,
+ylab      = " ",
+ylim      = c(0,1),
+xlab      = TeX("$n$"),
+main      = TeX("$\\pi(\\delta  = 3,n),\\, \\alpha_0 = 0.05$"))
+
+# Funktion von n, d = 3, \alpha_0 = 0.001
+alpha_0   = 0.001
+d_fix     = 3
+k_alpha_0 = qt(1-alpha_0/2, n-1)
+pi_n      = 1-pt(k_alpha_0, n-1, d_fix)+pt(-k_alpha_0, n-1, d_fix)
+plot(
+n,
+pi_n,
+type      = "l",
+lwd       = 2,
+ylab      = " ",
+ylim      = c(0,1),
+xlab      = TeX("$n$"),
+main      = TeX("$\\pi(\\delta = 3,n),\\, \\alpha_0 = 0.001$"))
+
+dev.copy2pdf(
+file        = file.path(abb_dir, "alm_9_t_test_ungerichtet_powerfunktionen_skf16.pdf"),
+width       = 8,
+height      = 7)
+
+```
+
+```{r, echo = FALSE, out.width = "65%"}
+knitr::include_graphics(file.path(abb_dir, "alm_9_t_test_ungerichtet_powerfunktionen_skf16.pdf"))
+```
+
+
+
+
+# \textcolor{darkblue}{SKF 27}. *Durchführung einer Poweranalyse* 
+
+\large
+\color{darkblue} 27. Erläutern Sie das favorisierte praktische Vorgehen zur Durchführung einer Poweranalyse.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Generell wird folgendes Vorgehen favorisiert
+
+* Man legt das Signifikanzlevel $\alpha_0$ fest und evaluiert die Powerfunktion.
+
+* Man wählt einen Mindestparameterwert $d^*$, den man mit $\pi(d,n) = \beta$ detektieren möchte.
+
+* Ein konventioneller Wert ist $\beta = 0.8$.
+
+* Man liest die für $\pi(d = d^*,n) = \beta$ nötige Stichprobengröße $n$ ab.
+
+
+
+# \textcolor{darkblue}{SKF 29}. *p-Wert Motivation* 
+
+\large
+\color{darkblue} 28. Erläutern Sie die Motivation zur Auswertung von p-Werten.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{itemize}
+\justifying
+\item  Es werde ein zweiseitiger Einstichproben-T-Test mit $n = 12$ und $\alpha_0 = 0.05$ durchgeführt.
+\begin{itemize}
+\small
+\item[$\circ$]  $H_0$ wird abgelehnt, wenn $|T| \ge 2.20$.
+\end{itemize}
+\item Nehmen wir an, es werde $t = 2.26$ beobachtet.
+\begin{itemize}
+\small
+\item[$\circ$] Das Testergebnis lautet "$H_0$ Ablehnen".
+\end{itemize}
+\item Nehmen wir an, es werde $t = 3.81$ beobachtet.
+\begin{itemize}
+\small
+\item[$\circ$] Das Testergebnis lautet "$H_0$ Ablehnen".
+\end{itemize}
+\item Der alleinige Bericht des Testergebnis supprimiert interessante Information.
+\item[$\quad \Rightarrow$] Neben der Testumfangkontrolle durch z.B. $\alpha_0 = 0.05$
+ist es daher üblich, alle Werte von $\alpha_0$ anzugeben, für die ein
+Level-$\alpha_0$-Test zum Ablehnen von $H_0$ führen würde.
+\begin{itemize}
+\justifying
+\small
+\item[$\circ$] Bei $t = 2.26$ würde $H_0$ für jedes $\alpha_0$ mit $2.26 \ge \Psi^{-1}\left(1-\frac{\alpha_0}{2};11\right)$ abgelehnt werden.
+\item[$\circ$] Bei $t = 3.81$ würde $H_0$ für jedes $\alpha_0$ mit $3.81 \ge \Psi^{-1}\left(1-\frac{\alpha_0}{2};11\right)$ abgelehnt werden.
+\end{itemize}
+\item Das kleinste Signifikanzlevel $\alpha_0$, bei dem man $H_0$ basierend auf
+einem Wert der Teststatistik ablehnen würde, wird \textit{p-Wert} des Wertes 
+der Teststatistik genannt.
+\end{itemize}
+
+
+
+# \textcolor{darkblue}{SKF 29}. *p-Wert Definition* 
+
+\large
+\color{darkblue} 29. Definieren Sie den Begriff des p-Werts.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{definition}[p-Wert]
+\justifying
+$\phi$ sei ein kritischer Wert-basierter Test. Der \textit{p-Wert} ist das
+kleinste Signifikanzlevel $\alpha_0$, bei welchem man die Nullhypothese
+basierend auf einem vorliegendem Wert der Teststatistik ablehnen würde.
+\end{definition}
+\small
+Beispiel (Zweiseitiger Einstichproben-T-Test mit einfacher Nullhypothese)
+
+\footnotesize
+* Bei $T = t$ würde $H_0$ für jedes $\alpha_0$ mit $|t| \ge \Psi^{-1}\left(1- \frac{\alpha_0}{2};n-1\right)$
+abgelehnt werden. Für diese $\alpha_0$ gilt, wie unten gezeigt,
+\begin{equation}
+\alpha_0 \ge 2 \mathbb{P}(T \ge |t|).
+\end{equation}
+* Das kleinste $\alpha_0 \in [0,1]$ mit $\alpha_0 \ge 2 \mathbb{P}(T \ge |t|)$ ist
+dann $\alpha_0 = 2 \mathbb{P}(T \ge |t|)$, also folgt
+\begin{equation}
+\mbox{p-Wert} =  2 \mathbb{P}(T \ge |t|) = 2(1 - \Psi(|t|;n-1)).
+\end{equation}
+* Zum Beispiel ist bei $n = 12$ für $T = 2.26$ der p-Wert $0.045$, 
+für $T = -2.26$ ist der p-Wert auch $0.045$, für $T = 3.81$ ist der p-Wert 
+$0.003$ und für $T = -3.81$ ist der p-Wert auch $0.003$.
+
+
+
+# \textcolor{darkblue}{SKF 30}. *Dualität von Konfidenzintervallen und Hypothesentests* 
+
+\large
+\color{darkblue} 30. Geben Sie das Theorem zur Dualität von Konfidenzintervallen und Hypothesentests wieder.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{theorem}[Dualität von Konfidenzintervallen und Hypothesentest]
+\justifying
+\normalfont
+$\ups = \ups_1,...,\ups_n \sim p_\theta$ sei eine Stichprobe mit Ergebnisraum
+$\mathcal{Y}$ und Parameterraum $\Theta$. Weiterhin sei $[G_u(\ups), G_o(\ups)]$
+ein $\delta$-Konfidenzintervall für $\theta$. Dann ist der Hypothesentest
+\begin{equation}
+\phi_\theta : \mathcal{Y} \to \{0,1\},
+y \mapsto \phi(y)
+:=
+\begin{cases}
+0, & [G_u(y), G_o(y)] \ni    \theta_0 \\
+1, & [G_u(y), G_o(y)] \niton \theta_0 \\
+\end{cases}
+\end{equation}
+ein Test vom Signifikanzlevel $\alpha_0 = 1 - \delta$ für die Hypothesen
+\begin{equation}
+\Theta_0 := \{\theta_0\} \mbox{ und } \Theta_1 := \Theta \setminus \{\theta_0\}.
+\end{equation}
+\end{theorem}
+
+
+
+# \textcolor{darkblue}{SKF 31}. *Dualität von Konfidenzintervallen und Hypothesentests* 
+
+\large
+\color{darkblue} 31. Erläutern Sie die Dualität von Konfidenzintervallen und Hypothesentests.
+
+\vspace{3mm}
+\color{black}
+\footnotesize
