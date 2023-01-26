@@ -698,6 +698,24 @@ respektive.
 * $H_1 : \mu \neq 0$ entspricht der Hypothese  eines Effekts der Therapie auf die BDI Score Reduktion.
 
 
+# \textcolor{darkblue}{SKF 19}. *zweiseitiger Einstichproben-T-Test (ZETT)* 
+
+\large
+\color{darkblue} 19. Definieren Sie den zweiseitigen Einstichproben-T-Test (ZETT).
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+\begin{align*}
+\phi(\ups) := 1_{\{|T| \ge k\}} =
+{\begin{cases}
+1 & |T| \ge k \\
+0 & |T|  <  k
+\end{cases}}.
+\end{align*}
+
+
 
 # \textcolor{darkcyan}{Einstichproben-T-Test | (2) Definition und Analyse der Teststatistik}
 
@@ -736,25 +754,42 @@ verstanden werden:
 \end{itemize}
 
 
-
-
-
-# \textcolor{darkblue}{SKF 19}. *zweiseitiger Einstichproben-T-Test (ZETT)* 
-
-\large
-\color{darkblue} 19. Definieren Sie den zweiseitigen Einstichproben-T-Test (ZETT).
+# \textcolor{darkcyan}{Einstichproben-T-Test | (2) Definition und Analyse der Teststatistik}
 
 \vspace{3mm}
 \color{black}
 \footnotesize
 
-\begin{align*}
-\phi(\ups) := 1_{\{|T| \ge k\}} =
-{\begin{cases}
-1 & |T| \ge k \\
-0 & |T|  <  k
-\end{cases}}.
-\end{align*}
+\begin{theorem}[Verteilung der T-Teststatistik]
+\justifying
+\normalfont
+$\ups_1,...,\ups_n \sim N(\mu,\sigma^2)$ sei die Stichprobe eines Normalverteilungmodells,
+$\bar{\ups}$ sei das Stichprobenmittel, $S$ sei die Stichprobenstandardabweichung,
+und es sei $\mu_0 \in \mathbb{R}$. Dann ist die  T-Teststatistik
+\begin{equation}
+T := \sqrt{n}\left(\frac{\bar{\ups} - \mu_0}{S} \right)
+\end{equation}
+eine nichtzentrale $t$-Zufallsvariable mit Nichtzentralitätsparameter
+\begin{equation}
+d = \sqrt{n}\left(\frac{\mu - \mu_0}{\sigma} \right)
+\end{equation}
+und Freiheitsgradparameter $n-1$, es gilt also $T \sim t(d,n-1)$
+\end{theorem}
+
+
+
+# \textcolor{darkcyan}{Einstichproben-T-Test | (2) Definition und Analyse der Teststatistik}
+
+\vspace{3mm}
+\color{black}
+\footnotesize
+
+Wahrscheinlichkeitsdichtefunktionen nichtzentraler $t$-Verteilungen
+
+```{r, echo = FALSE, out.width = "80%"}
+knitr::include_graphics(file.path(abb_dir, "wtfi_12_nichtzentrale_t_verteilung.pdf"))
+```
+
 
 
 
@@ -766,7 +801,6 @@ verstanden werden:
 \vspace{3mm}
 \color{black}
 \footnotesize
-\color{red}TODO: checken, ob zweiseitig korrekt
 
 ```{r, echo = FALSE, out.width = "80%"}
 knitr::include_graphics(file.path(abb_dir, "wtfi_12_t_test_ungerichtet_gütefunktion.pdf"))
@@ -816,6 +850,7 @@ knitr::include_graphics(file.path(abb_dir, "wtfi_12_t_test_ungerichtet_testumfan
 
 
 
+
 # \textcolor{darkblue}{SKF 23}. *Durchführung eines ZETTs* 
 
 \large
@@ -845,7 +880,9 @@ t := \sqrt{n}\left(\frac{\bar{y} - \mu_0}{s}\right)
 
 * Wenn $t$ größer-gleich $k_{\alpha_0}$ ist oder wenn $t$ kleiner-
 gleich $-k_{\alpha_0}$ ist, lehnt man die Nullhypothese ab, andernfalls lehnt
-man sie nicht ab. Die oben entwickelte Theorie  garantiert dann, dass
+man sie nicht ab. 
+
+* Die oben entwickelte Theorie  garantiert dann, dass
 man in höchstens $\alpha_0 \cdot 100$ von $100$ Fällen die Nullhypothese
 fälschlicherweise ablehnt.
 
@@ -1050,7 +1087,7 @@ Generell wird folgendes Vorgehen favorisiert
 
 
 
-# \textcolor{darkblue}{SKF 29}. *p-Wert Motivation* 
+# \textcolor{darkblue}{SKF 28}. *p-Wert Motivation* 
 
 \large
 \color{darkblue} 28. Erläutern Sie die Motivation zur Auswertung von p-Werten.
@@ -1063,17 +1100,17 @@ Generell wird folgendes Vorgehen favorisiert
 \justifying
 \item  Es werde ein zweiseitiger Einstichproben-T-Test mit $n = 12$ und $\alpha_0 = 0.05$ durchgeführt.
 \begin{itemize}
-\small
+\footnotesize
 \item[$\circ$]  $H_0$ wird abgelehnt, wenn $|T| \ge 2.20$.
 \end{itemize}
 \item Nehmen wir an, es werde $t = 2.26$ beobachtet.
 \begin{itemize}
-\small
+\footnotesize
 \item[$\circ$] Das Testergebnis lautet "$H_0$ Ablehnen".
 \end{itemize}
 \item Nehmen wir an, es werde $t = 3.81$ beobachtet.
 \begin{itemize}
-\small
+\footnotesize
 \item[$\circ$] Das Testergebnis lautet "$H_0$ Ablehnen".
 \end{itemize}
 \item Der alleinige Bericht des Testergebnis supprimiert interessante Information.
@@ -1082,7 +1119,7 @@ ist es daher üblich, alle Werte von $\alpha_0$ anzugeben, für die ein
 Level-$\alpha_0$-Test zum Ablehnen von $H_0$ führen würde.
 \begin{itemize}
 \justifying
-\small
+\footnotesize
 \item[$\circ$] Bei $t = 2.26$ würde $H_0$ für jedes $\alpha_0$ mit $2.26 \ge \Psi^{-1}\left(1-\frac{\alpha_0}{2};11\right)$ abgelehnt werden.
 \item[$\circ$] Bei $t = 3.81$ würde $H_0$ für jedes $\alpha_0$ mit $3.81 \ge \Psi^{-1}\left(1-\frac{\alpha_0}{2};11\right)$ abgelehnt werden.
 \end{itemize}
@@ -1108,11 +1145,13 @@ $\phi$ sei ein kritischer Wert-basierter Test. Der \textit{p-Wert} ist das
 kleinste Signifikanzlevel $\alpha_0$, bei welchem man die Nullhypothese
 basierend auf einem vorliegendem Wert der Teststatistik ablehnen würde.
 \end{definition}
+
+
 \small
-Beispiel (Zweiseitiger Einstichproben-T-Test mit einfacher Nullhypothese)
+\textcolor{darkcyan}{Beispiel (Zweiseitiger Einstichproben-T-Test mit einfacher Nullhypothese)}
 
 \footnotesize
-* Bei $T = t$ würde $H_0$ für jedes $\alpha_0$ mit $|t| \ge \Psi^{-1}\left(1- \frac{\alpha_0}{2};n-1\right)$
+* \color{darkcyan} Bei $T = t$ würde $H_0$ für jedes $\alpha_0$ mit $|t| \ge \Psi^{-1}\left(1- \frac{\alpha_0}{2};n-1\right)$
 abgelehnt werden. Für diese $\alpha_0$ gilt, wie unten gezeigt,
 \begin{equation}
 \alpha_0 \ge 2 \mathbb{P}(T \ge |t|).
@@ -1125,6 +1164,7 @@ dann $\alpha_0 = 2 \mathbb{P}(T \ge |t|)$, also folgt
 * Zum Beispiel ist bei $n = 12$ für $T = 2.26$ der p-Wert $0.045$, 
 für $T = -2.26$ ist der p-Wert auch $0.045$, für $T = 3.81$ ist der p-Wert 
 $0.003$ und für $T = -3.81$ ist der p-Wert auch $0.003$.
+
 
 
 
@@ -1168,3 +1208,7 @@ ein Test vom Signifikanzlevel $\alpha_0 = 1 - \delta$ für die Hypothesen
 \vspace{3mm}
 \color{black}
 \footnotesize
+
+Mit $\delta$-Konfidenzintervallen können Tests vom Signifikanzniveau $\alpha_0 = 1-\delta$ konstruiert werden. 
+
+Dieser Test ergibt den Wert $0$ (Nullhypothese ablehnen), wenn das Konfidenzintervall einen Nullhypothesenparameterwert einschließt und den Wert $1$, wenn (Nullhypothese *nicht* ablehnen), wenn das Konfidenzintervall den Nullhypothesenparameterwert nicht überdeckt.
