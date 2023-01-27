@@ -1211,4 +1211,4 @@ ein Test vom Signifikanzlevel $\alpha_0 = 1 - \delta$ für die Hypothesen
 
 Mit $\delta$-Konfidenzintervallen können Tests vom Signifikanzniveau $\alpha_0 = 1-\delta$ konstruiert werden. 
 
-Dieser Test ergibt den Wert $0$ (Nullhypothese ablehnen), wenn das Konfidenzintervall einen Nullhypothesenparameterwert einschließt und den Wert $1$, wenn (Nullhypothese *nicht* ablehnen), wenn das Konfidenzintervall den Nullhypothesenparameterwert nicht überdeckt.
+Dieser Test ergibt den Wert $0$ (Nullhypothese *nicht* ablehnen), wenn das Konfidenzintervall einen Nullhypothesenparameterwert einschließt und den Wert $1$, wenn (Nullhypothese ablehnen), wenn das Konfidenzintervall den Nullhypothesenparameterwert nicht überdeckt.
